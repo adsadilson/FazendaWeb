@@ -28,14 +28,40 @@
 		<h:form style="display: inline-block">
 			<p:menubar styleClass="menu-sistema">
 				<p:submenu label="Cadastros">
-					<p:menuitem value="Usuários"
-						outcome="/view/usuario/cadastro_usuario.xhtml" />
-					<p:separator />
-					<p:menuitem value="Categorias" />
-					<p:menuitem value="Produtos" />
+					<p:menuitem value="Propriedade" />
+					<p:menuitem value="Pessoa" />
+					<p:submenu label="Animais">
+						<p:menuitem value="Animal" />
+						<p:menuitem value="Raça" />
+						<p:menuitem value="Espécie" />
+						<p:menuitem value="Pelagem" />
+						<p:menuitem value="Origem" />
+					</p:submenu>
+					<p:submenu label="Produtos">
+						<p:menuitem value="Produtos" />
+						<p:menuitem value="Categorias dos Produtos" />
+						<p:menuitem value="Unidade de Media" />
+					</p:submenu>
+					<p:submenu label="Outros">
+						<p:menuitem value="Usuários"
+							outcome="/view/usuario/pesquisa_usuario.xhtml" />
+						<p:menuitem value="Grupo de Usuário" />
+					</p:submenu>
 				</p:submenu>
 				<ui:remove>
-					<p:submenu label="Pedidos">
+					<p:submenu label="Manejos">
+						<p:menuitem value="Novo pedido" />
+						<p:menuitem value="Pesquisa" />
+					</p:submenu>
+				</ui:remove>
+				<ui:remove>
+					<p:submenu label="Movimentações">
+						<p:menuitem value="Novo pedido" />
+						<p:menuitem value="Pesquisa" />
+					</p:submenu>
+				</ui:remove>
+				<ui:remove>
+					<p:submenu label="Relatórios">
 						<p:menuitem value="Novo pedido" />
 						<p:menuitem value="Pesquisa" />
 					</p:submenu>

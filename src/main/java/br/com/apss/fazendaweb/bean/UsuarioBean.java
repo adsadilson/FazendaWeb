@@ -1,6 +1,7 @@
 package br.com.apss.fazendaweb.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,24 +19,23 @@ public class UsuarioBean implements Serializable {
 
 	private Usuario usuario;
 	private Usuario usuarioExclusao;
+	private List<Usuario> usuarios = new ArrayList<>();
 	private GrupoUsuario grupoSelecionado;
 	private String confirmacaoSenha;
 
-	/*@Autowired
-	UsuarioService usuarioService;
-
-	@Autowired
-	ClassificacaoUsuarioService classificacaoUsuarioService;*/
+	/*
+	 * @Autowired UsuarioService usuarioService;
+	 * 
+	 * @Autowired ClassificacaoUsuarioService classificacaoUsuarioService;
+	 */
 
 	public void iniciarBean() {
 		usuario = null;
-		getListarTodos();
-		getPopulaCombo();
 	}
 
 	public List<Usuario> getListarTodos() {
 		return null;
-		//return usuarioService.listarTodos();
+		// return usuarioService.listarTodos();
 	}
 
 	public void novoUsuario() {
@@ -60,23 +60,19 @@ public class UsuarioBean implements Serializable {
 
 	public List<GrupoUsuario> getPopulaCombo() {
 		return null;
-	//	return classificacaoUsuarioService.listarTodos();
+		// return classificacaoUsuarioService.listarTodos();
 	}
 
 	public void salvar() {
-		/*if (this.usuario.getGrupos().size() > 0) {
-			Usuario usuarioExistente = usuarioService.porNome(usuario.getNome());
-			if (usuarioExistente != null && !usuarioExistente.equals(usuario)) {
-				Messages.addGlobalError("Já existe um Usuário com esse nome informado");
-			} else {
-				usuarioService.save(usuario);
-				getListarTodos();
-				usuario = null;
-				Messages.addGlobalInfo("Registro salvo com sucesso");
-			}
-		} else {
-			Messages.addGlobalError("Escolhe pelo menos um grupo");
-		}*/
+		/*
+		 * if (this.usuario.getGrupos().size() > 0) { Usuario usuarioExistente =
+		 * usuarioService.porNome(usuario.getNome()); if (usuarioExistente !=
+		 * null && !usuarioExistente.equals(usuario)) { Messages.
+		 * addGlobalError("Já existe um Usuário com esse nome informado"); }
+		 * else { usuarioService.save(usuario); getListarTodos(); usuario =
+		 * null; Messages.addGlobalInfo("Registro salvo com sucesso"); } } else
+		 * { Messages.addGlobalError("Escolhe pelo menos um grupo"); }
+		 */
 	}
 
 	public void closeExcluir() {
@@ -84,8 +80,10 @@ public class UsuarioBean implements Serializable {
 	}
 
 	public void editar(Long id) {
-		/*this.usuario = usuarioService.obterPorId(id);
-		this.confirmacaoSenha = this.usuario.getSenha();*/
+		/*
+		 * this.usuario = usuarioService.obterPorId(id); this.confirmacaoSenha =
+		 * this.usuario.getSenha();
+		 */
 	}
 
 	public void prepararExclusao(Usuario usuario) {
@@ -97,16 +95,14 @@ public class UsuarioBean implements Serializable {
 	}
 
 	public void excluir() {
-		/*try {
-			usuarioService.remove(usuarioExclusao);
-			Messages.addGlobalInfo("Registro excluir com sucesso");
-			getListarTodos();
-		} catch (Exception e) {
-			if (e instanceof DataIntegrityViolationException) {
-				throw new NegocioException(
-						"Não foi possível excluir esse registro, pois o mesmo possui vinculo com outras tabelas!");
-			}
-		}*/
+		/*
+		 * try { usuarioService.remove(usuarioExclusao);
+		 * Messages.addGlobalInfo("Registro excluir com sucesso");
+		 * getListarTodos(); } catch (Exception e) { if (e instanceof
+		 * DataIntegrityViolationException) { throw new NegocioException(
+		 * "Não foi possível excluir esse registro, pois o mesmo possui vinculo com outras tabelas!"
+		 * ); } }
+		 */
 	}
 
 	public void removerGrupo() {
@@ -125,7 +121,8 @@ public class UsuarioBean implements Serializable {
 		usuario = null;
 	}
 
-	/* ###### Metodos Getters e Setters #####8 */
+	/************************ Metodos Getters e Setters *****************************/
+	
 	public Usuario getUsuario() {
 		return usuario;
 	}
@@ -156,6 +153,14 @@ public class UsuarioBean implements Serializable {
 
 	public void setConfirmacaoSenha(String confirmacaoSenha) {
 		this.confirmacaoSenha = confirmacaoSenha;
+	}
+
+	public List<Usuario> getUsuarios() {
+		return usuarios;
+	}
+
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
 	}
 
 }

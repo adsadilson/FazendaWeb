@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+	<ui:define name="titulo">Pesquisa Usuário</ui:define>
+
+	<ui:define name="corpo">
+		<h1>Pesquisa Usuário</h1>
+
+		<h:form id="form-menu">
+			<p:toolbar>
+				<p:toolbarGroup>
+					<p:button value="Novo" icon="novo-icon"
+						outcome="/view/usuario/cadastro_usuario.xhtml" />
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:button value="Fechar" icon="fa fa-power-off"
+						outcome="/Home.xhtml" />
+				</p:toolbarGroup>
+			</p:toolbar>
+		</h:form>
+
+		<h:form id="form-table">
+
+			<p:dataTable id="tbl-usuario" value="#{usuarioBean.usuarios}"
+				var="usuario" style="margin-top: 20px"
+				emptyMessage="Nenhum usuario encontrado." rows="10" paginator="true"
+				paginatorAlwaysVisible="false" paginatorPosition="bottom">
+
+				<p:column headerText="ID" style="text-align: center; width: 100px">
+					<h:outputText />
+				</p:column>
+
+				<p:column headerText="Nome">
+					<h:outputText />
+				</p:column>
+
+			</p:dataTable>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

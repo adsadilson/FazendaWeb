@@ -15,13 +15,13 @@
 		<h:form id="form-menu">
 			<p:toolbar>
 				<p:toolbarGroup>
-					<p:button value="Novo" icon="novo-icon"
-						outcome="/view/usuario/cadastro_usuario.xhtml" />
+					
 					<p:commandButton icon="salvar-icon" value="Salvar" id="btnSalvar" />
-					<p:button value="Fechar" icon="excluir-icon" outcome="/Home.xhtml" />
+					<p:button icon="voltar-icon" value="Voltar" outcome="/view/usuario/pesquisa_usuario.xhtml"  />
+					
 				</p:toolbarGroup>
 				<p:toolbarGroup align="right">
-					<p:button icon="pesquisa-icon" value="Pesquisa" />
+					<p:button value="Fechar" icon="fa fa-power-off" outcome="/Home.xhtml" />
 				</p:toolbarGroup>
 			</p:toolbar>
 		</h:form>
@@ -78,9 +78,9 @@
 			</p:panelGrid>
 		</h:form>
 
-		<h:form id="form-grupo">
+		<h:form id="form-grupo" style="margin-top:15px;">
 			<p:dataTable id="tabela" widgetVar="tbl"
-				style="margin-top:5px; height:200px;"
+				style="height:200px;"
 				emptyMessage="Nenhum registro encontrado." paginator="true" rows="4"
 				paginatorPosition="bottom" paginatorAlwaysVisible="false"
 				value="#{usuarioBean.usuario.grupos}" var="obj" reflow="true">

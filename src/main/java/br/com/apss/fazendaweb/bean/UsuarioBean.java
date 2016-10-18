@@ -7,8 +7,6 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 
-import org.omnifaces.util.Messages;
-
 import br.com.apss.fazendaweb.model.GrupoUsuario;
 import br.com.apss.fazendaweb.model.Usuario;
 
@@ -48,13 +46,13 @@ public class UsuarioBean implements Serializable {
 	public void addGrupo() {
 		if (this.grupoSelecionado != null) {
 			if (this.usuario.getGrupos().contains(this.grupoSelecionado)) {
-				Messages.addGlobalError("Grupo já adcionado");
+//				Messages.addGlobalError("Grupo jï¿½ adcionado");
 			} else {
 				this.usuario.getGrupos().add(this.grupoSelecionado);
 				this.grupoSelecionado = new GrupoUsuario();
 			}
 		} else {
-			Messages.addGlobalError("Selecione um grupo antes de adicionar");
+//			Messages.addGlobalError("Selecione um grupo antes de adicionar");
 		}
 	}
 
@@ -68,7 +66,7 @@ public class UsuarioBean implements Serializable {
 		 * if (this.usuario.getGrupos().size() > 0) { Usuario usuarioExistente =
 		 * usuarioService.porNome(usuario.getNome()); if (usuarioExistente !=
 		 * null && !usuarioExistente.equals(usuario)) { Messages.
-		 * addGlobalError("Já existe um Usuário com esse nome informado"); }
+		 * addGlobalError("Jï¿½ existe um Usuï¿½rio com esse nome informado"); }
 		 * else { usuarioService.save(usuario); getListarTodos(); usuario =
 		 * null; Messages.addGlobalInfo("Registro salvo com sucesso"); } } else
 		 * { Messages.addGlobalError("Escolhe pelo menos um grupo"); }
@@ -100,7 +98,7 @@ public class UsuarioBean implements Serializable {
 		 * Messages.addGlobalInfo("Registro excluir com sucesso");
 		 * getListarTodos(); } catch (Exception e) { if (e instanceof
 		 * DataIntegrityViolationException) { throw new NegocioException(
-		 * "Não foi possível excluir esse registro, pois o mesmo possui vinculo com outras tabelas!"
+		 * "Nï¿½o foi possï¿½vel excluir esse registro, pois o mesmo possui vinculo com outras tabelas!"
 		 * ); } }
 		 */
 	}

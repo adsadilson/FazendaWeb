@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+	<ui:define name="titulo">Novo Usuário</ui:define>
+
+	<ui:define name="corpo">
+		<h1>Novo Usuário</h1>
+
+		<h:form id="form-menu">
+			<p:toolbar>
+				<p:toolbarGroup>
+					<p:button value="Novo" icon="novo-icon"
+						outcome="/view/usuario/cadastro_usuario.xhtml" />
+					<p:commandButton icon="salvar-icon" value="Salvar" id="btnSalvar" />
+					<p:button value="Fechar" icon="excluir-icon" outcome="/Home.xhtml" />
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:button icon="pesquisa-icon" value="Pesquisa" />
+				</p:toolbarGroup>
+			</p:toolbar>
+		</h:form>
+
+		<h:form id="form-cadastro">
+			<p:panelGrid columns="2" style="width: 100%; margin-top: 10px;"
+				columnClasses="rotulo, campo">
+
+				<p:outputLabel value="ID:" />
+				<p:inputText size="5" style="text-align:center;"
+					value="#{usuarioBean.usuario.id}" disabled="true" />
+
+				<p:outputLabel for="nome" value="Login:" />
+				<p:inputText id="nome" size="40" required="true"
+					requiredMessage="Informe o login" maxlength="35"
+					value="#{usuarioBean.usuario.nome}" />
+
+				<ui:remove>
+					<p:outputLabel for="email" value="E-mail:" />
+					<p:inputText id="email" size="40" required="true"
+						requiredMessage="Informe o e-mail"
+						value="#{usuarioBean.usuario.email}" />
+				</ui:remove>
+
+				<p:outputLabel for="senha" value="Senha:" />
+				<p:password id="senha" value="#{usuarioBean.usuario.senha}"
+					required="true" requiredMessage="Informe a senha" maxlength="16"
+					feedback="true" weakLabel="Fraca" goodLabel="Boa"
+					strongLabel="Forte" match="confirmacaoSenha" redisplay="true" />
+
+				<p:outputLabel value="Confirme a senha" for="confirmacaoSenha" />
+				<p:password id="confirmacaoSenha" required="true"
+					value="#{usuarioBean.confirmacaoSenha}"
+					requiredMessage="Senha não conferir" redisplay="true" />
+
+				<p:spacer />
+				<p:selectBooleanCheckbox itemLabel="Ativo"
+					value="#{usuarioBean.usuario.ativo}" />
+
+				<p:outputLabel for="grupo" value="Grupo:" />
+				<h:panelGroup>
+					<h:panelGrid columns="2" styleClass="semBorda">
+						<p:selectOneMenu id="grupo" style="width:180px;"
+							converter="omnifaces.SelectItemsConverter"
+							value="#{usuarioBean.grupoSelecionado}">
+							<f:selectItem itemLabel="Selecione..." itemValue="#{null}" />
+							<f:selectItems value="#{usuarioBean.populaCombo}" var="gp"
+								itemLabel="#{gp.nome}" itemValue="#{gp}" />
+						</p:selectOneMenu>
+						<p:commandButton icon="adicionar-icon" value="Add"
+							action="#{usuarioBean.addGrupo}" style="margin-left:10px;" />
+					</h:panelGrid>
+				</h:panelGroup>
+			</p:panelGrid>
+		</h:form>
+
+		<h:form id="form-grupo">
+			<p:dataTable id="tabela" widgetVar="tbl"
+				style="margin-top:5px; height:200px;"
+				emptyMessage="Nenhum registro encontrado." paginator="true" rows="4"
+				paginatorPosition="bottom" paginatorAlwaysVisible="false"
+				value="#{usuarioBean.usuario.grupos}" var="obj" reflow="true">
+
+				<p:column headerText="Ações" width="70" style="text-align: center">
+					<p:commandButton icon="ui-icon-trash" title="Excluir Registro"
+						styleClass="semCorFundo" process="@this"
+						actionListener="#{usuarioBean.prepararExclusaoGrupo(obj)}"
+						oncomplete="PF('confirmarExclusaoDialog').show();"
+						update=":dialogExcluir">
+					</p:commandButton>
+				</p:column>
+
+				<p:column headerText="Grupo" style="text-align: left; width:200px;"
+					sortBy="#{obj.nome}">
+					<h:outputText value="#{obj.nome}" />
+				</p:column>
+
+				<p:column headerText="Descrição" style="text-align: left"
+					sortBy="#{obj.descricao}">
+					<h:outputText value="#{obj.descricao}" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

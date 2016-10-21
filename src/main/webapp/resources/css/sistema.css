@@ -9,6 +9,25 @@
 .cancelar-icon{background-image: url(../resources/images/cancelar.png) !important;}
 .pesquisa-icon{background-image: url(../resources/images/pesquisa.png) !important;}
 
+.semPreenchimento {
+	background: none !important;
+	border: none !important;
+}
+
+.semBorda tr, .semBorda td {
+	border: none !important;
+	background: none !important;
+	padding-bottom: 0.2em !important;
+	padding-top: 0.2em !important;
+}
+
+.ui-growl {
+	position: fixed;
+	top: 8% !important;
+	right: 3% !important;
+	width: 301px !important;
+}
+
 body {
 	font-size: 12px;
 	font-family: Arial, Helvetica, sans-serif;
@@ -44,7 +63,7 @@ footer {
 }
 
 .rotulo {
-	width: 150px;
+	width: 120px;
 }
 
 /* Menu sistema inicio */
@@ -64,8 +83,6 @@ footer {
 }
 )
 no-repeat
-
-
 
 
 ;

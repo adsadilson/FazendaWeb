@@ -69,6 +69,14 @@
 			<artifactId>primefaces-extensions</artifactId>
 			<version>3.2.0</version>
 		</dependency>
+		
+		<!-- OmniFaces (utilitarios para JSF) -->
+		<dependency>
+			<groupId>org.omnifaces</groupId>
+			<artifactId>omnifaces</artifactId>
+			<version>1.5</version>
+			<scope>compile</scope>
+		</dependency>
 
 		<!-- Temas do primefaces -->
 		<dependency>

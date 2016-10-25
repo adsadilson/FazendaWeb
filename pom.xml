@@ -43,7 +43,14 @@
 			<artifactId>junit</artifactId>
 			<version>4.12</version>
 		</dependency>
-		
+
+		<!-- jetty-servlet -->
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-servlet</artifactId>
+			<version>9.3.11.v20160721</version>
+		</dependency>
+
 		<!-- Weld implementação do CDI -->
 		<dependency>
 			<groupId>org.jboss.weld.servlet</groupId>
@@ -77,7 +84,7 @@
 			<artifactId>primefaces-extensions</artifactId>
 			<version>3.2.0</version>
 		</dependency>
-		
+
 		<!-- OmniFaces (utilitarios para JSF) -->
 		<dependency>
 			<groupId>org.omnifaces</groupId>
@@ -112,7 +119,7 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-		
+
 		<!-- PostgreSQL -->
 		<dependency>
 			<groupId>org.postgresql</groupId>
@@ -120,7 +127,7 @@
 			<version>9.4.1207.jre7</version>
 			<scope>compile</scope>
 		</dependency>
-		
+
 		<!-- Hibernate.org/orm -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -134,7 +141,7 @@
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>5.1.0.Final</version>
 		</dependency>
-		
+
 	</dependencies>
 
 </project>

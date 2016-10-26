@@ -48,8 +48,7 @@
 		<dependency>
 			<groupId>org.jboss.weld.servlet</groupId>
 			<artifactId>weld-servlet</artifactId>
-			<version>1.1.10.Final</version>
-			<scope>compile</scope>
+			<version>2.4.0.Final</version>
 		</dependency>
 
 
@@ -133,6 +132,16 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>5.1.0.Final</version>
+		</dependency>
+		<dependency>
+    		<groupId>org.eclipse.jetty</groupId>
+    		<artifactId>jetty-server</artifactId>
+    		<version>9.3.13.v20161014</version>
+		</dependency>
+		<dependency>
+    		<groupId>org.eclipse.jetty</groupId>
+    		<artifactId>jetty-servlet</artifactId>
+    		<version>9.3.13.v20161014</version>
 		</dependency>
 		
 	</dependencies>

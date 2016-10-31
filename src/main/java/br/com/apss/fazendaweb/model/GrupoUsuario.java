@@ -2,13 +2,32 @@ package br.com.apss.fazendaweb.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "grupo_usuario")
+@SequenceGenerator(name = "GRUPO_USUARIO_ID", sequenceName = "GRUPO_USUARIO_SEQ", allocationSize = 1)
 public class GrupoUsuario implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "GRUPO_USUARIO_ID")
 	private Long id;
+
+	@Column(name = "nome", nullable = false, length = 80)
 	private String nome;
+	
+	@Column(name = "descricao", nullable = true, length = 80)
 	private String descricao;
+	
+	@Column(name = "ativo", nullable = true, length = 1)
 	private Boolean ativo;
 
 	public Long getId() {

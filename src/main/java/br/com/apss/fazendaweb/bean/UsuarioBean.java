@@ -5,12 +5,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
-
 import br.com.apss.fazendaweb.model.GrupoUsuario;
 import br.com.apss.fazendaweb.model.Usuario;
 
-@ManagedBean
 public class UsuarioBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;

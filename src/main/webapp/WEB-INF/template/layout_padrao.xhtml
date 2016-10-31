@@ -13,6 +13,20 @@
 </h:head>
 
 <h:body>
+
+	<p:ajaxStatus styleClass="ajax-status">
+		<f:facet name="start">
+			<h:graphicImage library="images" name="loading.gif" />
+		</f:facet>
+		<f:facet name="complete">
+			<h:outputText value="" />
+		</f:facet>
+	</p:ajaxStatus>
+
+	<h:form>
+		<p:growl autoUpdate="true" />
+	</h:form>
+
 	<header>
 
 	<div>
@@ -45,7 +59,8 @@
 					<p:submenu label="Outros">
 						<p:menuitem value="Usuários"
 							outcome="/view/usuario/pesquisa_usuario.xhtml" />
-						<p:menuitem value="Grupo de Usuário" />
+						<p:menuitem value="Grupo de Usuário"
+							outcome="/view/grupo_usuario/pesquisa_grupo_usuario.xhtml" />
 					</p:submenu>
 				</p:submenu>
 				<ui:remove>
@@ -75,15 +90,16 @@
 	<div style="clear: both"></div>
 
 	</header>
+
+
+	<div id="conteudo">
+		<ui:insert name="corpo" />
+	</div>
+
+	<p:separator style="margin-top: 20px" />
+
+	<footer> Sistema desenvolvido por XXXX - <a
+		href="http://bit.ly/Y8saFl" target="_blank">www.google.com</a> </footer>
 </h:body>
-
-<div id="conteudo">
-	<ui:insert name="corpo" />
-</div>
-
-<p:separator style="margin-top: 20px" />
-
-<footer> Sistema desenvolvido por XXXX - <a
-	href="http://bit.ly/Y8saFl" target="_blank">www.google.com</a> </footer>
 
 </html>

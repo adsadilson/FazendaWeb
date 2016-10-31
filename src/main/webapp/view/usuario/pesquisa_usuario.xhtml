@@ -10,11 +10,17 @@
 	<ui:define name="titulo">Pesquisa Usuário</ui:define>
 
 	<ui:define name="corpo">
-		
+
+		<f:metadata>
+			<f:viewParam name="dummy" />
+			<f:event listener="#{usuarioBean.inicializarBean}"
+				type="preRenderView" />
+		</f:metadata>
+
 		<h1>Pesquisa Usuário</h1>
 
 		<h:form id="form-menu">
-			<p:toolbar>
+			<p:toolbar styleClass="semPreenchimento">
 				<p:toolbarGroup>
 					<p:button value="Novo" icon="novo-icon"
 						outcome="/view/usuario/cadastro_usuario.xhtml" />
@@ -30,15 +36,41 @@
 
 			<p:dataTable id="tbl-usuario" value="#{usuarioBean.usuarios}"
 				var="usuario" style="margin-top: 20px"
-				emptyMessage="Nenhum usuario encontrado." rows="10" paginator="true"
+				emptyMessage="Nenhum usuário encontrado." rows="10" paginator="true"
 				paginatorAlwaysVisible="false" paginatorPosition="bottom">
 
-				<p:column headerText="ID" style="text-align: center; width: 100px">
-					<h:outputText />
+				<p:column headerText="Ações" width="100">
+					<p:commandButton icon="ui-icon-trash" title="Excluir Registro"
+						styleClass="semPreenchimento"
+						actionListener="#{usuarioBean.prepararExclusao(usuario)}">
+					</p:commandButton>
+					<p:commandButton icon="ui-icon-pencil" title="Editar Registro"
+						styleClass="semPreenchimento">
+						<f:param name="codigo" value="#{usuario.id}" />
+					</p:commandButton>
 				</p:column>
 
-				<p:column headerText="Nome">
-					<h:outputText />
+				<p:column headerText="Código" width="80" style="text-align: center"
+					sortBy="#{usuario.id}">
+					<h:outputText value="#{usuario.id}" />
+				</p:column>
+
+				<p:column headerText="Login" width="250" style="text-align: left"
+					sortBy="#{usuario.nome}">
+					<h:outputText value="#{usuario.nome}" />
+				</p:column>
+
+				<p:column headerText="E-mail" sortBy="#{usuario.email}"
+					style="text-align: center" width="300">
+					<h:outputText value="#{usuario.email}" />
+				</p:column>
+
+				<p:column headerText="Status" width="100" style="text-align: center"
+					sortBy="#{usuario.ativo}">
+					<h:outputText value="#{usuario.ativo ? 'ATIVO' : 'INATIVO' }" />
+				</p:column>
+
+				<p:column headerText="">
 				</p:column>
 
 			</p:dataTable>

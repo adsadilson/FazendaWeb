@@ -20,10 +20,10 @@ public class GrupoUsuarioService implements Serializable {
 
 	@Transactional
 	public GrupoUsuario salvar(GrupoUsuario grupoUsuario) {
-		GrupoUsuario grupoUsuarioExistente = grupoUsuarioRepository.porNome(grupoUsuario.getDescricao());
+		GrupoUsuario grupoUsuarioExistente = grupoUsuarioRepository.porNome(grupoUsuario.getNome());
 
 		if (grupoUsuarioExistente != null && !grupoUsuarioExistente.equals(grupoUsuario)) {
-			throw new NegocioException("Já existe uma grupoUsuario com esse nome informado.");
+			throw new NegocioException("Já existe uma Grupo de Usuário com esse nome informado.");
 		}
 		return grupoUsuarioRepository.save(grupoUsuario);
 	}
@@ -44,6 +44,11 @@ public class GrupoUsuarioService implements Serializable {
 	public List<GrupoUsuario> filtrados(GrupoUsuarioFilter filtro) {
 		return grupoUsuarioRepository.filtrados(filtro);
 
+	}
+	
+	public List<GrupoUsuario> grupoCondicao(GrupoUsuario op) {
+		return grupoUsuarioRepository.grupoCondicao(op);
+		
 	}
 
 	public GrupoUsuario porId(Long id) {

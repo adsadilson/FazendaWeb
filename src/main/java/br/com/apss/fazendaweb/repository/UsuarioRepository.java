@@ -15,45 +15,44 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
-import br.com.apss.fazendaweb.model.GrupoUsuario;
-import br.com.apss.fazendaweb.model.filter.GrupoUsuarioFilter;
+import br.com.apss.fazendaweb.model.Usuario;
+import br.com.apss.fazendaweb.model.filter.UsuarioFilter;
 import br.com.apss.fazendaweb.util.NegocioException;
 
 
-public class GrupoUsuarioRepository implements Serializable {
+public class UsuarioRepository implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Inject
 	private EntityManager em;
 
-	public GrupoUsuario save(GrupoUsuario e) {
+	public Usuario save(Usuario e) {
 		return em.merge(e);
 	}
 
 	
-	public void remove(GrupoUsuario categoria) {
+	public void remove(Usuario categoria) {
 		try {
 			categoria = porId(categoria.getId());
 			em.remove(categoria);
 			em.flush();
 		} catch (PersistenceException e) {
-			throw new NegocioException("Grupo Usuario não pode ser excluída.");
+			throw new NegocioException("Usuário não pode ser excluída.");
 		}
 	}
 
-	public GrupoUsuario porId(Long value) {
-		System.out.println("repository "+value);
-		return em.find(GrupoUsuario.class, value);
+	public Usuario porId(Long value) {
+		return em.find(Usuario.class, value);
 	}
 
-	public List<GrupoUsuario> listarTodos() {
-		return em.createQuery("from GrupoUsuario order by nome", GrupoUsuario.class).getResultList();
+	public List<Usuario> listarTodos() {
+		return em.createQuery("from Usuario order by nome", Usuario.class).getResultList();
 	}
 
-	public GrupoUsuario porNome(String nome) {
+	public Usuario porNome(String nome) {
 		try {
-			return em.createQuery("from GrupoUsuario where nome = :nome", GrupoUsuario.class)
+			return em.createQuery("from Usuario where nome = :nome", Usuario.class)
 					.setParameter("nome", nome).getSingleResult();
 		} catch (NoResultException e) {
 			return null;
@@ -61,9 +60,9 @@ public class GrupoUsuarioRepository implements Serializable {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<GrupoUsuario> filtrados(GrupoUsuarioFilter filtro) {
+	public List<Usuario> filtrados(UsuarioFilter filtro) {
 		Session session = em.unwrap(Session.class);
-		Criteria criteria = session.createCriteria(GrupoUsuario.class);
+		Criteria criteria = session.createCriteria(Usuario.class);
 
 		if (filtro.getIdDe() != null) {
 			// id deve ser maior ou igual (ge = greater or equals) a
@@ -85,21 +84,6 @@ public class GrupoUsuarioRepository implements Serializable {
 			criteria.add(Restrictions.ge("status", true));
 		}
 		if (filtro.getAtivo().equals("INATIVO")) {
-			criteria.add(Restrictions.le("status", false));
-		}
-
-		return criteria.addOrder(Order.asc("nome")).list();
-	}
-	
-	@SuppressWarnings("unchecked")
-	public List<GrupoUsuario> grupoCondicao(GrupoUsuario op) {
-		Session session = em.unwrap(Session.class);
-		Criteria criteria = session.createCriteria(GrupoUsuario.class);
-
-		if (op.getAtivo().equals("ATIVO")) {
-			criteria.add(Restrictions.ge("status", true));
-		}
-		if (op.getAtivo().equals("INATIVO")) {
 			criteria.add(Restrictions.le("status", false));
 		}
 

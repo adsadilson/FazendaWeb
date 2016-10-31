@@ -46,7 +46,7 @@ public class Usuario implements Serializable {
 	@Column(name = "cadastro", nullable = false)
 	private Date cadastro;
 
-	@Column(name = "ativo", nullable = true, length = 1)
+	@Column(name = "status", nullable = true, length = 1)
 	private Boolean ativo;
 
 	public Long getId() {

@@ -20,7 +20,7 @@
 		<h1>Grupo de Usuário</h1>
 
 		<h:form id="form-pesquisa">
-			<p:toolbar>
+			<p:toolbar styleClass="semPreenchimento">
 				<p:toolbarGroup>
 					<p:button value="Novo" icon="novo-icon"
 						outcome="/view/grupo_usuario/cadastro_grupo_usuario.xhtml" />
@@ -69,8 +69,8 @@
 				</p:column>
 
 				<p:column headerText="Status" width="100" style="text-align: center"
-					sortBy="#{grupo.ativo}">
-					<h:outputText value="#{grupo.ativo ? 'ATIVO' : 'INATIVO' }" />
+					sortBy="#{grupoUsuario.ativo}">
+					<h:outputText value="#{grupoUsuario.ativo ? 'ATIVO' : 'INATIVO' }" />
 				</p:column>
 
 				<p:column headerText="">

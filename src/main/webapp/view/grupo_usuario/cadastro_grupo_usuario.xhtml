@@ -11,17 +11,21 @@
 
 	<ui:define name="corpo">
 
-		
+		<f:metadata>
+			<f:event listener="#{grupoUsuarioBean.editar}" type="preRenderView" />
+		</f:metadata>
+
 		<h1>#{grupoUsuarioBean.grupoUsuario.id > 0 ? 'Edição Grupo de
 			Usuario' : 'Novo Grupo de Usuário'}</h1>
 
 		<h:form id="form-cadastro">
-			<p:toolbar>
+			<p:toolbar styleClass="semPreenchimento" style="margin-bottom:10px;">
 				<p:toolbarGroup>
 
 					<p:commandButton icon="salvar-icon" value="Salvar" id="btnSalvar"
 						update="@form" action="#{grupoUsuarioBean.salvar}" />
 					<p:button icon="voltar-icon" value="Voltar"
+						style="margin-left:5px;"
 						outcome="/view/grupo_usuario/pesquisa_grupo_usuario.xhtml" />
 
 				</p:toolbarGroup>
@@ -31,28 +35,30 @@
 				</p:toolbarGroup>
 			</p:toolbar>
 
-			<p:panelGrid columns="2" style="width: 100%; margin-top: 10px;"
-				columnClasses="rotulo, campo" styleClass="semBorda">
+			<p:panel>
+				<p:panelGrid columns="2" style="width: 100%; margin-top: 10px;"
+					columnClasses="rotulo, campo" styleClass="semBorda">
 
-				<p:outputLabel value="ID:" />
-				<p:inputText size="5" style="text-align:center;"
-					value="#{grupoUsuarioBean.grupoUsuario.id}" disabled="true" />
+					<p:outputLabel value="ID:" />
+					<p:inputText size="5" style="text-align:center;"
+						value="#{grupoUsuarioBean.grupoUsuario.id}" disabled="true" />
 
-				<p:outputLabel for="nome" value="Nome:" />
-				<p:inputText id="nome" size="30" required="true"
-					requiredMessage="Informe o nome"
-					value="#{grupoUsuarioBean.grupoUsuario.nome}" />
+					<p:outputLabel for="nome" value="Nome:" />
+					<p:inputText id="nome" size="30" required="true"
+						requiredMessage="Informe o nome"
+						value="#{grupoUsuarioBean.grupoUsuario.nome}" />
 
-				<p:outputLabel for="desc" value="Descrição:" />
-				<p:inputText id="desc" size="30" required="true"
-					requiredMessage="Informe a descrição"
-					value="#{grupoUsuarioBean.grupoUsuario.descricao}" />
+					<p:outputLabel for="desc" value="Descrição:" />
+					<p:inputText id="desc" size="30" required="true"
+						requiredMessage="Informe a descrição"
+						value="#{grupoUsuarioBean.grupoUsuario.descricao}" />
 
-				<p:outputLabel value="Ativo:" />
-				<p:selectBooleanCheckbox
-					value="#{grupoUsuarioBean.grupoUsuario.ativo}" />
+					<p:outputLabel value="Ativo:" />
+					<p:selectBooleanCheckbox
+						value="#{grupoUsuarioBean.grupoUsuario.ativo}" />
 
-			</p:panelGrid>
+				</p:panelGrid>
+			</p:panel>
 
 		</h:form>
 

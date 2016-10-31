@@ -5,9 +5,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 
 import org.omnifaces.util.Messages;
 
@@ -27,7 +29,6 @@ public class GrupoUsuarioBean implements Serializable {
 	private List<GrupoUsuario> grupoUsuarios = new ArrayList<>();
 	private GrupoUsuario grupoUsuarioSelecionado;
 	private GrupoUsuarioFilter filtro;
-	private Long id;
 
 	@Inject
 	GrupoUsuarioService grupoUsuarioService;
@@ -87,8 +88,12 @@ public class GrupoUsuarioBean implements Serializable {
 	}
 
 	public void editar() {
-		this.grupoUsuario = grupoUsuarioService.buscarPorId(id);
-		System.out.println("Código "+id);
+		String id = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest())
+				.getParameter("codigo");
+		if (id != null) {
+			this.grupoUsuario = grupoUsuarioService.buscarPorId(Long.parseLong(id));
+		}
+
 	}
 
 	/****************************** Getters e Setters *************************/
@@ -124,16 +129,6 @@ public class GrupoUsuarioBean implements Serializable {
 	public void setFiltro(GrupoUsuarioFilter filtro) {
 		this.filtro = filtro;
 	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
-	
 
 	/****************************** Getters e Setters *************************/
 }

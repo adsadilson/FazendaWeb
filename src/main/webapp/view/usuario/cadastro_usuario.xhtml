@@ -10,77 +10,85 @@
 	<ui:define name="titulo">Novo Usuário</ui:define>
 
 	<ui:define name="corpo">
+
+		<f:metadata>
+			<f:event listener="#{usuarioBean.inicializarBean}" type="preRenderView" />
+		</f:metadata>
+
 		<h1>Novo Usuário</h1>
 
-		<h:form id="form-menu">
-			<p:toolbar>
-				<p:toolbarGroup>
-					
-					<p:commandButton icon="salvar-icon" value="Salvar" id="btnSalvar" />
-					<p:button icon="voltar-icon" value="Voltar" outcome="/view/usuario/pesquisa_usuario.xhtml"  />
-					
-				</p:toolbarGroup>
-				<p:toolbarGroup align="right">
-					<p:button value="Fechar" icon="fa fa-power-off" outcome="/home.xhtml" />
-				</p:toolbarGroup>
-			</p:toolbar>
-		</h:form>
-
 		<h:form id="form-cadastro">
-			<p:panelGrid columns="2" style="width: 100%; margin-top: 10px;"
-				columnClasses="rotulo, campo" styleClass="semBorda">
 
-				<p:outputLabel value="ID:" />
-				<p:inputText size="5" style="text-align:center;"
-					value="#{usuarioBean.usuario.id}" disabled="true" />
+			<p:toolbar styleClass="semPreenchimento" style="margin-bottom:10px;">
 
-				<p:outputLabel for="nome" value="Login:" />
-				<p:inputText id="nome" size="40" required="true"
-					requiredMessage="Informe o login" maxlength="35"
-					value="#{usuarioBean.usuario.nome}" />
+				<p:toolbarGroup>
+					<p:commandButton icon="salvar-icon" value="Salvar" id="btnSalvar" />
+					<p:button icon="voltar-icon" value="Voltar"
+						style="margin-left:5px;"
+						outcome="/view/usuario/pesquisa_usuario.xhtml" />
+				</p:toolbarGroup>
 
-				<ui:remove>
+				<p:toolbarGroup align="right">
+					<p:button value="Fechar" icon="fa fa-power-off"
+						outcome="/home.xhtml" />
+				</p:toolbarGroup>
+
+			</p:toolbar>
+
+
+			<p:panel>
+				<p:panelGrid columns="2" style="width: 100%; margin-top: 10px;"
+					columnClasses="rotulo, campo" styleClass="semBorda">
+
+					<p:outputLabel value="ID:" />
+					<p:inputText size="5" style="text-align:center;"
+						value="#{usuarioBean.usuario.id}" disabled="true" />
+
+					<p:outputLabel for="nome" value="Login:" />
+					<p:inputText id="nome" size="40" required="true"
+						requiredMessage="Informe o login" maxlength="35"
+						value="#{usuarioBean.usuario.nome}" />
+
 					<p:outputLabel for="email" value="E-mail:" />
 					<p:inputText id="email" size="40" required="true"
 						requiredMessage="Informe o e-mail"
 						value="#{usuarioBean.usuario.email}" />
-				</ui:remove>
 
-				<p:outputLabel for="senha" value="Senha:" />
-				<p:password id="senha" value="#{usuarioBean.usuario.senha}"
-					required="true" requiredMessage="Informe a senha" maxlength="16"
-					feedback="true" weakLabel="Fraca" goodLabel="Boa"
-					strongLabel="Forte" match="confirmacaoSenha" redisplay="true" />
+					<p:outputLabel for="senha" value="Senha:" />
+					<p:password id="senha" value="#{usuarioBean.usuario.senha}"
+						required="true" requiredMessage="Informe a senha" maxlength="16"
+						feedback="true" weakLabel="Fraca" goodLabel="Boa"
+						strongLabel="Forte" match="confirmacaoSenha" redisplay="true" />
 
-				<p:outputLabel value="Confirme a senha" for="confirmacaoSenha" />
-				<p:password id="confirmacaoSenha" required="true"
-					value="#{usuarioBean.confirmacaoSenha}"
-					requiredMessage="Senha não conferir" redisplay="true" />
+					<p:outputLabel value="Confirme a senha" for="confirmacaoSenha" />
+					<p:password id="confirmacaoSenha" required="true"
+						value="#{usuarioBean.confirmacaoSenha}"
+						requiredMessage="Senha não conferir" redisplay="true" />
 
-				<p:spacer />
-				<p:selectBooleanCheckbox itemLabel="Ativo"
-					value="#{usuarioBean.usuario.ativo}" />
+					<p:spacer />
+					<p:selectBooleanCheckbox itemLabel="Ativo"
+						value="#{usuarioBean.usuario.ativo}" />
 
-				<p:outputLabel for="grupo" value="Grupo:" />
-				<h:panelGroup>
-					<h:panelGrid columns="2" styleClass="semBorda">
-						<p:selectOneMenu id="grupo" style="width:180px;"
-							converter="omnifaces.SelectItemsConverter"
-							value="#{usuarioBean.grupoSelecionado}">
-							<f:selectItem itemLabel="Selecione..." itemValue="#{null}" />
-							<f:selectItems value="#{usuarioBean.populaCombo}" var="gp"
-								itemLabel="#{gp.nome}" itemValue="#{gp}" />
-						</p:selectOneMenu>
-						<p:commandButton icon="adicionar-icon" value="Add"
-							action="#{usuarioBean.addGrupo}" style="margin-left:10px;" />
-					</h:panelGrid>
-				</h:panelGroup>
-			</p:panelGrid>
+					<p:outputLabel for="grupo" value="Grupo:" />
+					<h:panelGroup>
+						<h:panelGrid columns="2" styleClass="semBorda">
+							<p:selectOneMenu id="grupo" style="width:180px;"
+								converter="omnifaces.SelectItemsConverter"
+								value="#{usuarioBean.grupoSelecionado}">
+								<f:selectItem itemLabel="Selecione..." itemValue="#{null}" />
+								<f:selectItems value="#{usuarioBean.grupos}" var="g"
+									itemLabel="#{g.nome}" itemValue="#{g}" />
+							</p:selectOneMenu>
+							<p:commandButton icon="adicionar-icon" value="Add"
+								action="#{usuarioBean.addGrupo}" style="margin-left:10px;" />
+						</h:panelGrid>
+					</h:panelGroup>
+				</p:panelGrid>
+			</p:panel>
 		</h:form>
 
 		<h:form id="form-grupo" style="margin-top:15px;">
-			<p:dataTable id="tabela" widgetVar="tbl"
-				style="height:200px;"
+			<p:dataTable id="tabela" widgetVar="tbl" style="height:200px;"
 				emptyMessage="Nenhum registro encontrado." paginator="true" rows="4"
 				paginatorPosition="bottom" paginatorAlwaysVisible="false"
 				value="#{usuarioBean.usuario.grupos}" var="obj" reflow="true">

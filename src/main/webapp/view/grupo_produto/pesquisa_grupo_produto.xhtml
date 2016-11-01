@@ -7,22 +7,22 @@
 	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions">
 
-	<ui:define name="titulo">Grupo de Usuário</ui:define>
+	<ui:define name="titulo">Grupo de Produto</ui:define>
 
 	<ui:define name="corpo">
 
 		<f:metadata>
-			<f:viewAction action="#{grupoUsuarioBean.inicializarBean}" />
+			<f:viewAction action="#{grupoProdutoBean.inicializarBean}" />
 		</f:metadata>
 
 
-		<h1>Manutenção de Grupo de Usuário</h1>
+		<h1>Manutenção de Grupo de Produto</h1>
 
 		<h:form id="form-pesquisa">
 			<p:toolbar styleClass="semPreenchimento">
 				<p:toolbarGroup>
 					<p:button value="Novo" icon="novo-icon"
-						outcome="/view/grupo_usuario/cadastro_grupo_usuario.xhtml" />
+						outcome="/view/grupo_produto/cadastro_grupo_produto.xhtml" />
 				</p:toolbarGroup>
 				<p:toolbarGroup align="right">
 					<p:button value="Fechar" icon="fa fa-power-off"
@@ -32,7 +32,7 @@
 
 
 			<p:dataTable id="tbl-usuario"
-				value="#{grupoUsuarioBean.grupoUsuarios}" var="grupoUsuario"
+				value="#{grupoProdutoBean.grupoProdutos}" var="grupoProduto"
 				style="margin-top: 20px" emptyMessage="Nenhum usuario encontrado."
 				rows="10" paginator="true" paginatorAlwaysVisible="false"
 				paginatorPosition="bottom">
@@ -42,34 +42,29 @@
 						styleClass="semPreenchimento"
 						oncomplete="PF('confirmacaoExclusao').show()"
 						update="form-Exclusao" process="@this"
-						action="#{grupoUsuarioBean.prepararExclusao(grupoUsuario.id)}">
+						action="#{grupoProdutoBean.prepararExclusao(grupoProduto.id)}">
 					</p:commandButton>
 					<p:button icon="ui-icon-pencil" title="Editar Registro"
 						styleClass="semPreenchimento"
-						outcome="/view/grupo_usuario/cadastro_grupo_usuario.xhtml/">
-						<f:param name="codigo" value="#{grupoUsuario.id}" />
+						outcome="/view/grupo_produto/cadastro_grupo_produto.xhtml/">
+						<f:param name="codigo" value="#{grupoProduto.id}" />
 					</p:button>
 
 				</p:column>
 
 				<p:column headerText="Código" width="80" style="text-align: center"
-					sortBy="#{grupoUsuario.id}">
-					<h:outputText value="#{grupoUsuario.id}" />
+					sortBy="#{grupoProduto.id}">
+					<h:outputText value="#{grupoProduto.id}" />
 				</p:column>
 
 				<p:column headerText="Nome" width="250" style="text-align: left"
-					sortBy="#{grupoUsuario.nome}">
-					<h:outputText value="#{grupoUsuario.nome}" />
-				</p:column>
-
-				<p:column headerText="Descrição" width="350"
-					sortBy="#{grupoUsuario.descricao}">
-					<h:outputText value="#{grupoUsuario.descricao}" />
+					sortBy="#{grupoProduto.nome}">
+					<h:outputText value="#{grupoProduto.nome}" />
 				</p:column>
 
 				<p:column headerText="Status" width="100" style="text-align: center"
-					sortBy="#{grupoUsuario.ativo}">
-					<h:outputText value="#{grupoUsuario.ativo ? 'ATIVO' : 'INATIVO' }" />
+					sortBy="#{grupoProduto.status}">
+					<h:outputText value="#{grupoProduto.status ? 'ATIVO' : 'INATIVO' }" />
 				</p:column>
 
 				<p:column headerText="">
@@ -79,19 +74,19 @@
 
 		</h:form>
 
-		<p:dialog header="Exclusão Grupo de Usuário"
+		<p:dialog header="Exclusão Grupo de Produto"
 			widgetVar="confirmacaoExclusao" modal="true" resizable="false"
 			draggable="true" closeOnEscape="true" width="400" appendTo="@(body)">
 			<h:form id="form-Exclusao">
 				<p:panelGrid columns="1" styleClass="semBorda">
 					<p:outputLabel
-						value="Tem certeza que deseja excluir o Grupo de Usuário:" />
-					<p:outputLabel value="#{grupoUsuarioBean.grupoUsuario.nome} ?" />
+						value="Tem certeza que deseja excluir o Grupo de Produto:" />
+					<p:outputLabel value="#{grupoProdutoBean.grupoProduto.nome} ?" />
 				</p:panelGrid>
 				<p:panelGrid styleClass="semBorda">
 					<p:button value="Não" style="margin-right:5px; margin-top: 15px"
 						onclick="PF('confirmacaoExclusao').hide(); return false;" />
-					<p:commandButton value="Sim" action="#{grupoUsuarioBean.excluir}"
+					<p:commandButton value="Sim" action="#{grupoProdutoBean.excluir}"
 						update="form-pesquisa,"
 						oncomplete="if(!args.validationFailed) PF('confirmacaoExclusao').hide()" />
 				</p:panelGrid>

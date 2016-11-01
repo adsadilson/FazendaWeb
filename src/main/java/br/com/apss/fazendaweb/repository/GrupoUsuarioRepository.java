@@ -38,7 +38,7 @@ public class GrupoUsuarioRepository implements Serializable {
 			em.remove(categoria);
 			em.flush();
 		} catch (PersistenceException e) {
-			throw new NegocioException("Grupo Usuario não pode ser excluída.");
+			throw new NegocioException("Grupo de Usuario não pode ser excluído pois possui vinculo com outra tabela.");
 		}
 	}
 

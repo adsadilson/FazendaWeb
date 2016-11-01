@@ -5,11 +5,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.http.HttpServletRequest;
 
 import org.omnifaces.util.Messages;
 
@@ -29,6 +27,7 @@ public class GrupoUsuarioBean implements Serializable {
 	private List<GrupoUsuario> grupoUsuarios = new ArrayList<>();
 	private GrupoUsuario grupoUsuarioSelecionado;
 	private GrupoUsuarioFilter filtro;
+	private Long id;
 
 	@Inject
 	GrupoUsuarioService grupoUsuarioService;
@@ -87,11 +86,11 @@ public class GrupoUsuarioBean implements Serializable {
 		Messages.addGlobalInfo("Registro excluido com sucesso");
 	}
 
-	public void editar() {
-		String id = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest())
-				.getParameter("codigo");
+	public void carregarEdicao() {
+		/*String id = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest())
+				.getParameter("codigo");*/
 		if (id != null) {
-			this.grupoUsuario = grupoUsuarioService.buscarPorId(Long.parseLong(id));
+			this.grupoUsuario = grupoUsuarioService.buscarPorId(id);
 		}
 
 	}
@@ -128,6 +127,14 @@ public class GrupoUsuarioBean implements Serializable {
 
 	public void setFiltro(GrupoUsuarioFilter filtro) {
 		this.filtro = filtro;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	/****************************** Getters e Setters *************************/

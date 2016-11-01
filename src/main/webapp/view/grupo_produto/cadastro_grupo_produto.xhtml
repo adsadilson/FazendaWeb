@@ -7,27 +7,27 @@
 	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions">
 
-	<ui:define name="titulo">Grupo de Usuário</ui:define>
+	<ui:define name="titulo">Grupo de Produto</ui:define>
 
 	<ui:define name="corpo">
 
 		<f:metadata>
-			<f:viewParam name="codigo" value="#{grupoUsuarioBean.id}" />
-			<f:viewAction action="#{grupoUsuarioBean.carregarEdicao}" />
+			<f:viewParam name="codigo" value="#{grupoProdutoBean.id}" />
+			<f:viewAction action="#{grupoProdutoBean.carregarEdicao}" />
 		</f:metadata>
 
-		<h1>#{grupoUsuarioBean.grupoUsuario.id > 0 ? 'Edição Grupo de
-			Usuário' : 'Novo Grupo de Usuário'}</h1>
+		<h1>#{grupoProdutoBean.grupoProduto.id > 0 ? 'Edição Grupo de
+			Produto' : 'Novo Grupo de Produto'}</h1>
 
 		<h:form id="form-cadastro">
 			<p:toolbar styleClass="semPreenchimento" style="margin-bottom:10px;">
 				<p:toolbarGroup>
 
 					<p:commandButton icon="salvar-icon" value="Salvar" id="btnSalvar"
-						update="@form" action="#{grupoUsuarioBean.salvar}" />
+						update="@form" action="#{grupoProdutoBean.salvar}" />
 					<p:button icon="voltar-icon" value="Voltar"
 						style="margin-left:5px;"
-						outcome="/view/grupo_usuario/pesquisa_grupo_usuario.xhtml" />
+						outcome="/view/grupo_produto/pesquisa_grupo_produto.xhtml" />
 
 				</p:toolbarGroup>
 				<p:toolbarGroup align="right">
@@ -42,21 +42,16 @@
 
 					<p:outputLabel value="ID:" />
 					<p:inputText size="5" style="text-align:center;"
-						value="#{grupoUsuarioBean.grupoUsuario.id}" disabled="true" />
+						value="#{grupoProdutoBean.grupoProduto.id}" disabled="true" />
 
 					<p:outputLabel for="nome" value="Nome:" />
 					<p:inputText id="nome" size="30" required="true"
 						requiredMessage="Informe o nome"
-						value="#{grupoUsuarioBean.grupoUsuario.nome}" />
-
-					<p:outputLabel for="desc" value="Descrição:" />
-					<p:inputText id="desc" size="30" required="true"
-						requiredMessage="Informe a descrição"
-						value="#{grupoUsuarioBean.grupoUsuario.descricao}" />
+						value="#{grupoProdutoBean.grupoProduto.nome}" />
 
 					<p:outputLabel value="Ativo:" />
 					<p:selectBooleanCheckbox
-						value="#{grupoUsuarioBean.grupoUsuario.ativo}" />
+						value="#{grupoProdutoBean.grupoProduto.status}" />
 
 				</p:panelGrid>
 			</p:panel>

@@ -12,12 +12,10 @@
 	<ui:define name="corpo">
 
 		<f:metadata>
-			<f:viewParam name="dummy" />
-			<f:event listener="#{usuarioBean.inicializarBean}"
-				type="preRenderView" />
+			<f:viewAction action="#{usuarioBean.inicializarBean}" />
 		</f:metadata>
 
-		<h1>Pesquisa Usuário</h1>
+		<h1>Manutenção de Usuário</h1>
 
 		<h:form id="form-menu">
 			<p:toolbar styleClass="semPreenchimento">
@@ -41,13 +39,16 @@
 
 				<p:column headerText="Ações" width="100">
 					<p:commandButton icon="ui-icon-trash" title="Excluir Registro"
+						styleClass="semPreenchimento" id="btn-acao-excluir"
+						oncomplete="PF('confirmacaoExclusao').show()" process="@this"
+						update=":form-Exclusao"
+						action="#{usuarioBean.prepararExclusao(usuario.id)}">
+					</p:commandButton>
+					<p:button icon="ui-icon-pencil" title="Editar Registro"
 						styleClass="semPreenchimento"
-						actionListener="#{usuarioBean.prepararExclusao(usuario)}">
-					</p:commandButton>
-					<p:commandButton icon="ui-icon-pencil" title="Editar Registro"
-						styleClass="semPreenchimento">
+						outcome="/view/usuario/cadastro_usuario.xhtml">
 						<f:param name="codigo" value="#{usuario.id}" />
-					</p:commandButton>
+					</p:button>
 				</p:column>
 
 				<p:column headerText="Código" width="80" style="text-align: center"
@@ -76,6 +77,25 @@
 			</p:dataTable>
 
 		</h:form>
+
+		<p:dialog header="Exclusão de Usuário" widgetVar="confirmacaoExclusao"
+			modal="true" resizable="false" draggable="true" closeOnEscape="true"
+			width="340" appendTo="@(body)">
+			<h:form id="form-Exclusao">
+				<p:panelGrid columns="1" styleClass="semBorda">
+					<p:outputLabel value="Tem certeza que deseja excluir o Usuário:" />
+					<p:outputLabel
+						value="#{usuarioBean.usuarioExclusao.id} - #{usuarioBean.usuarioExclusao.nome} ?" />
+				</p:panelGrid>
+				<p:panelGrid styleClass="semBorda">
+					<p:button value="Não" style="margin-right:5px; margin-top: 15px"
+						onclick="PF('confirmacaoExclusao').hide(); return false;" />
+					<p:commandButton value="Sim" action="#{usuarioBean.excluir}"
+						update="form-table"
+						oncomplete="if(!args.validationFailed) PF('confirmacaoExclusao').hide()" />
+				</p:panelGrid>
+			</h:form>
+		</p:dialog>
 
 	</ui:define>
 

@@ -43,7 +43,7 @@ public class Usuario implements Serializable {
 	private List<GrupoUsuario> grupos = new ArrayList<>();
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "cadastro", nullable = false)
+	@Column(name = "cadastro", nullable = true)
 	private Date cadastro;
 
 	@Column(name = "status", nullable = true, length = 1)

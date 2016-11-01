@@ -19,7 +19,6 @@ import br.com.apss.fazendaweb.model.Usuario;
 import br.com.apss.fazendaweb.model.filter.UsuarioFilter;
 import br.com.apss.fazendaweb.util.NegocioException;
 
-
 public class UsuarioRepository implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -31,14 +30,13 @@ public class UsuarioRepository implements Serializable {
 		return em.merge(e);
 	}
 
-	
 	public void remove(Usuario categoria) {
 		try {
 			categoria = porId(categoria.getId());
 			em.remove(categoria);
 			em.flush();
 		} catch (PersistenceException e) {
-			throw new NegocioException("Usuário não pode ser excluída.");
+			throw new NegocioException("Usuário não pode ser excluído pois possui vinculo com outra tabela.");
 		}
 	}
 
@@ -52,13 +50,13 @@ public class UsuarioRepository implements Serializable {
 
 	public Usuario porNome(String nome) {
 		try {
-			return em.createQuery("from Usuario where nome = :nome", Usuario.class)
-					.setParameter("nome", nome).getSingleResult();
+			return em.createQuery("from Usuario where nome = :nome", Usuario.class).setParameter("nome", nome)
+					.getSingleResult();
 		} catch (NoResultException e) {
 			return null;
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Usuario> filtrados(UsuarioFilter filtro) {
 		Session session = em.unwrap(Session.class);
@@ -89,6 +87,5 @@ public class UsuarioRepository implements Serializable {
 
 		return criteria.addOrder(Order.asc("nome")).list();
 	}
-
 
 }

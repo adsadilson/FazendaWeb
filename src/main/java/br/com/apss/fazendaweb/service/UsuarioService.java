@@ -1,6 +1,7 @@
 package br.com.apss.fazendaweb.service;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -25,6 +26,9 @@ public class UsuarioService implements Serializable {
 		if (usuarioExistente != null && !usuarioExistente.equals(usuario)) {
 			throw new NegocioException("Já existe um Usuário com esse Login informado.");
 		}
+		if (usuario.getId() == null) {
+			usuario.setCadastro(new Date());
+		}
 		return usuarioRepository.save(usuario);
 	}
 
@@ -33,8 +37,8 @@ public class UsuarioService implements Serializable {
 		usuarioRepository.remove(usuario);
 	}
 
-	public Usuario buscarPorId(Long id) {
-		return usuarioRepository.porId(id);
+	public Usuario porNome(String nome) {
+		return usuarioRepository.porNome(nome);
 	}
 
 	public List<Usuario> listarTodos() {

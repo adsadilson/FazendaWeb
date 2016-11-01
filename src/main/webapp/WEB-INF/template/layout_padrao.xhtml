@@ -42,19 +42,25 @@
 		<h:form style="display: inline-block">
 			<p:menubar styleClass="menu-sistema">
 				<p:submenu label="Cadastros">
-					<p:menuitem value="Propriedade" />
-					<p:menuitem value="Pessoa" />
-					<p:submenu label="Animais">
-						<p:menuitem value="Animal" />
-						<p:menuitem value="Raça" />
-						<p:menuitem value="Espécie" />
-						<p:menuitem value="Pelagem" />
-						<p:menuitem value="Origem" />
-					</p:submenu>
+					<ui:remove>
+						<p:menuitem value="Propriedade" />
+						<p:menuitem value="Pessoa" />
+						<p:submenu label="Animais">
+							<p:menuitem value="Animal" />
+							<p:menuitem value="Raça" />
+							<p:menuitem value="Espécie" />
+							<p:menuitem value="Pelagem" />
+							<p:menuitem value="Origem" />
+						</p:submenu>
+					</ui:remove>
 					<p:submenu label="Produtos">
-						<p:menuitem value="Produtos" />
-						<p:menuitem value="Categorias dos Produtos" />
-						<p:menuitem value="Unidade de Media" />
+						<ui:remove>
+							<p:menuitem value="Produtos" />
+						</ui:remove>
+						<p:menuitem value="Grupo de Produtos"
+							outcome="/view/grupo_produto/pesquisa_grupo_produto.xhtml" />
+						<p:menuitem value="Unidade de Media"
+							outcome="/view/unidade_medida/pesquisa_unidade_medida.xhtml" />
 					</p:submenu>
 					<p:submenu label="Outros">
 						<p:menuitem value="Usuários"

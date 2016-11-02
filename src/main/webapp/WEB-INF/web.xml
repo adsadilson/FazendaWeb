@@ -7,6 +7,7 @@
 	<display-name>fazendaweb</display-name>
 
 	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
 		<welcome-file>home.xhtml</welcome-file>
 	</welcome-file-list>
 

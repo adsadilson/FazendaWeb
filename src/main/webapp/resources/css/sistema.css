@@ -21,9 +21,21 @@
 	padding-top: 0.2em !important;
 }
 
+.ui-inputtext {
+	text-transform: uppercase;
+}
+
+.ajax-status {
+	position: fixed;
+	top: 75px;
+	right: 15px;
+	width: 35px;
+	height: 35px
+}
+
 .ui-growl {
 	position: fixed;
-	top: 8% !important;
+	top: 12% !important;
 	right: 3% !important;
 	width: 301px !important;
 }
@@ -33,6 +45,13 @@ body {
 	font-family: Arial, Helvetica, sans-serif;
 	margin: 0px;
 	font-weight: normal;
+}
+
+.ui-state-disabled, .ui-widget-content .ui-state-disabled,
+	.ui-widget-header .ui-state-disabled {
+	opacity: 1;
+	filter: Alpha(Opacity = 35);
+	background-image: none;
 }
 
 header {

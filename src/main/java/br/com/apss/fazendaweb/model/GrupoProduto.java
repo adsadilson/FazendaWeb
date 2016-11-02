@@ -11,24 +11,21 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "grupo_usuario")
-@SequenceGenerator(name = "GRUPO_USUARIO_ID", sequenceName = "GRUPO_USUARIO_SEQ", allocationSize = 1)
-public class GrupoUsuario implements Serializable {
+@Table(name = "grupo_produto")
+@SequenceGenerator(name = "GRUPO_PRODUTO_ID", sequenceName = "GRUPO_PRODUTO_SEQ", allocationSize = 1)
+public class GrupoProduto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "GRUPO_USUARIO_ID")
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "GRUPO_PRODUTO_ID")
 	private Long id;
 
-	@Column(name = "nome", nullable = false, length = 80)
+	@Column(name = "nome", nullable = true, length = 80)
 	private String nome;
-	
-	@Column(name = "descricao", nullable = true, length = 80)
-	private String descricao;
-	
-	@Column(name = "ativo", nullable = true, length = 1)
-	private Boolean ativo;
+
+	@Column(name = "status", length = 1)
+	private Boolean status;
 
 	public Long getId() {
 		return id;
@@ -46,20 +43,12 @@ public class GrupoUsuario implements Serializable {
 		this.nome = nome.toUpperCase();
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public Boolean getStatus() {
+		return status;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao.toUpperCase();
-	}
-
-	public Boolean getAtivo() {
-		return ativo;
-	}
-
-	public void setAtivo(Boolean ativo) {
-		this.ativo = ativo;
+	public void setStatus(Boolean status) {
+		this.status = status;
 	}
 
 	@Override
@@ -78,7 +67,7 @@ public class GrupoUsuario implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		GrupoUsuario other = (GrupoUsuario) obj;
+		GrupoProduto other = (GrupoProduto) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

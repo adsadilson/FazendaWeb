@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/template/layout_padrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+	<ui:define name="titulo">Unidade de Medida</ui:define>
+
+	<ui:define name="corpo">
+
+		<f:metadata>
+			<f:viewParam name="codigo" value="#{unidadeMedidaBean.id}" />
+			<f:viewAction action="#{unidadeMedidaBean.carregarEdicao}" />
+		</f:metadata>
+
+		<h1>#{unidadeMedidaBean.unidadeMedida.id > 0 ? 'Edição Unidade de Medida' : 'Nova Unidade de Medida'}</h1>
+
+		<h:form id="form-cadastro">
+			<p:toolbar styleClass="semPreenchimento" style="margin-bottom:10px;">
+				<p:toolbarGroup>
+
+					<p:commandButton icon="salvar-icon" value="Salvar" id="btnSalvar"
+						update="@form" action="#{unidadeMedidaBean.salvar}" />
+					<p:button icon="voltar-icon" value="Voltar"
+						style="margin-left:5px;"
+						outcome="/view/unidade_medida/pesquisa_unidade_medida.xhtml" />
+
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:button value="Fechar" icon="fa fa-power-off"
+						outcome="/home.xhtml" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:panel>
+				<p:panelGrid columns="2" style="width: 100%; margin-top: 10px;"
+					columnClasses="rotulo, campo" styleClass="semBorda">
+
+					<p:outputLabel value="ID:" />
+					<p:inputText size="5" style="text-align:center;"
+						value="#{unidadeMedidaBean.unidadeMedida.id}" disabled="true" />
+
+					<p:outputLabel for="nome" value="Sigla:" />
+					<p:inputText id="nome" size="30" required="true"
+						requiredMessage="Informe o nome"
+						value="#{unidadeMedidaBean.unidadeMedida.nome}" />
+
+					<p:outputLabel for="desc" value="Descrição:" />
+					<p:inputText id="desc" size="30" required="true"
+						requiredMessage="Informe a descrição"
+						value="#{unidadeMedidaBean.unidadeMedida.descricao}" />
+
+					<p:outputLabel value="Ativo:" />
+					<p:selectBooleanCheckbox
+						value="#{unidadeMedidaBean.unidadeMedida.status}" />
+
+				</p:panelGrid>
+			</p:panel>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

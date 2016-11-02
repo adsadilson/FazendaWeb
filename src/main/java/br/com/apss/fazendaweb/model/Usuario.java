@@ -5,17 +5,48 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+@Entity
+@Table(name = "usuario")
+@SequenceGenerator(name = "USUARIO_ID", sequenceName = "USUARIO_SEQ", allocationSize = 1)
 public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "USUARIO_ID")
 	private Long id;
+
+	@Column(name = "nome", nullable = false, length = 80)
 	private String nome;
+
+	@Column(name = "email", nullable = false, unique = true, length = 80)
 	private String email;
+
+	@Column(name = "senha", nullable = false, length = 32)
 	private String senha;
+
+	@ManyToMany
+	@JoinTable(name = "usuario_grupo", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "grupo_id"))
 	private List<GrupoUsuario> grupos = new ArrayList<>();
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "cadastro", nullable = true)
 	private Date cadastro;
 
+	@Column(name = "status", nullable = true, length = 1)
 	private Boolean ativo;
 
 	public Long getId() {

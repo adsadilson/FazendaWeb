@@ -5,12 +5,20 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import org.omnifaces.util.Messages;
 
 import br.com.apss.fazendaweb.model.GrupoUsuario;
 import br.com.apss.fazendaweb.model.Usuario;
+import br.com.apss.fazendaweb.service.GrupoUsuarioService;
+import br.com.apss.fazendaweb.service.UsuarioService;
+import br.com.apss.fazendaweb.util.FacesUtil;
 
-@ManagedBean
+@Named
+@ViewScoped
 public class UsuarioBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -18,22 +26,35 @@ public class UsuarioBean implements Serializable {
 	private Usuario usuario;
 	private Usuario usuarioExclusao;
 	private List<Usuario> usuarios = new ArrayList<>();
+	private List<GrupoUsuario> grupos = new ArrayList<>();
 	private GrupoUsuario grupoSelecionado;
 	private String confirmacaoSenha;
+	private Long id;
 
-	/*
-	 * @Autowired UsuarioService usuarioService;
-	 * 
-	 * @Autowired ClassificacaoUsuarioService classificacaoUsuarioService;
-	 */
+	@Inject
+	UsuarioService usuarioService;
 
-	public void iniciarBean() {
-		usuario = null;
+	@Inject
+	GrupoUsuarioService grupoUsuarioService;
+
+	public void inicializarBean() {
+		if (FacesUtil.isNotPostback()) {
+			grupos = grupoUsuarioService.listarTodos();
+			carregarUsuarios();
+		}
 	}
 
-	public List<Usuario> getListarTodos() {
-		return null;
-		// return usuarioService.listarTodos();
+	public UsuarioBean() {
+		limpar();
+	}
+
+	private void limpar() {
+		usuario = new Usuario();
+		usuario.setAtivo(true);
+	}
+
+	public List<Usuario> carregarUsuarios() {
+		return usuarios = usuarioService.listarTodos();
 	}
 
 	public void novoUsuario() {
@@ -41,51 +62,48 @@ public class UsuarioBean implements Serializable {
 		usuario.setAtivo(true);
 		usuario.setCadastro(new Date());
 		this.confirmacaoSenha = null;
+		
+
 	}
 
 	public void addGrupo() {
 		if (this.grupoSelecionado != null) {
 			if (this.usuario.getGrupos().contains(this.grupoSelecionado)) {
-//				Messages.addGlobalError("Grupo jï¿½ adcionado");
+				Messages.addGlobalError("Grupo já adcionado");
 			} else {
 				this.usuario.getGrupos().add(this.grupoSelecionado);
 				this.grupoSelecionado = new GrupoUsuario();
 			}
 		} else {
-//			Messages.addGlobalError("Selecione um grupo antes de adicionar");
+			Messages.addGlobalError("Selecione um grupo antes de adicionar");
 		}
 	}
 
-	public List<GrupoUsuario> getPopulaCombo() {
-		return null;
-		// return classificacaoUsuarioService.listarTodos();
-	}
-
 	public void salvar() {
-		/*
-		 * if (this.usuario.getGrupos().size() > 0) { Usuario usuarioExistente =
-		 * usuarioService.porNome(usuario.getNome()); if (usuarioExistente !=
-		 * null && !usuarioExistente.equals(usuario)) { Messages.
-		 * addGlobalError("Jï¿½ existe um Usuï¿½rio com esse nome informado"); }
-		 * else { usuarioService.save(usuario); getListarTodos(); usuario =
-		 * null; Messages.addGlobalInfo("Registro salvo com sucesso"); } } else
-		 * { Messages.addGlobalError("Escolhe pelo menos um grupo"); }
-		 */
+		if (this.usuario.getGrupos().size() > 0) {
+			usuarioService.salvar(usuario);
+			novoUsuario();
+			Messages.addGlobalInfo("Registro salvo com sucesso");
+		} else {
+			Messages.addGlobalError("Escolhe pelo menos um grupo");
+		}
+
 	}
 
 	public void closeExcluir() {
 		this.grupoSelecionado = null;
 	}
 
-	public void editar(Long id) {
-		/*
-		 * this.usuario = usuarioService.obterPorId(id); this.confirmacaoSenha =
-		 * this.usuario.getSenha();
-		 */
+	public void carregarEdicao() {
+		if (id != null) {
+			usuario = usuarioService.porId(id);
+			this.confirmacaoSenha = usuario.getSenha();
+		}
+		grupos = grupoUsuarioService.listarTodos();
 	}
 
-	public void prepararExclusao(Usuario usuario) {
-		this.usuarioExclusao = usuario;
+	public void prepararExclusao(Long id) {
+		this.usuarioExclusao = usuarioService.porId(id);
 	}
 
 	public void prepararExclusaoGrupo(GrupoUsuario grupo) {
@@ -93,14 +111,9 @@ public class UsuarioBean implements Serializable {
 	}
 
 	public void excluir() {
-		/*
-		 * try { usuarioService.remove(usuarioExclusao);
-		 * Messages.addGlobalInfo("Registro excluir com sucesso");
-		 * getListarTodos(); } catch (Exception e) { if (e instanceof
-		 * DataIntegrityViolationException) { throw new NegocioException(
-		 * "Nï¿½o foi possï¿½vel excluir esse registro, pois o mesmo possui vinculo com outras tabelas!"
-		 * ); } }
-		 */
+		usuarioService.remover(usuarioExclusao);
+		carregarUsuarios();
+		Messages.addGlobalInfo("Registro excluir com sucesso");
 	}
 
 	public void removerGrupo() {
@@ -119,8 +132,8 @@ public class UsuarioBean implements Serializable {
 		usuario = null;
 	}
 
-	/************************ Metodos Getters e Setters *****************************/
-	
+	/****************************** Getters e Setters *************************/
+
 	public Usuario getUsuario() {
 		return usuario;
 	}
@@ -160,5 +173,23 @@ public class UsuarioBean implements Serializable {
 	public void setUsuarios(List<Usuario> usuarios) {
 		this.usuarios = usuarios;
 	}
+
+	public List<GrupoUsuario> getGrupos() {
+		return grupos;
+	}
+
+	public void setGrupos(List<GrupoUsuario> grupos) {
+		this.grupos = grupos;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	/****************************** Getters e Setters *************************/
 
 }

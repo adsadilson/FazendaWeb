@@ -6,7 +6,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import br.com.apss.fazendaweb.model.GrupoUsuario;
-import br.com.apss.fazendaweb.model.filter.GrupoUsuarioFilter;
 import br.com.apss.fazendaweb.repository.GrupoUsuarioRepository;
 import br.com.apss.fazendaweb.util.NegocioException;
 import br.com.apss.fazendaweb.util.Transactional;
@@ -41,18 +40,12 @@ public class GrupoUsuarioService implements Serializable {
 		return grupoUsuarioRepository.listarTodos();
 	}
 
-	public List<GrupoUsuario> filtrados(GrupoUsuarioFilter filtro) {
-		return grupoUsuarioRepository.filtrados(filtro);
-
-	}
-	
 	public List<GrupoUsuario> grupoCondicao(GrupoUsuario op) {
 		return grupoUsuarioRepository.grupoCondicao(op);
 		
 	}
 
 	public GrupoUsuario porId(Long id) {
-			System.out.println("servico "+id);
 		return grupoUsuarioRepository.porId(id);
 	}
 

@@ -25,7 +25,6 @@ public class GrupoProdutoBean implements Serializable {
 	private GrupoProduto grupoProduto;
 	private List<GrupoProduto> grupoProdutos = new ArrayList<>();
 	private GrupoProduto grupoProdutoSelecionado;
-	private Long id;
 
 	@Inject
 	GrupoProdutoService grupoProdutoService;
@@ -35,24 +34,20 @@ public class GrupoProdutoBean implements Serializable {
 	public void inicializarBean() {
 		System.out.println("Inicializando...");
 		if (FacesUtil.isNotPostback()) {
-			listarTodos();
+			carregarTabela();
 		}
 	}
 
-	public GrupoProdutoBean() {
-		this.grupoProduto = new GrupoProduto();
-		this.grupoProduto.setStatus(true);
-	}
-
-	public void listarTodos() {
+	private void carregarTabela() {
 		grupoProdutos = grupoProdutoService.listarTodos();
 	}
 
+	public GrupoProdutoBean() {
+	}
 
 	public List<AtivoInativo> getAtivoInativo() {
 		return Arrays.asList(AtivoInativo.values());
 	}
-
 
 	public void novoCadastro() {
 		this.grupoProduto = new GrupoProduto();
@@ -62,25 +57,19 @@ public class GrupoProdutoBean implements Serializable {
 	public void salvar() {
 		grupoProdutoService.salvar(this.grupoProduto);
 		this.grupoProdutoSelecionado = null;
-		novoCadastro();
+		carregarTabela();
 		Messages.addGlobalInfo("Registro salvo com sucesso");
-	}
-
-	public void prepararExclusao(Long id) {
-		this.grupoProduto = grupoProdutoService.porId(id);
 	}
 
 	public void excluir() {
 		grupoProdutoService.remover(this.grupoProduto);
 		this.grupoProdutoSelecionado = null;
-		listarTodos();
+		carregarTabela();
 		Messages.addGlobalInfo("Registro excluido com sucesso");
 	}
 
-	public void carregarEdicao() {
-		if (id != null) {
-			this.grupoProduto = grupoProdutoService.buscarPorId(id);
-		}
+	public void editar() {
+		this.grupoProduto = grupoProdutoService.buscarPorId(grupoProdutoSelecionado.getId());
 	}
 
 	/****************************** Getters e Setters *************************/
@@ -107,14 +96,6 @@ public class GrupoProdutoBean implements Serializable {
 
 	public void setGrupoProdutoSelecionado(GrupoProduto grupoProdutoSelecionado) {
 		this.grupoProdutoSelecionado = grupoProdutoSelecionado;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	/****************************** Getters e Setters *************************/

@@ -13,7 +13,6 @@ import org.omnifaces.util.Messages;
 
 import br.com.apss.fazendaweb.enums.AtivoInativo;
 import br.com.apss.fazendaweb.model.GrupoUsuario;
-import br.com.apss.fazendaweb.model.filter.GrupoUsuarioFilter;
 import br.com.apss.fazendaweb.service.GrupoUsuarioService;
 import br.com.apss.fazendaweb.util.FacesUtil;
 
@@ -26,8 +25,6 @@ public class GrupoUsuarioBean implements Serializable {
 	private GrupoUsuario grupoUsuario;
 	private List<GrupoUsuario> grupoUsuarios = new ArrayList<>();
 	private GrupoUsuario grupoUsuarioSelecionado;
-	private GrupoUsuarioFilter filtro;
-	private Long id;
 
 	@Inject
 	GrupoUsuarioService grupoUsuarioService;
@@ -37,30 +34,19 @@ public class GrupoUsuarioBean implements Serializable {
 	public void inicializarBean() {
 		System.out.println("Inicializando...");
 		if (FacesUtil.isNotPostback()) {
-			listarTodos();
+			carregarTabela();
 		}
 	}
 
-	public GrupoUsuarioBean() {
-		filtro = new GrupoUsuarioFilter();
-		this.grupoUsuario = new GrupoUsuario();
-		this.grupoUsuario.setAtivo(true);
-	}
-
-	public void listarTodos() {
+	private void carregarTabela() {
 		grupoUsuarios = grupoUsuarioService.listarTodos();
 	}
 
-	public void pesquisar() {
-		grupoUsuarios = grupoUsuarioService.filtrados(filtro);
+	public GrupoUsuarioBean() {
 	}
 
 	public List<AtivoInativo> getAtivoInativo() {
 		return Arrays.asList(AtivoInativo.values());
-	}
-
-	public void novoFiltro() {
-		filtro = new GrupoUsuarioFilter();
 	}
 
 	public void novoCadastro() {
@@ -71,28 +57,19 @@ public class GrupoUsuarioBean implements Serializable {
 	public void salvar() {
 		grupoUsuarioService.salvar(this.grupoUsuario);
 		this.grupoUsuarioSelecionado = null;
-		novoCadastro();
+		carregarTabela();
 		Messages.addGlobalInfo("Registro salvo com sucesso");
-	}
-
-	public void prepararExclusao(Long id) {
-		this.grupoUsuario = grupoUsuarioService.porId(id);
 	}
 
 	public void excluir() {
 		grupoUsuarioService.remover(this.grupoUsuario);
 		this.grupoUsuarioSelecionado = null;
-		listarTodos();
+		carregarTabela();
 		Messages.addGlobalInfo("Registro excluido com sucesso");
 	}
 
-	public void carregarEdicao() {
-		/*String id = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest())
-				.getParameter("codigo");*/
-		if (id != null) {
-			this.grupoUsuario = grupoUsuarioService.buscarPorId(id);
-		}
-
+	public void editar() {
+		this.grupoUsuario = grupoUsuarioService.buscarPorId(grupoUsuarioSelecionado.getId());
 	}
 
 	/****************************** Getters e Setters *************************/
@@ -119,22 +96,6 @@ public class GrupoUsuarioBean implements Serializable {
 
 	public void setGrupoUsuarioSelecionado(GrupoUsuario grupoUsuarioSelecionado) {
 		this.grupoUsuarioSelecionado = grupoUsuarioSelecionado;
-	}
-
-	public GrupoUsuarioFilter getFiltro() {
-		return filtro;
-	}
-
-	public void setFiltro(GrupoUsuarioFilter filtro) {
-		this.filtro = filtro;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	/****************************** Getters e Setters *************************/

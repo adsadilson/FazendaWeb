@@ -25,7 +25,6 @@ public class UnidadeMedidaBean implements Serializable {
 	private UnidadeMedida unidadeMedida;
 	private List<UnidadeMedida> unidadeMedidas = new ArrayList<>();
 	private UnidadeMedida unidadeMedidaSelecionado;
-	private Long id;
 
 	@Inject
 	UnidadeMedidaService unidadeMedidaService;
@@ -35,17 +34,15 @@ public class UnidadeMedidaBean implements Serializable {
 	public void inicializarBean() {
 		System.out.println("Inicializando...");
 		if (FacesUtil.isNotPostback()) {
-			listarTodos();
+			carregarTabela();
 		}
 	}
 
-	public UnidadeMedidaBean() {
-		this.unidadeMedida = new UnidadeMedida();
-		this.unidadeMedida.setStatus(true);
+	private void carregarTabela() {
+		unidadeMedidas = unidadeMedidaService.listarTodos();
 	}
 
-	public void listarTodos() {
-		unidadeMedidas = unidadeMedidaService.listarTodos();
+	public UnidadeMedidaBean() {
 	}
 
 	public List<AtivoInativo> getAtivoInativo() {
@@ -60,26 +57,19 @@ public class UnidadeMedidaBean implements Serializable {
 	public void salvar() {
 		unidadeMedidaService.salvar(this.unidadeMedida);
 		this.unidadeMedidaSelecionado = null;
-		novoCadastro();
+		carregarTabela();
 		Messages.addGlobalInfo("Registro salvo com sucesso");
-	}
-
-	public void prepararExclusao(Long id) {
-		this.unidadeMedida = unidadeMedidaService.porId(id);
 	}
 
 	public void excluir() {
 		unidadeMedidaService.remover(this.unidadeMedida);
 		this.unidadeMedidaSelecionado = null;
-		listarTodos();
+		carregarTabela();
 		Messages.addGlobalInfo("Registro excluido com sucesso");
 	}
 
-	public void carregarEdicao() {
-		if (id != null) {
-			this.unidadeMedida = unidadeMedidaService.buscarPorId(id);
-		}
-
+	public void editar() {
+		this.unidadeMedida = unidadeMedidaService.buscarPorId(unidadeMedidaSelecionado.getId());
 	}
 
 	/****************************** Getters e Setters *************************/
@@ -106,14 +96,6 @@ public class UnidadeMedidaBean implements Serializable {
 
 	public void setUnidadeMedidaSelecionado(UnidadeMedida unidadeMedidaSelecionado) {
 		this.unidadeMedidaSelecionado = unidadeMedidaSelecionado;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	/****************************** Getters e Setters *************************/

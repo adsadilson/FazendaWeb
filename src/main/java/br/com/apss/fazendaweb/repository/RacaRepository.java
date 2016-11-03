@@ -13,44 +13,43 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
-import br.com.apss.fazendaweb.model.GrupoProduto;
+import br.com.apss.fazendaweb.model.Raca;
 import br.com.apss.fazendaweb.util.NegocioException;
 
 
-public class GrupoProdutoRepository implements Serializable {
+public class RacaRepository implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Inject
 	private EntityManager em;
 
-	public GrupoProduto save(GrupoProduto e) {
+	public Raca save(Raca e) {
 		return em.merge(e);
 	}
 
 	
-	public void remove(GrupoProduto categoria) {
+	public void remove(Raca raca) {
 		try {
-			categoria = porId(categoria.getId());
-			em.remove(categoria);
+			raca = porId(raca.getId());
+			em.remove(raca);
 			em.flush();
 		} catch (PersistenceException e) {
-			throw new NegocioException("Grupo de Usuario não pode ser excluído pois possui vinculo com outra tabela.");
+			throw new NegocioException("Raça não pode ser excluído pois possui vinculo com outra tabela.");
 		}
 	}
 
-	public GrupoProduto porId(Long value) {
-		System.out.println("repository "+value);
-		return em.find(GrupoProduto.class, value);
+	public Raca porId(Long value) {
+		return em.find(Raca.class, value);
 	}
 
-	public List<GrupoProduto> listarTodos() {
-		return em.createQuery("from GrupoProduto order by nome", GrupoProduto.class).getResultList();
+	public List<Raca> listarTodos() {
+		return em.createQuery("from Raca order by nome", Raca.class).getResultList();
 	}
 
-	public GrupoProduto porNome(String nome) {
+	public Raca porNome(String nome) {
 		try {
-			return em.createQuery("from GrupoProduto where nome = :nome", GrupoProduto.class)
+			return em.createQuery("from Raca where nome = :nome", Raca.class)
 					.setParameter("nome", nome).getSingleResult();
 		} catch (NoResultException e) {
 			return null;
@@ -59,9 +58,9 @@ public class GrupoProdutoRepository implements Serializable {
 	
 	
 	@SuppressWarnings("unchecked")
-	public List<GrupoProduto> grupoCondicao(GrupoProduto op) {
+	public List<Raca> grupoCondicao(Raca op) {
 		Session session = em.unwrap(Session.class);
-		Criteria criteria = session.createCriteria(GrupoProduto.class);
+		Criteria criteria = session.createCriteria(Raca.class);
 
 		if (op.getStatus().equals("ATIVO")) {
 			criteria.add(Restrictions.ge("status", true));

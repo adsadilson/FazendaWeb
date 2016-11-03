@@ -40,7 +40,6 @@ public class GrupoProdutoService implements Serializable {
 		return grupoProdutoRepository.listarTodos();
 	}
 
-	
 	public List<GrupoProduto> grupoCondicao(GrupoProduto op) {
 		return grupoProdutoRepository.grupoCondicao(op);
 		

@@ -13,44 +13,43 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
-import br.com.apss.fazendaweb.model.GrupoProduto;
+import br.com.apss.fazendaweb.model.Pelagem;
 import br.com.apss.fazendaweb.util.NegocioException;
 
 
-public class GrupoProdutoRepository implements Serializable {
+public class PelagemRepository implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Inject
 	private EntityManager em;
 
-	public GrupoProduto save(GrupoProduto e) {
+	public Pelagem save(Pelagem e) {
 		return em.merge(e);
 	}
 
 	
-	public void remove(GrupoProduto categoria) {
+	public void remove(Pelagem pelagem) {
 		try {
-			categoria = porId(categoria.getId());
-			em.remove(categoria);
+			pelagem = porId(pelagem.getId());
+			em.remove(pelagem);
 			em.flush();
 		} catch (PersistenceException e) {
-			throw new NegocioException("Grupo de Usuario não pode ser excluído pois possui vinculo com outra tabela.");
+			throw new NegocioException("Pelagem não pode ser excluído pois possui vinculo com outra tabela.");
 		}
 	}
 
-	public GrupoProduto porId(Long value) {
-		System.out.println("repository "+value);
-		return em.find(GrupoProduto.class, value);
+	public Pelagem porId(Long value) {
+		return em.find(Pelagem.class, value);
 	}
 
-	public List<GrupoProduto> listarTodos() {
-		return em.createQuery("from GrupoProduto order by nome", GrupoProduto.class).getResultList();
+	public List<Pelagem> listarTodos() {
+		return em.createQuery("from Pelagem order by nome", Pelagem.class).getResultList();
 	}
 
-	public GrupoProduto porNome(String nome) {
+	public Pelagem porNome(String nome) {
 		try {
-			return em.createQuery("from GrupoProduto where nome = :nome", GrupoProduto.class)
+			return em.createQuery("from Pelagem where nome = :nome", Pelagem.class)
 					.setParameter("nome", nome).getSingleResult();
 		} catch (NoResultException e) {
 			return null;
@@ -59,9 +58,9 @@ public class GrupoProdutoRepository implements Serializable {
 	
 	
 	@SuppressWarnings("unchecked")
-	public List<GrupoProduto> grupoCondicao(GrupoProduto op) {
+	public List<Pelagem> grupoCondicao(Pelagem op) {
 		Session session = em.unwrap(Session.class);
-		Criteria criteria = session.createCriteria(GrupoProduto.class);
+		Criteria criteria = session.createCriteria(Pelagem.class);
 
 		if (op.getStatus().equals("ATIVO")) {
 			criteria.add(Restrictions.ge("status", true));

@@ -42,11 +42,10 @@ public class UnidadeMedidaService implements Serializable {
 
 	public List<UnidadeMedida> grupoCondicao(UnidadeMedida op) {
 		return unidadeMedidaRepository.grupoCondicao(op);
-
+		
 	}
 
 	public UnidadeMedida porId(Long id) {
-		System.out.println("servico " + id);
 		return unidadeMedidaRepository.porId(id);
 	}
 

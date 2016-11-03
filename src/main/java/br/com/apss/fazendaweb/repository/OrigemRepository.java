@@ -13,44 +13,43 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
-import br.com.apss.fazendaweb.model.GrupoProduto;
+import br.com.apss.fazendaweb.model.Origem;
 import br.com.apss.fazendaweb.util.NegocioException;
 
 
-public class GrupoProdutoRepository implements Serializable {
+public class OrigemRepository implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Inject
 	private EntityManager em;
 
-	public GrupoProduto save(GrupoProduto e) {
+	public Origem save(Origem e) {
 		return em.merge(e);
 	}
 
 	
-	public void remove(GrupoProduto categoria) {
+	public void remove(Origem origem) {
 		try {
-			categoria = porId(categoria.getId());
-			em.remove(categoria);
+			origem = porId(origem.getId());
+			em.remove(origem);
 			em.flush();
 		} catch (PersistenceException e) {
-			throw new NegocioException("Grupo de Usuario não pode ser excluído pois possui vinculo com outra tabela.");
+			throw new NegocioException("Origem não pode ser excluído pois possui vinculo com outra tabela.");
 		}
 	}
 
-	public GrupoProduto porId(Long value) {
-		System.out.println("repository "+value);
-		return em.find(GrupoProduto.class, value);
+	public Origem porId(Long value) {
+		return em.find(Origem.class, value);
 	}
 
-	public List<GrupoProduto> listarTodos() {
-		return em.createQuery("from GrupoProduto order by nome", GrupoProduto.class).getResultList();
+	public List<Origem> listarTodos() {
+		return em.createQuery("from Origem order by nome", Origem.class).getResultList();
 	}
 
-	public GrupoProduto porNome(String nome) {
+	public Origem porNome(String nome) {
 		try {
-			return em.createQuery("from GrupoProduto where nome = :nome", GrupoProduto.class)
+			return em.createQuery("from Origem where nome = :nome", Origem.class)
 					.setParameter("nome", nome).getSingleResult();
 		} catch (NoResultException e) {
 			return null;
@@ -59,9 +58,9 @@ public class GrupoProdutoRepository implements Serializable {
 	
 	
 	@SuppressWarnings("unchecked")
-	public List<GrupoProduto> grupoCondicao(GrupoProduto op) {
+	public List<Origem> grupoCondicao(Origem op) {
 		Session session = em.unwrap(Session.class);
-		Criteria criteria = session.createCriteria(GrupoProduto.class);
+		Criteria criteria = session.createCriteria(Origem.class);
 
 		if (op.getStatus().equals("ATIVO")) {
 			criteria.add(Restrictions.ge("status", true));

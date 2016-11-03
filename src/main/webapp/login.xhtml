@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<h:outputStylesheet library="css" name="sistema.css" />
+	<title>Tela de Login</title>
+
+	<script type="text/javascript">
+$(document).ready(function () {
+    $('input[type="text"]').focus(function () {
+        $(this).addClass(#222);
+    });
+    $('input[type="password"]').focus(function () {
+        $(this).addClass("corFoco");
+    });
+
+    $('input[type="text"]').blur(function () {
+        $(this).removeClass("corFoco");
+    });
+    $('input[type="password"]').blur(function () {
+        $(this).removeClass("corFoco");
+    });
+});
+</script>
+
+</h:head>
+
+<h:body>
+
+	<div id="divLogin">
+		<h1>Login</h1>
+		<h:form id="for-login">
+			<p:growl autoUpdate="true" />
+			<p:panel style="width: 390px;">
+				<h:panelGrid columns="2">
+					<h:panelGroup>
+						<p:panelGrid columns="1" styleClass="semBorda">
+							<p:outputLabel value="Nome:" />
+							<p:inputText required="true" requiredMessage="Preenche o Nome!" />
+							<p:outputLabel value="Senha:" />
+							<p:password  required="true" requiredMessage="Preenche o Senha!" />
+						</p:panelGrid>
+					</h:panelGroup>
+					<p:graphicImage library="images" name="Password9.png" />
+				</h:panelGrid>
+				<p:separator />
+				<p:commandButton value="Logar" icon="ui-icon-check" />
+			</p:panel>
+		</h:form>
+	</div>
+	
+</h:body>
+
+</html>

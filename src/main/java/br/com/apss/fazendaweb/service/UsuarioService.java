@@ -41,6 +41,10 @@ public class UsuarioService implements Serializable {
 		return usuarioRepository.porNome(nome);
 	}
 
+	public Usuario porNome(String nome, String senha) {
+		return usuarioRepository.porNomeSenha(nome, senha);
+	}
+
 	public List<Usuario> listarTodos() {
 		return usuarioRepository.listarTodos();
 	}

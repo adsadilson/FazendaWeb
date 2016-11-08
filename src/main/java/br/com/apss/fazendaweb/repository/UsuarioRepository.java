@@ -57,6 +57,15 @@ public class UsuarioRepository implements Serializable {
 		}
 	}
 
+	public Usuario porNomeSenha(String nome, String senha) {
+		try {
+			return em.createQuery("from Usuario where nome = :nome and senha =:senha", Usuario.class)
+					.setParameter("nome", nome).setParameter("senha", senha).getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+
 	@SuppressWarnings("unchecked")
 	public List<Usuario> filtrados(UsuarioFilter filtro) {
 		Session session = em.unwrap(Session.class);

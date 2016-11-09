@@ -38,6 +38,7 @@
 		<span style="font-size: 25px">Sistema Gestão de Gado</span> <br /> <span
 			style="font-size: 12px; font-family: verdana;">Versão: 0.01.10</span>
 	</div>
+	
 
 	<div style="float: left; margin-left: 95px; margin-top:43px;">
 
@@ -93,7 +94,7 @@
 						<p:menuitem value="Pesquisa" />
 					</p:submenu>
 				</ui:remove>
-				<p:menuitem value="Sair" />
+				<p:menuitem value="Sair" actionListener="#{autenticacaoBean.logout}"  />
 			</p:menubar>
 		</h:form>
 

@@ -18,18 +18,10 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.apache.shiro.crypto.hash.SimpleHash;
-
 @Entity
 @Table(name = "usuario")
 @SequenceGenerator(name = "USUARIO_ID", sequenceName = "USUARIO_SEQ", allocationSize = 1)
 public class Usuario implements Serializable {
-	
-	SimpleHash hash;
-
-	public Usuario() {
-		hash = new SimpleHash("md5", senha);
-	}
 
 	private static final long serialVersionUID = 1L;
 
@@ -82,8 +74,7 @@ public class Usuario implements Serializable {
 	}
 
 	public String getSenha() {
-
-		return senha = hash.toHex();
+		return senha;
 	}
 
 	public void setSenha(String senha) {

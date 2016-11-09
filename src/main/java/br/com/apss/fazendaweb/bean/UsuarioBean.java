@@ -81,8 +81,7 @@ public class UsuarioBean implements Serializable {
 
 	public void salvar() {
 		if (this.usuario.getGrupos().size() > 0) {
-			//usuarioService.salvar(usuario);
-			System.out.println(usuario.getSenha());
+			usuarioService.salvar(usuario);
 			novoUsuario();
 			Messages.addGlobalInfo("Registro salvo com sucesso");
 		} else {

@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.apache.shiro.crypto.hash.SimpleHash;
+
 import br.com.apss.fazendaweb.model.Usuario;
 import br.com.apss.fazendaweb.model.filter.UsuarioFilter;
 import br.com.apss.fazendaweb.repository.UsuarioRepository;
@@ -29,6 +31,8 @@ public class UsuarioService implements Serializable {
 		if (usuario.getId() == null) {
 			usuario.setCadastro(new Date());
 		}
+		SimpleHash hash = new SimpleHash("md5", usuario.getSenha());
+		usuario.setSenha(hash.toHex());
 		return usuarioRepository.save(usuario);
 	}
 
@@ -41,8 +45,9 @@ public class UsuarioService implements Serializable {
 		return usuarioRepository.porNome(nome);
 	}
 
-	public Usuario porNome(String nome, String senha) {
-		return usuarioRepository.porNomeSenha(nome, senha);
+	public Usuario autenticar(String nome, String senha) {
+		SimpleHash hash = new SimpleHash("md5", senha);
+		return usuarioRepository.porNomeSenha(nome, hash.toHex());
 	}
 
 	public List<Usuario> listarTodos() {

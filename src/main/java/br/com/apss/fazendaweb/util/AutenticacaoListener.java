@@ -20,13 +20,14 @@ public class AutenticacaoListener implements PhaseListener {
 	        FacesContext fc = event.getFacesContext();
 	        ExternalContext ec = fc.getExternalContext();
 
-	        if (!fc.getViewRoot().getViewId().contains("loggin.xhtml")) {
+	        if (!fc.getViewRoot().getViewId().contains("autenticacao.xhtml")) {
 	            HttpSession session = (HttpSession) ec.getSession(true);
 	            Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");
 
 	            if (usuario == null) {
 	                try {
-	                    ec.redirect(ec.getRequestContextPath() + "/loggin.jsf");
+	                	System.out.println(ec.getRequestContextPath() + "/autenticacao.jsf");
+	                    ec.redirect(ec.getRequestContextPath() + "/autenticacao.jsf");
 	                } catch (IOException ex) {
 	                    ex.printStackTrace();
 	                }

@@ -17,7 +17,7 @@ import org.omnifaces.util.Messages;
 import br.com.apss.fazendaweb.model.Usuario;
 import br.com.apss.fazendaweb.service.UsuarioService;
 
-@Named("autenticacaoBean")
+@Named
 @SessionScoped
 public class AutenticacaoBean implements Serializable {
 
@@ -34,7 +34,7 @@ public class AutenticacaoBean implements Serializable {
 		usuario = new Usuario();
 	}
 
-	public void autenticar() {
+	public void validar() {
 		try {
 			usuarioLogado = usuarioService.autenticar(usuario.getNome(), usuario.getSenha());
 			if (usuarioLogado == null) {
@@ -48,7 +48,7 @@ public class AutenticacaoBean implements Serializable {
 		}
 	}
 
-	public void validar() {
+	public void autenticar() {
 		try {
 			usuarioLogado = usuarioService.autenticar(usuario.getNome(), usuario.getSenha());
 			if (usuarioLogado == null) {
@@ -76,9 +76,14 @@ public class AutenticacaoBean implements Serializable {
 		while (vals.hasMoreElements()) {
 			session.removeAttribute(vals.nextElement());
 		}
-		return "loggin.jsf";
+		return "autenticacao?faces-redirect=true";
 
 	}
+	public String logout2() {
+		FacesContext.getCurrentInstance().getExternalContext()
+		.invalidateSession();
+		return "/autenticacao?faces-redirect=true";
+		}
 
 	/****************************** Getters e Setters *************************/
 

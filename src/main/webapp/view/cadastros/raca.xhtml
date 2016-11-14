@@ -19,7 +19,7 @@
 		<h1>Listagem de Raça</h1>
 
 		<h:form id="form-menu">
-			<p:toolbar styleClass="semCorFundo">
+			<p:toolbar styleClass="semPreenchimento">
 				<p:toolbarGroup>
 					<p:commandButton icon="novo-icon" value="Novo"
 						oncomplete="PF('dialogCadastro').show()" process="@this"
@@ -51,7 +51,7 @@
 		<h:form id="form-table">
 
 			<p:dataTable id="tbl-raca" value="#{racaBean.racas}" var="raca"
-				style="margin-top: 1px" emptyMessage="Nenhuma registro encontrada."
+				style="margin-top: 5px" emptyMessage="Nenhuma registro encontrada."
 				rows="10" paginator="true" paginatorAlwaysVisible="false"
 				paginatorPosition="bottom" selectionMode="single"
 				selection="#{racaBean.racaSelecionado}" rowKey="#{raca.id}">

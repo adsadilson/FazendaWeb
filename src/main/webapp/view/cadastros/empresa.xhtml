@@ -7,36 +7,36 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions">
 
-	<ui:define name="titulo">Espécie</ui:define>
+	<ui:define name="titulo">Empresa</ui:define>
 
 	<ui:define name="corpo">
 
 		<f:metadata>
 			<f:viewParam name="dummy" />
-			<f:event listener="#{especieBean.inicializarBean}"
+			<f:event listener="#{empresaBean.inicializarBean}"
 				type="preRenderView" />
 		</f:metadata>
 
-		<h1>Listagem de Espécie</h1>
+		<h1>Listagem de Empresa</h1>
 
 		<h:form id="form-menu">
 			<p:toolbar styleClass="semPreenchimento">
 				<p:toolbarGroup>
 					<p:commandButton icon="novo-icon" value="Novo"
 						oncomplete="PF('dialogCadastro').show()" process="@this"
-						update="form-cadastro" action="#{especieBean.novoCadastro}">
+						update="form-cadastro" action="#{empresaBean.novoCadastro}">
 						<p:resetInput target="form-cadastro" />
 					</p:commandButton>
 					<p:commandButton icon="editar-icon" value="Editar"
 						oncomplete="PF('dialogCadastro').show()" process="@this"
-						update="form-cadastro" action="#{especieBean.editar}"
-						disabled="#{especieBean.especieSelecionado == null}">
+						update="form-cadastro" action="#{empresaBean.editar}"
+						disabled="#{empresaBean.empresaSelecionado == null}">
 						<p:resetInput target="form-cadastro" />
 					</p:commandButton>
 					<p:commandButton icon="excluir-icon" value="Excluir"
 						oncomplete="PF('confirmacaoExclusao').show()" process="@this"
-						update=":form-Exclusao" action="#{especieBean.editar}"
-						disabled="#{especieBean.especieSelecionado == null}">
+						update=":form-Exclusao" action="#{empresaBean.editar}"
+						disabled="#{empresaBean.empresaSelecionado == null}">
 					</p:commandButton>
 					<p:separator />
 					<p:commandButton icon="fa fa-filter" title="Filtrar Registro"
@@ -51,31 +51,29 @@
 
 		<h:form id="form-table">
 
-			<p:dataTable id="tbl-especie"
-				value="#{especieBean.especies}" var="especie"
-				style="margin-top: 5px"
+			<p:dataTable id="tbl-empresa" value="#{empresaBean.empresas}"
+				var="empresa" style="margin-top: 5px"
 				emptyMessage="Nenhuma registro encontrada." rows="10"
 				paginator="true" paginatorAlwaysVisible="false"
 				paginatorPosition="bottom" selectionMode="single"
-				selection="#{especieBean.especieSelecionado}"
-				rowKey="#{especie.id}">
+				selection="#{empresaBean.empresaSelecionado}" rowKey="#{empresa.id}">
 
 				<p:ajax event="rowSelect" update="form-menu, form-table" />
 				<p:ajax event="rowUnselect" update="form-menu, form-table" />
 
-				<p:column headerText="Código" sortBy="#{especie.id}"
+				<p:column headerText="Código" sortBy="#{empresa.id}"
 					style="text-align: center; width: 90px">
-					<h:outputText value="#{especie.id}" />
+					<h:outputText value="#{empresa.id}" />
 				</p:column>
 
 				<p:column headerText="Descrição" style="width: 400px"
-					sortBy="#{especie.nome}">
-					<h:outputText value="#{especie.nome}" />
+					sortBy="#{empresa.nome}">
+					<h:outputText value="#{empresa.nome}" />
 				</p:column>
 
-				<p:column headerText="Status" sortBy="#{especie.status}"
+				<p:column headerText="Status" sortBy="#{empresa.status}"
 					style="text-align: center; width: 100px">
-					<h:outputText value="#{especie.status ? 'ATIVO' : 'INATIVO'}" />
+					<h:outputText value="#{empresa.status ? 'ATIVO' : 'INATIVO'}" />
 				</p:column>
 				<p:column>
 				</p:column>
@@ -84,57 +82,42 @@
 
 		</h:form>
 
-		<p:dialog header="Manutenção Espécie"
-			widgetVar="dialogCadastro" modal="true" resizable="false"
-			draggable="true" id="dgCadastro" closeOnEscape="true" width="430"
-			appendTo="@(body)">
+		<p:dialog header="Manutenção Empresa" widgetVar="dialogCadastro"
+			modal="true" resizable="false" draggable="true" id="dgCadastro"
+			closeOnEscape="true" width="750" appendTo="@(body)">
 
 			<h:form id="form-cadastro">
 
-				<p:panelGrid columns="2" styleClass="semBorda">
+				<p:tabView id="ftabview" style="width: 100%; height: 300px; ">
+					<p:tab title="Dados Pessoais">
+						<ui:include src="aba_dados.xhtml" />
+					</p:tab>
+					<p:tab title="Endereço Residencial">
+					</p:tab>
+					<p:tab title="Documentação">
+					</p:tab>
+					<p:tab title="Financeiro">
+					</p:tab>
+					<p:tab title="Obs">
+					</p:tab>
 
-					<p:outputLabel for="txtId" value="ID:" />
-					<p:inputText id="txtId" size="5" style="text-align:center;"
-						disabled="true" value="#{especieBean.especie.id}" />
-
-					<p:outputLabel for="txtNome" value="Nome:" />
-					<p:inputText id="txtNome" size="35" maxlength="35" required="true"
-						requiredMessage="Informe o nome"
-						value="#{especieBean.especie.nome}" />
-
-					<p:outputLabel value="Ativo:" />
-					<p:selectBooleanCheckbox
-						value="#{especieBean.especie.status}" />
-
-				</p:panelGrid>
-
-				<h:panelGrid columns="2" style="margin-top: 20px;">
-					<p:commandButton value="Salvar" icon="salvar-icon"
-						update="form-cadastro, form-table, form-menu"
-						action="#{especieBean.salvar}"
-						oncomplete="if(!args.validationFailed) PF('dialogCadastro').hide()" />
-					<p:commandButton value="Cancelar" icon="cancelar-icon"
-						style="margin-left:0px;" oncomplete="PF('dialogCadastro').hide()"
-						immediate="true" />
-				</h:panelGrid>
-
+				</p:tabView>
 			</h:form>
 		</p:dialog>
 
-		<p:dialog header="Exclusão Espécie"
-			widgetVar="confirmacaoExclusao" modal="true" resizable="false"
-			draggable="true" closeOnEscape="true" width="400" appendTo="@(body)">
+		<p:dialog header="Exclusão Empresa" widgetVar="confirmacaoExclusao"
+			modal="true" resizable="false" draggable="true" closeOnEscape="true"
+			width="400" appendTo="@(body)">
 			<h:form id="form-Exclusao">
 				<p:panelGrid columns="1" styleClass="semBorda">
+					<p:outputLabel value="Tem certeza que deseja excluir a Empresa:" />
 					<p:outputLabel
-						value="Tem certeza que deseja excluir a Espécie:" />
-					<p:outputLabel
-						value="#{especieBean.especie.id} - #{especieBean.especie.nome} ?" />
+						value="#{empresaBean.empresa.id} - #{empresaBean.empresa.nome} ?" />
 				</p:panelGrid>
 				<p:panelGrid styleClass="semBorda">
 					<p:button value="Não" style="margin-right:8px; margin-top: 15px"
 						onclick="PF('confirmacaoExclusao').hide(); return false;" />
-					<p:commandButton value="Sim" action="#{especieBean.excluir}"
+					<p:commandButton value="Sim" action="#{empresaBean.excluir}"
 						update="form-table, form-menu"
 						oncomplete="if(!args.validationFailed) PF('confirmacaoExclusao').hide()" />
 				</p:panelGrid>

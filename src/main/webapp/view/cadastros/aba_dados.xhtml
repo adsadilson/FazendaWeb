@@ -1,0 +1,65 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:form>
+		<p:panelGrid styleClass="semBorda" style="padding: 0px;">
+			<p:row>
+				<p:column colspan="2">
+					<p:outputLabel for="txtNome" value="nome:" />
+				</p:column>
+				<p:column>
+					<p:outputLabel for="txtTipo" value="Tipo:"  />
+				</p:column>
+				<p:column>
+					<p:outputLabel for="txtCpf" value="Cpf ou Cnpj:"  />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column colspan="2">
+					<p:inputText id="txtNome" />
+				</p:column>
+				<p:column>
+					<p:inputText id="txtTipo" size="13" />
+				</p:column>
+				<p:column>
+					<p:inputText id="txtCpf" size="15" />
+				</p:column>
+			</p:row>
+			
+			<p:row>
+				<p:column >
+					<p:outputLabel for="txtCelular" value="Celular:" />
+				</p:column>
+				<p:column>
+					<p:outputLabel for="txtTelefone" value="Telefone:" />
+				</p:column>
+				<p:column>
+					<p:outputLabel for="txtTelefone1" value="Telefone 2:" />
+				</p:column>
+				<p:column>
+					<p:outputLabel for="txtContato" value="Contato:" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column >
+					<p:inputText id="txtCelular" size="13" />
+				</p:column>
+				<p:column>
+					<p:inputText id="txtTelefone" size="13" />
+				</p:column>
+				<p:column>
+					<p:inputText id="txtTelefone1" size="13"/>
+				</p:column>
+				<p:column>
+					<p:inputText id="txtContato" size="15" />
+				</p:column>
+			</p:row>
+
+
+		</p:panelGrid>
+	</h:form>
+
+</ui:composition>

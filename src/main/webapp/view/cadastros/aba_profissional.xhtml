@@ -1,0 +1,108 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:form>
+		<p:panelGrid styleClass="semBorda" style="padding: 0px;">
+			
+			<p:row>
+				<p:column colspan="1">
+					<p:outputLabel for="txtProf" value="Exerce atividade profissional:" />
+				</p:column>
+				<p:column colspan="1">
+					<p:outputLabel for="txtOcupacao" value="Ocupação:" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column colspan="0">
+					<p:inputText id="txtProf" size="25" />
+				</p:column>
+				<p:column colspan="3">
+					<p:inputText id="txtOcupacao" style="width:97%;"  />
+				</p:column>
+			</p:row>
+			
+			<p:row>
+				<p:column colspan="2">
+					<p:outputLabel for="txtEmpresa" value="Instituição em que trabalha:" />
+				</p:column>
+				<p:column colspan="3">
+					<p:outputLabel for="txtTelefone" value="Telefone e Contato:" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column colspan="2">
+					<p:inputText id="txtEmpresa" style="width:97%;" />
+				</p:column>
+				<p:column colspan="3">
+					<p:inputText id="txtTelefone" style="width:97%;" />
+				</p:column>
+			</p:row>
+			
+			<p:row>
+				<p:column colspan="2">
+					<p:outputLabel for="txtCep" value="Cep:" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column colspan="2">
+					<p:inputText id="txtCep" size="10"  />
+				</p:column>
+			</p:row>
+			
+			<p:row>
+				<p:column colspan="2">
+					<p:outputLabel for="txtEndereco" value="Endereço:" />
+				</p:column>
+				<p:column >
+					<p:outputLabel for="txtNum" value="Número:" />
+				</p:column>
+				<p:column >
+					<p:outputLabel for="txtComplemento" value="Complemento:" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column colspan="2">
+					<p:inputText id="txtEndereco" style="width:97%;" />
+				</p:column>
+				<p:column >
+					<p:inputText id="txtNum" size="4" />
+				</p:column>
+				<p:column >
+					<p:inputText id="txtComplemento" />
+				</p:column>
+			</p:row>
+			
+			
+			<p:row>
+				<p:column colspan="1">
+					<p:outputLabel for="txtBairro" value="Bairro:" />
+				</p:column>
+				<p:column >
+					<p:outputLabel for="txtEstado" value="Estado:" />
+				</p:column>
+				<p:column colspan="2" >
+					<p:outputLabel for="txtCidade" value="Cidade:" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column colspan="1">
+					<p:inputText id="txtBairro" size="25" />
+				</p:column>
+				<p:column >
+					<p:inputText id="txtEstado" size="5" />
+				</p:column>
+				<p:column colspan="2">
+					<p:inputText id="txtCidade" style="width:97%;" />
+				</p:column>
+			</p:row>
+			
+			
+
+
+		</p:panelGrid>
+	</h:form>
+
+</ui:composition>

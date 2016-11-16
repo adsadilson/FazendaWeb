@@ -1,0 +1,52 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:form>
+		<p:panelGrid styleClass="semBorda" style="padding: 0px;">
+			<p:row>
+				<p:column colspan="2">
+					<p:outputLabel for="txtTipoDoc" value="Tipo de Documento:" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column colspan="2">
+					<p:inputText id="txtTipoDoc" style="width:97%;" />
+				</p:column>
+			</p:row>
+			
+			<p:row>
+				<p:column >
+					<p:outputLabel for="txtNumDoc" value="Número:" />
+				</p:column>
+				<p:column>
+					<p:outputLabel for="txtEmissao" value="Data de Emissão:" />
+				</p:column>
+				<p:column>
+					<p:outputLabel for="txtOrgao" value="Órgão emissor:" />
+				</p:column>
+				<p:column>
+					<p:outputLabel for="txtUfDoc" value="Estado emissor:" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column >
+					<p:inputText id="txtNumDoc" size="13" />
+				</p:column>
+				<p:column>
+					<p:inputText id="txtEmissao" size="13" />
+				</p:column>
+				<p:column>
+					<p:inputText id="txtOrgao" size="13"/>
+				</p:column>
+				<p:column>
+					<p:inputText id="txtUfDoc" size="15" />
+				</p:column>
+			</p:row>
+			
+		</p:panelGrid>
+	</h:form>
+
+</ui:composition>

@@ -49,10 +49,13 @@
 			<p:menubar styleClass="menu-sistema">
 				<p:submenu label="Cadastros">
 					<p:submenu label="Colaboradores">
-						<p:menuitem value="Profissionais" />
-						<p:menuitem value="Fornecedores" />
-						<p:menuitem value="Proprietario" />
-						<p:menuitem value="Empresa" />
+						<ui:remove>
+							<p:menuitem value="Profissionais" />
+							<p:menuitem value="Fornecedores" />
+							<p:menuitem value="Proprietario" />
+						</ui:remove>
+						<p:menuitem value="Empresa"
+							outcome="/view/cadastros/empresa.xhtml" />
 					</p:submenu>
 					<p:submenu label="Animais">
 						<ui:remove>

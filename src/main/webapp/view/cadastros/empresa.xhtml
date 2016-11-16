@@ -84,21 +84,27 @@
 
 		<p:dialog header="Manutenção Empresa" widgetVar="dialogCadastro"
 			modal="true" resizable="false" draggable="true" id="dgCadastro"
-			closeOnEscape="true" width="750" appendTo="@(body)">
+			closeOnEscape="true" width="690" appendTo="@(body)">
 
 			<h:form id="form-cadastro">
 
-				<p:tabView id="ftabview" style="width: 100%; height: 300px; ">
-					<p:tab title="Dados Pessoais">
+				<p:tabView id="ftabview" style="width: 100%; height: 320px; ">
+					<p:tab title="Principal">
 						<ui:include src="aba_dados.xhtml" />
 					</p:tab>
-					<p:tab title="Endereço Residencial">
+					<p:tab title="Endereço">
+						<ui:include src="aba_endereco.xhtml" />
 					</p:tab>
 					<p:tab title="Documentação">
+						<ui:include src="aba_doc.xhtml" />
+					</p:tab>
+					<p:tab title="Profissional">
+						<ui:include src="aba_profissional.xhtml" />
 					</p:tab>
 					<p:tab title="Financeiro">
 					</p:tab>
 					<p:tab title="Obs">
+						<p:editor height="230"></p:editor>
 					</p:tab>
 
 				</p:tabView>

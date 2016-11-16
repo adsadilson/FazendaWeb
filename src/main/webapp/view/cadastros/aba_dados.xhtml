@@ -8,7 +8,7 @@
 		<p:panelGrid styleClass="semBorda" style="padding: 0px;">
 			<p:row>
 				<p:column colspan="2">
-					<p:outputLabel for="txtNome" value="nome:" />
+					<p:outputLabel for="txtNome" value="Nome completo:" />
 				</p:column>
 				<p:column>
 					<p:outputLabel for="txtTipo" value="Tipo:"  />
@@ -19,13 +19,36 @@
 			</p:row>
 			<p:row>
 				<p:column colspan="2">
-					<p:inputText id="txtNome" />
+					<p:inputText id="txtNome" style="width:97%;" />
 				</p:column>
 				<p:column>
 					<p:inputText id="txtTipo" size="13" />
 				</p:column>
 				<p:column>
 					<p:inputText id="txtCpf" size="15" />
+				</p:column>
+			</p:row>
+			
+			<p:row>
+				<p:column colspan="2">
+					<p:outputLabel for="txtEmial" value="Email:" />
+				</p:column>
+				<p:column>
+					<p:outputLabel for="txtNascimento" value="Data Nascimento:"  />
+				</p:column>
+				<p:column>
+					<p:outputLabel for="txtNacionalidade" value="Nacionalidade:"  />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column colspan="2">
+					<p:inputText id="txtEmial" style="width:97%;" />
+				</p:column>
+				<p:column>
+					<p:inputText id="txtNascimento" size="13" />
+				</p:column>
+				<p:column>
+					<p:inputText id="txtNacionalidade" size="15" />
 				</p:column>
 			</p:row>
 			
@@ -55,6 +78,46 @@
 				</p:column>
 				<p:column>
 					<p:inputText id="txtContato" size="15" />
+				</p:column>
+			</p:row>
+			
+			<p:row>
+				<p:column >
+					<p:outputLabel for="txtGenero" value="Gênero:" />
+				</p:column>
+				<p:column>
+					<p:outputLabel for="txtEstadoCivil" value="Estado Civil:" />
+				</p:column>
+				<p:column>
+					<p:outputLabel for="txtConjuge" value="Nome Conjuge:" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column >
+					<p:inputText id="txtGenero" size="13" />
+				</p:column>
+				<p:column>
+					<p:inputText id="txtEstadoCivil" size="13" />
+				</p:column>
+				<p:column colspan="2" >
+					<p:inputText id="txtConjuge" style="width:97%;"/>
+				</p:column>
+			</p:row>
+			
+			<p:row>
+				<p:column  colspan="2">
+					<p:outputLabel for="txtPai" value="Nome do pai:" />
+				</p:column>
+				<p:column  colspan="2">
+					<p:outputLabel for="txtMae" value="Nome da mãe:" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column  colspan="2" >
+					<p:inputText id="txtPai" style="width:97%;"/>
+				</p:column>
+				<p:column colspan="2" >
+					<p:inputText id="txtMae" style="width:97%;"/>
 				</p:column>
 			</p:row>
 

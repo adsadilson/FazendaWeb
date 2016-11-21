@@ -88,7 +88,7 @@
 
 			<h:form id="form-cadastro">
 
-				<p:tabView id="ftabview" style="width: 100%; height: 320px; ">
+				<p:tabView id="ftabview" style="width: 100%; height: 310px; ">
 					<p:tab title="Principal">
 						<ui:include src="aba_dados.xhtml" />
 					</p:tab>
@@ -110,6 +110,17 @@
 
 				</p:tabView>
 			</h:form>
+
+			<h:form id="form-bot" style="margin-top: 5px; margin-left: 30px;">
+				<p:commandButton value="Salvar" icon="salvar-icon"
+					update="form-cadastro, form-table, form-menu"
+					action="#{empresaBean.salvar}"
+					oncomplete="if(!args.validationFailed) PF('dialogCadastro').hide()" />
+				<p:commandButton value="Cancelar" icon="cancelar-icon"
+					style="margin-left:0px;" oncomplete="PF('dialogCadastro').hide()"
+					immediate="true" />
+			</h:form>
+
 		</p:dialog>
 
 		<p:dialog header="Exclusão Empresa" widgetVar="confirmacaoExclusao"

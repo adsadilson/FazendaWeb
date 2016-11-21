@@ -40,6 +40,7 @@ public class EmpresaBean implements Serializable {
 		System.out.println("Inicializando...");
 		if (FacesUtil.isNotPostback()) {
 			carregarTabela();
+			empresa = new Pessoa();
 		}
 	}
 
@@ -74,9 +75,10 @@ public class EmpresaBean implements Serializable {
 		return Arrays.asList(TipoPessoa.values());
 	}
 	public void novoCadastro() {
-		this.empresa = new Pessoa();
-		this.empresa.setTrabalha(true);
-		this.empresa.setStatus(true);
+		empresa = new Pessoa();
+		empresa.setTrabalha(false);
+		empresa.setContaConjunta(false);
+		empresa.setStatus(true);
 	}
 
 	public void salvar() {

@@ -65,6 +65,11 @@ public class Teste implements Serializable {
 
 	public static void main(String[] args) {
 		try {
+			/*EntityManagerFactory factory = Persistence.createEntityManagerFactory("FazendaPU");
+			EntityManager entityManager = factory.createEntityManager();
+			entityManager.getTransaction().begin();
+			entityManager.getTransaction().commit();
+			entityManager.close();*/
 			Usuario user = new Usuario();
 			user.setAtivo(true);
 			user.setNome("ADMIN");

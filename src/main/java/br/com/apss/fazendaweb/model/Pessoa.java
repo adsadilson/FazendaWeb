@@ -20,6 +20,8 @@ import javax.persistence.TemporalType;
 
 import br.com.apss.fazendaweb.enums.Estado;
 import br.com.apss.fazendaweb.enums.Sexo;
+import br.com.apss.fazendaweb.enums.TipoDoc;
+import br.com.apss.fazendaweb.enums.TipoPessoa;
 
 @Entity
 @Table(name = "pessoa")
@@ -38,26 +40,26 @@ public class Pessoa implements Serializable {
 	@Column(name = "cpf_cnpj", nullable = true, length = 20)
 	private String cpfCnpj;
 
-	@Column(name = "email", nullable = false, length = 200)
+	@Column(name = "email", length = 200)
 	private String email;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "nascimento", nullable = false, length = 10)
+	@Column(name = "nascimento", length = 10)
 	private Date nascimento;
 
-	@Column(name = "nacionalidade", nullable = false, length = 80)
+	@Column(name = "nacionalidade", length = 80)
 	private String nacionalidade;
 
-	@Column(name = "celular", nullable = false, length = 20)
+	@Column(name = "celular", length = 20)
 	private String celular;
 
-	@Column(name = "telefone", nullable = false, length = 20)
+	@Column(name = "telefone", length = 20)
 	private String telefone;
 
-	@Column(name = "telefone2", nullable = false, length = 20)
+	@Column(name = "telefone2", length = 20)
 	private String telefone2;
 
-	@Column(name = "contato", nullable = false, length = 80)
+	@Column(name = "contato", length = 80)
 	private String contato;
 
 	@Enumerated(EnumType.STRING)
@@ -68,13 +70,13 @@ public class Pessoa implements Serializable {
 	@JoinColumn(name = "estado_civil_id")
 	private EstadoCivil estadoCivil;
 
-	@Column(name = "conjuge", nullable = false, length = 80)
+	@Column(name = "conjuge", length = 80)
 	private String conjuge;
 
-	@Column(name = "nome_pai", nullable = false, length = 80)
+	@Column(name = "nome_pai", length = 80)
 	private String pai;
 
-	@Column(name = "nome_mae", nullable = true, length = 80)
+	@Column(name = "nome_mae", length = 80)
 	private String mae;
 
 	@Column(name = "cep", nullable = true, length = 10)
@@ -86,99 +88,101 @@ public class Pessoa implements Serializable {
 	@Column(name = "num", nullable = true, length = 10)
 	private String numero;
 
-	@Column(name = "complemento", nullable = false, length = 80)
+	@Column(name = "complemento", length = 80)
 	private String complemento;
 
 	@Column(name = "bairro", nullable = true, length = 80)
 	private String bairro;
 
 	@Column(name = "uf", nullable = true, length = 2)
-	private String uf;
+	private Estado uf;
 
 	@Column(name = "cidade", nullable = true, length = 80)
 	private String cidade;
 
-	@Column(name = "tipo_doc", nullable = true, length = 80)
-	private String tipoDoc;
+	@Column(name = "tipo_doc", length = 60)
+	@Enumerated(EnumType.STRING)
+	private TipoDoc tipoDoc;
 
-	@Column(name = "num_doc", nullable = true, length = 25)
+	@Column(name = "num_doc", length = 25)
 	private String numDoc;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "data_emissao", nullable = true, length = 10)
+	@Column(name = "data_emissao", length = 10)
 	private Date dataEmissao;
 
-	@Column(name = "orgao_emissor", nullable = true, length = 25)
+	@Column(name = "orgao_emissor", length = 25)
 	private String orgaoEmissor;
 
 	@Enumerated(EnumType.STRING)
-	@Column(name = "uf_emissor", nullable = true, length = 2)
+	@Column(name = "uf_emissor", length = 2)
 	private Estado ufEmissor;
 
-	@Column(name = "num_seguranca", nullable = false, length = 25)
+	@Column(name = "num_seguranca", length = 25)
 	private String num_seguranca;
 
-	@Column(name = "ocupacao", nullable = false, length = 80)
+	@Column(name = "ocupacao", length = 80)
 	private String ocupacao;
 
-	@Column(name = "empresa", nullable = false, length = 80)
+	@Column(name = "empresa", length = 80)
 	private String empresa;
 
-	@Column(name = "emp_telefone", nullable = false, length = 20)
+	@Column(name = "emp_telefone", length = 20)
 	private String empTelefone;
 
-	@Column(name = "emp_cep", nullable = true, length = 10)
+	@Column(name = "emp_cep", length = 10)
 	private String empCep;
 
-	@Column(name = "emp_endereco", nullable = true, length = 80)
+	@Column(name = "emp_endereco", length = 80)
 	private String empEndereco;
 
-	@Column(name = "emp_num", nullable = true, length = 10)
+	@Column(name = "emp_num", length = 10)
 	private String empNumero;
 
-	@Column(name = "emp_complemento", nullable = false, length = 80)
+	@Column(name = "emp_complemento", length = 80)
 	private String empComplemento;
 
-	@Column(name = "emp_bairro", nullable = true, length = 80)
+	@Column(name = "emp_bairro", length = 80)
 	private String empBairro;
 
-	@Column(name = "emp_uf", nullable = true, length = 2)
+	@Column(name = "emp_uf", length = 2)
 	private String empUf;
 
-	@Column(name = "emp_cidade", nullable = true, length = 80)
+	@Column(name = "emp_cidade", length = 80)
 	private String empCidade;
 
-	@Column(name = "nome_banco", nullable = false, length = 80)
+	@Column(name = "nome_banco", length = 80)
 	private String banco;
 
-	@Column(name = "tipo_conta", nullable = false, length = 80)
+	@Column(name = "tipo_conta", length = 80)
 	private String tipoConta;
 
-	@Column(name = "agencia", nullable = false, length = 10)
+	@Column(name = "agencia", length = 10)
 	private String agencia;
 
-	@Column(name = "dig_agencia", nullable = false, length = 5)
+	@Column(name = "dig_agencia", length = 5)
 	private String digAgencia;
 
-	@Column(name = "num_conta", nullable = false, length = 30)
+	@Column(name = "num_conta", length = 30)
 	private String numConta;
 
-	@Column(name = "dig_conta", nullable = false, length = 5)
+	@Column(name = "dig_conta", length = 5)
 	private String digConta;
 
-	@Column(name = "conta_conjunta", nullable = false, length = 5)
-	private String contaConjunta;
+	@Column(name = "conta_conjunta", length = 3)
+	private Boolean contaConjunta;
 
 	@Column(name = "renda", precision = 12, scale = 2)
 	private BigDecimal renda;
 
+	@Enumerated(EnumType.STRING)
 	@Column(name = "tipo_pessoa", length = 10)
-	private String tipoPessoa;
+	private TipoPessoa tipoPessoa;
 
-	@Column(name = "status", nullable = false, length = 1)
+	@Column(name = "status", length = 1)
 	private Boolean status;
 
-	@Column(name = "trabalha", nullable = false, length = 1)
+	@Column(name = "trabalha", length = 1)
 	private Boolean trabalha;
 
 	public Long getId() {
@@ -341,12 +345,28 @@ public class Pessoa implements Serializable {
 		this.bairro = bairro;
 	}
 
-	public String getUf() {
+	public Estado getUf() {
 		return uf;
 	}
 
-	public void setUf(String uf) {
+	public void setUf(Estado uf) {
 		this.uf = uf;
+	}
+
+	public TipoPessoa getTipoPessoa() {
+		return tipoPessoa;
+	}
+
+	public void setTipoPessoa(TipoPessoa tipoPessoa) {
+		this.tipoPessoa = tipoPessoa;
+	}
+
+	public void setTipoDoc(TipoDoc tipoDoc) {
+		this.tipoDoc = tipoDoc;
+	}
+
+	public TipoDoc getTipoDoc() {
+		return tipoDoc;
 	}
 
 	public String getCidade() {
@@ -355,14 +375,6 @@ public class Pessoa implements Serializable {
 
 	public void setCidade(String cidade) {
 		this.cidade = cidade;
-	}
-
-	public String getTipoDoc() {
-		return tipoDoc;
-	}
-
-	public void setTipoDoc(String tipoDoc) {
-		this.tipoDoc = tipoDoc;
 	}
 
 	public String getNumDoc() {
@@ -533,11 +545,11 @@ public class Pessoa implements Serializable {
 		this.digConta = digConta;
 	}
 
-	public String getContaConjunta() {
+	public Boolean getContaConjunta() {
 		return contaConjunta;
 	}
 
-	public void setContaConjunta(String contaConjunta) {
+	public void setContaConjunta(Boolean contaConjunta) {
 		this.contaConjunta = contaConjunta;
 	}
 
@@ -547,14 +559,6 @@ public class Pessoa implements Serializable {
 
 	public void setRenda(BigDecimal renda) {
 		this.renda = renda;
-	}
-
-	public String getTipoPessoa() {
-		return tipoPessoa;
-	}
-
-	public void setTipoPessoa(String tipoPessoa) {
-		this.tipoPessoa = tipoPessoa;
 	}
 
 	public Boolean getStatus() {

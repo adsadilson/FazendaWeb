@@ -11,7 +11,7 @@
 					<p:outputLabel for="txtNome" value="Nome completo:" />
 				</p:column>
 				<p:column>
-					<p:outputLabel for="txtTipo" value="Tipo:" />
+					<p:outputLabel for="txtTipoPessao" value="Tipo:" />
 				</p:column>
 				<p:column>
 					<p:outputLabel for="txtCpf" value="Cpf ou Cnpj:" />
@@ -20,10 +20,11 @@
 			<p:row>
 				<p:column colspan="2">
 					<p:inputText id="txtNome" value="#{empresaBean.empresa.nome}"
+						required="true" requiredMessage="Informe o nome"
 						style="width:97%;" />
 				</p:column>
 				<p:column>
-					<p:selectOneMenu id="txtTipo"
+					<p:selectOneMenu id="txtTipoPessao"
 						value="#{empresaBean.empresa.tipoPessoa}" style="width: 100px;">
 						<f:selectItem itemLabel="Selecione..." value="#{null}" />
 						<f:selectItems value="#{empresaBean.tipoPessoas}" var="obj"

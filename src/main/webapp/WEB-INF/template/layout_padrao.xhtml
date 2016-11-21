@@ -10,6 +10,8 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title><ui:insert name="titulo">SGG</ui:insert></title>
 	<h:outputStylesheet library="css" name="sistema.css" />
+	<h:outputStylesheet library="primefaces" name="grid/grid.css" />
+	<h:outputScript target="body" library="js" name="locale.js" />
 </h:head>
 
 <h:body>
@@ -55,7 +57,7 @@
 							<p:menuitem value="Proprietario" />
 						</ui:remove>
 						<p:menuitem value="Empresa"
-							outcome="/view/cadastros/empresa.xhtml" />
+							outcome="/view/cadastros/empresa/empresa.xhtml" />
 					</p:submenu>
 					<p:submenu label="Animais">
 						<ui:remove>

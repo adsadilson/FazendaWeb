@@ -13,59 +13,66 @@
 			</p:row>
 			<p:row>
 				<p:column colspan="2">
-					<p:inputText id="txtCep" size="10"  />
+					<p:inputMask id="txtCep" value="#{empresaBean.empresa.cep}"
+						mask="99999-999" size="10" />
 				</p:column>
 			</p:row>
-			
+
 			<p:row>
 				<p:column colspan="2">
 					<p:outputLabel for="txtEndereco" value="Endereço:" />
 				</p:column>
-				<p:column >
+				<p:column>
 					<p:outputLabel for="txtNum" value="Número:" />
 				</p:column>
-				<p:column >
+				<p:column>
 					<p:outputLabel for="txtComplemento" value="Complemento:" />
 				</p:column>
 			</p:row>
 			<p:row>
 				<p:column colspan="2">
-					<p:inputText id="txtEndereco" style="width:97%;" />
+					<p:inputText id="txtEndereco"
+						value="#{empresaBean.empresa.endereco}" style="width:97%;" />
 				</p:column>
-				<p:column >
-					<p:inputText id="txtNum" size="4" />
+				<p:column>
+					<p:inputText id="txtNum" value="#{empresaBean.empresa.numero}"
+						size="4" />
 				</p:column>
-				<p:column >
-					<p:inputText id="txtComplemento" />
+				<p:column>
+					<p:inputText id="txtComplemento"
+						value="#{empresaBean.empresa.complemento}" />
 				</p:column>
 			</p:row>
-			
-			
+
+
 			<p:row>
 				<p:column colspan="1">
 					<p:outputLabel for="txtBairro" value="Bairro:" />
 				</p:column>
-				<p:column >
+				<p:column>
 					<p:outputLabel for="txtEstado" value="Estado:" />
 				</p:column>
-				<p:column colspan="2" >
+				<p:column colspan="2">
 					<p:outputLabel for="txtCidade" value="Cidade:" />
 				</p:column>
 			</p:row>
 			<p:row>
 				<p:column colspan="1">
-					<p:inputText id="txtBairro" size="25" />
+					<p:inputText id="txtBairro" value="#{empresaBean.empresa.bairro}"
+						size="25" />
 				</p:column>
-				<p:column >
-					<p:inputText id="txtEstado" size="5" />
+				<p:column>
+					<p:selectOneMenu id="txtEstado" value="#{empresaBean.empresa.uf}">
+						<f:selectItem itemLabel="Selecione..." value="#{null}" />
+						<f:selectItems value="#{empresaBean.estados}" var="obj"
+							itemLabel="#{obj.sigla}" itemValue="#{obj}" />
+					</p:selectOneMenu>
 				</p:column>
 				<p:column colspan="2">
-					<p:inputText id="txtCidade" style="width:97%;" />
+					<p:inputText id="txtCidade" value="#{empresaBean.empresa.cidade}"
+						style="width:97%;" />
 				</p:column>
 			</p:row>
-			
-			
-
 
 		</p:panelGrid>
 	</h:form>

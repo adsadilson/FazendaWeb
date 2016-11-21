@@ -13,6 +13,11 @@
     
 }
 
+#distanciaLabel{
+	padding-top: 1px !importante;
+	padding-bottom: 1px !importante;
+}
+
 #logo {
 	position: fixed;
 	left: 0px;

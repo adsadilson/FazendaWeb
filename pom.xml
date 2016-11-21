@@ -43,13 +43,14 @@
 			<artifactId>junit</artifactId>
 			<version>4.12</version>
 		</dependency>
-
+		
 		<!-- jetty-servlet -->
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-servlet</artifactId>
 			<version>9.3.11.v20160721</version>
 		</dependency>
+
 
 		<!-- Weld implementação do CDI -->
 		<dependency>
@@ -75,7 +76,7 @@
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
-			<version>5.2</version>
+			<version>6.0</version>
 		</dependency>
 
 		<dependency>
@@ -92,20 +93,6 @@
 			<scope>compile</scope>
 		</dependency>
 
-		<!-- Implementação Primefaces -->
-		<dependency>
-			<groupId>org.primefaces</groupId>
-			<artifactId>primefaces</artifactId>
-			<version>5.2</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.primefaces.extensions</groupId>
-			<artifactId>primefaces-extensions</artifactId>
-			<version>3.2.0</version>
-		</dependency>
-
-		
 		<!-- Temas do primefaces -->
 		<dependency>
 			<groupId>org.primefaces.themes</groupId>
@@ -155,6 +142,17 @@
 			<version>5.1.0.Final</version>
 		</dependency>
 
+		<dependency>
+    		<groupId>org.eclipse.jetty</groupId>
+    		<artifactId>jetty-server</artifactId>
+    		<version>9.3.13.v20161014</version>
+		</dependency>
+		<dependency>
+    		<groupId>org.eclipse.jetty</groupId>
+    		<artifactId>jetty-servlet</artifactId>
+    		<version>9.3.13.v20161014</version>
+		</dependency>
+		
 		<dependency>
     		<groupId>org.eclipse.jetty</groupId>
     		<artifactId>jetty-server</artifactId>

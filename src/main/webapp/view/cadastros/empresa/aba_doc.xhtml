@@ -13,12 +13,17 @@
 			</p:row>
 			<p:row>
 				<p:column colspan="2">
-					<p:inputText id="txtTipoDoc" style="width:97%;" />
+					<p:selectOneMenu id="txtTipoDoc"
+						value="#{empresaBean.empresa.tipoDoc}" style="width: 250px;">
+						<f:selectItem itemLabel="Selecione..." value="#{null}" />
+						<f:selectItems value="#{empresaBean.tipoDocs}" var="obj"
+							itemLabel="#{obj.descricao}" itemValue="#{obj}" />
+					</p:selectOneMenu>
 				</p:column>
 			</p:row>
-			
+
 			<p:row>
-				<p:column >
+				<p:column>
 					<p:outputLabel for="txtNumDoc" value="Número:" />
 				</p:column>
 				<p:column>
@@ -32,20 +37,29 @@
 				</p:column>
 			</p:row>
 			<p:row>
-				<p:column >
-					<p:inputText id="txtNumDoc" size="13" />
+				<p:column>
+					<p:inputText id="txtNumDoc" value="#{empresaBean.empresa.numDoc}"
+						size="13" />
 				</p:column>
 				<p:column>
-					<p:inputText id="txtEmissao" size="13" />
+					<p:calendar id="txtEmissao"
+						value="#{empresaBean.empresa.dataEmissao}" size="13"
+						locale="pt_BR" pattern="dd/MM/yyyy" />
 				</p:column>
 				<p:column>
-					<p:inputText id="txtOrgao" size="13"/>
+					<p:inputText id="txtOrgao"
+						value="#{empresaBean.empresa.orgaoEmissor}" size="13" />
 				</p:column>
 				<p:column>
-					<p:inputText id="txtUfDoc" size="15" />
+					<p:selectOneMenu id="txtUfDoc"
+						value="#{empresaBean.empresa.ufEmissor}" style="width: 100px;">
+						<f:selectItem itemLabel="Selecione..." value="#{null}" />
+						<f:selectItems value="#{empresaBean.estados}" var="obj"
+							itemLabel="#{obj.sigla}" itemValue="#{obj}" />
+					</p:selectOneMenu>
 				</p:column>
 			</p:row>
-			
+
 		</p:panelGrid>
 	</h:form>
 

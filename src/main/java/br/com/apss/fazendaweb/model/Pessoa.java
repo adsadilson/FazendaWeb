@@ -54,6 +54,12 @@ public class Pessoa implements Serializable {
 	@Column(name = "telefone", nullable = false, length = 20)
 	private String telefone;
 
+	@Column(name = "telefone2", nullable = false, length = 20)
+	private String telefone2;
+
+	@Column(name = "contato", nullable = false, length = 80)
+	private String contato;
+
 	@Enumerated(EnumType.STRING)
 	@Column(name = "sexo", nullable = true, length = 1)
 	private Sexo sexo;
@@ -112,9 +118,6 @@ public class Pessoa implements Serializable {
 	@Column(name = "num_seguranca", nullable = false, length = 25)
 	private String num_seguranca;
 
-	@Column(name = "trabalha", nullable = true, length = 3)
-	private String trabalha;
-
 	@Column(name = "ocupacao", nullable = false, length = 80)
 	private String ocupacao;
 
@@ -154,8 +157,17 @@ public class Pessoa implements Serializable {
 	@Column(name = "agencia", nullable = false, length = 10)
 	private String agencia;
 
+	@Column(name = "dig_agencia", nullable = false, length = 5)
+	private String digAgencia;
+
 	@Column(name = "num_conta", nullable = false, length = 30)
 	private String numConta;
+
+	@Column(name = "dig_conta", nullable = false, length = 5)
+	private String digConta;
+
+	@Column(name = "conta_conjunta", nullable = false, length = 5)
+	private String contaConjunta;
 
 	@Column(name = "renda", precision = 12, scale = 2)
 	private BigDecimal renda;
@@ -165,6 +177,9 @@ public class Pessoa implements Serializable {
 
 	@Column(name = "status", nullable = false, length = 1)
 	private Boolean status;
+
+	@Column(name = "trabalha", nullable = false, length = 1)
+	private Boolean trabalha;
 
 	public Long getId() {
 		return id;
@@ -228,6 +243,22 @@ public class Pessoa implements Serializable {
 
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
+	}
+
+	public String getTelefone2() {
+		return telefone2;
+	}
+
+	public void setTelefone2(String telefone2) {
+		this.telefone2 = telefone2;
+	}
+
+	public String getContato() {
+		return contato;
+	}
+
+	public void setContato(String contato) {
+		this.contato = contato;
 	}
 
 	public Sexo getSexo() {
@@ -374,14 +405,6 @@ public class Pessoa implements Serializable {
 		this.num_seguranca = num_seguranca;
 	}
 
-	public String getTrabalha() {
-		return trabalha;
-	}
-
-	public void setTrabalha(String trabalha) {
-		this.trabalha = trabalha;
-	}
-
 	public String getOcupacao() {
 		return ocupacao;
 	}
@@ -494,6 +517,30 @@ public class Pessoa implements Serializable {
 		this.numConta = numConta;
 	}
 
+	public String getDigAgencia() {
+		return digAgencia;
+	}
+
+	public void setDigAgencia(String digAgencia) {
+		this.digAgencia = digAgencia;
+	}
+
+	public String getDigConta() {
+		return digConta;
+	}
+
+	public void setDigConta(String digConta) {
+		this.digConta = digConta;
+	}
+
+	public String getContaConjunta() {
+		return contaConjunta;
+	}
+
+	public void setContaConjunta(String contaConjunta) {
+		this.contaConjunta = contaConjunta;
+	}
+
 	public BigDecimal getRenda() {
 		return renda;
 	}
@@ -516,6 +563,14 @@ public class Pessoa implements Serializable {
 
 	public void setStatus(Boolean status) {
 		this.status = status;
+	}
+
+	public Boolean getTrabalha() {
+		return trabalha;
+	}
+
+	public void setTrabalha(Boolean trabalha) {
+		this.trabalha = trabalha;
 	}
 
 	@Override

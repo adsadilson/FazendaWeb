@@ -46,7 +46,7 @@ public class JsfExceptionHandler extends ExceptionHandlerWrapper {
 			try {
 				if (exception instanceof ViewExpiredException) {
 					handled = true;
-					redirect("/login.jsf");
+					redirect("/autenticacao.jsf");
 				} else if (negocioException != null) {
 					handled = true;
 					FacesUtil.addErrorMessage(negocioException.getMessage());

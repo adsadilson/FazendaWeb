@@ -1,13 +1,17 @@
 package br.com.apss.fazendaweb.enums;
 
-public enum TipoDoc {
+public enum EstadoCivil {
 
-	RG("RG - REGISTRO GERAL"), 
-	HABILITACAO("HABILITAÇÃO NANCIONAL");
-
+	SOLTEIRO("SOLTEIRO(A)"),
+	CASADO("CASADO(A)"),
+	DESQUITADO("DESQUITADO(A)"),
+	DIVORCIADO("DIVORCIADO(A)"),
+	VIUVO("VIUVO(A)"),
+	UNIAO_ESTAVEL("UNIÃO ESTAVEL");
+	
 	private String descricao;
 	
-	private TipoDoc(String descricao) {
+	private EstadoCivil(String descricao) {
 		this.descricao = descricao;
 	}
 
@@ -18,5 +22,6 @@ public enum TipoDoc {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+
 
 }

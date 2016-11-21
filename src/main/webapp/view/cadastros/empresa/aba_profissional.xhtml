@@ -6,7 +6,7 @@
 
 	<h:form>
 		<p:panelGrid styleClass="semBorda" style="padding: 0px;">
-			
+
 			<p:row>
 				<p:column colspan="1">
 					<p:outputLabel for="txtProf" value="Exerce atividade profissional:" />
@@ -17,16 +17,22 @@
 			</p:row>
 			<p:row>
 				<p:column colspan="0">
-					<p:inputText id="txtProf" size="25" />
+					<p:selectOneRadio id="txtProf"
+						value="#{empresaBean.empresa.trabalha}">
+						<f:selectItem itemLabel="SIM" itemValue="true" />
+						<f:selectItem itemLabel="NÃO" itemValue="false" />
+					</p:selectOneRadio>
 				</p:column>
 				<p:column colspan="3">
-					<p:inputText id="txtOcupacao" style="width:97%;"  />
+					<p:inputText id="txtOcupacao"
+						value="#{empresaBean.empresa.ocupacao}" style="width:97%;" />
 				</p:column>
 			</p:row>
-			
+
 			<p:row>
 				<p:column colspan="2">
-					<p:outputLabel for="txtEmpresa" value="Instituição em que trabalha:" />
+					<p:outputLabel for="txtEmpresa"
+						value="Instituição em que trabalha:" />
 				</p:column>
 				<p:column colspan="3">
 					<p:outputLabel for="txtTelefone" value="Telefone e Contato:" />
@@ -34,13 +40,15 @@
 			</p:row>
 			<p:row>
 				<p:column colspan="2">
-					<p:inputText id="txtEmpresa" style="width:97%;" />
+					<p:inputText id="txtEmpresa" value="#{empresaBean.empresa.empresa}"
+						style="width:97%;" />
 				</p:column>
 				<p:column colspan="3">
-					<p:inputText id="txtTelefone" style="width:97%;" />
+					<p:inputText id="txtTelefone"
+						value="#{empresaBean.empresa.empTelefone}" style="width:97%;" />
 				</p:column>
 			</p:row>
-			
+
 			<p:row>
 				<p:column colspan="2">
 					<p:outputLabel for="txtCep" value="Cep:" />
@@ -48,59 +56,67 @@
 			</p:row>
 			<p:row>
 				<p:column colspan="2">
-					<p:inputText id="txtCep" size="10"  />
+					<p:inputMask id="txtCep" value="#{empresaBean.empresa.empCep}"
+						size="10" mask="99999-999" />
 				</p:column>
 			</p:row>
-			
+
 			<p:row>
 				<p:column colspan="2">
 					<p:outputLabel for="txtEndereco" value="Endereço:" />
 				</p:column>
-				<p:column >
+				<p:column>
 					<p:outputLabel for="txtNum" value="Número:" />
 				</p:column>
-				<p:column >
+				<p:column>
 					<p:outputLabel for="txtComplemento" value="Complemento:" />
 				</p:column>
 			</p:row>
 			<p:row>
 				<p:column colspan="2">
-					<p:inputText id="txtEndereco" style="width:97%;" />
+					<p:inputText id="txtEndereco"
+						value="#{empresaBean.empresa.empEndereco}" style="width:97%;" />
 				</p:column>
-				<p:column >
-					<p:inputText id="txtNum" size="4" />
+				<p:column>
+					<p:inputText id="txtNum" value="#{empresaBean.empresa.empNumero}"
+						size="4" />
 				</p:column>
-				<p:column >
-					<p:inputText id="txtComplemento" />
+				<p:column>
+					<p:inputText id="txtComplemento"
+						value="#{empresaBean.empresa.empComplemento}" />
 				</p:column>
 			</p:row>
-			
-			
+
+
 			<p:row>
 				<p:column colspan="1">
 					<p:outputLabel for="txtBairro" value="Bairro:" />
 				</p:column>
-				<p:column >
+				<p:column>
 					<p:outputLabel for="txtEstado" value="Estado:" />
 				</p:column>
-				<p:column colspan="2" >
+				<p:column colspan="2">
 					<p:outputLabel for="txtCidade" value="Cidade:" />
 				</p:column>
 			</p:row>
 			<p:row>
 				<p:column colspan="1">
-					<p:inputText id="txtBairro" size="25" />
+					<p:inputText id="txtBairro"
+						value="#{empresaBean.empresa.empBairro}" size="25" />
 				</p:column>
-				<p:column >
-					<p:inputText id="txtEstado" size="5" />
+				<p:column>
+					<p:selectOneMenu id="txtEstado"
+						value="#{empresaBean.empresa.empUf}" style="width: 50px;">
+						<f:selectItem itemLabel="Selecione..." value="#{null}" />
+						<f:selectItems value="#{empresaBean.estados}" var="obj"
+							itemLabel="#{obj.sigla}" itemValue="#{obj}" />
+					</p:selectOneMenu>
 				</p:column>
 				<p:column colspan="2">
-					<p:inputText id="txtCidade" style="width:97%;" />
+					<p:inputText id="txtCidade"
+						value="#{empresaBean.empresa.empCidade}" style="width:97%;" />
 				</p:column>
 			</p:row>
-			
-			
-
 
 		</p:panelGrid>
 	</h:form>

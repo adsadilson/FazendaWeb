@@ -82,6 +82,7 @@ public class EmpresaBean implements Serializable {
 	}
 
 	public void salvar() {
+		empresa.setEmpresa(true);
 		empresaService.salvar(this.empresa);
 		this.empresaSelecionado = null;
 		carregarTabela();

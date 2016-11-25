@@ -4,7 +4,6 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-	<h:form>
 		<p:panelGrid styleClass="semBorda" style="padding: 0px;">
 			<p:row>
 				<p:column colspan="2">
@@ -55,12 +54,11 @@
 						value="#{empresaBean.empresa.ufEmissor}" style="width: 100px;">
 						<f:selectItem itemLabel="Selecione..." value="#{null}" />
 						<f:selectItems value="#{empresaBean.estados}" var="obj"
-							itemLabel="#{obj.sigla}" itemValue="#{obj}" />
+							itemLabel="#{obj.sigla}" itemValue="#{obj.sigla}" />
 					</p:selectOneMenu>
 				</p:column>
 			</p:row>
 
 		</p:panelGrid>
-	</h:form>
 
 </ui:composition>

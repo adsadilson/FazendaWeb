@@ -4,7 +4,6 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-	<h:form>
 		<p:panelGrid styleClass="semBorda" style="padding: 0px;">
 
 			<p:row>
@@ -40,7 +39,7 @@
 			</p:row>
 			<p:row>
 				<p:column colspan="2">
-					<p:inputText id="txtEmpresa" value="#{empresaBean.empresa.empresa}"
+					<p:inputText id="txtEmpresa" value="#{empresaBean.empresa.nomeEmpresa}"
 						style="width:97%;" />
 				</p:column>
 				<p:column colspan="3">
@@ -119,6 +118,5 @@
 			</p:row>
 
 		</p:panelGrid>
-	</h:form>
 
 </ui:composition>

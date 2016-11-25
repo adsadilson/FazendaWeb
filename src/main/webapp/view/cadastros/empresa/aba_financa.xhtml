@@ -4,55 +4,65 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-	<h:form>
-		<div class="ui-g">
-			<div class="ui-g-6" style="padding-top: 0px; padding-bottom: 0px;">
-				<p:outputLabel value="Nome do Banco" />
-			</div>
-			<div class="ui-g-6" style="padding-top: 0px; padding-bottom: 0px;">
-				<p:outputLabel value="Tipo de Conta" />
-			</div>
-			<div class="ui-g-6">
-				<p:inputText value="#{empresaBean.empresa.banco}"
-					style="width:100%;" />
-			</div>
-			<div class="ui-g-6">
-				<p:inputText value="#{empresaBean.empresa.tipoConta}"
-					style="width:100%;" />
-			</div>
-
-			<div class="ui-g-3" style="padding-top: 0px; padding-bottom: 0px;">
-				<p:outputLabel value="Agência:" />
-			</div>
-			<div class="ui-g-3" style="padding-top: 0px; padding-bottom: 0px;">
-				<p:outputLabel value="Número da Conta:" />
-			</div>
-			<div class="ui-g-6" style="padding-top: 0px; padding-bottom: 0px;">
-				<p:outputLabel value="Conta Conjunta:" />
-			</div>
-			<div class="ui-g-2">
-				<p:inputText value="#{empresaBean.empresa.agencia}"
-					style="width:100%;" />
-			</div>
-			<div class="ui-g-1">
-				<p:inputText value="#{empresaBean.empresa.digAgencia}"
-					style="width:100%;" />
-			</div>
-			<div class="ui-g-2">
-				<p:inputText value="#{empresaBean.empresa.numConta}"
-					style="width:100%;" />
-			</div>
-			<div class="ui-g-1">
-				<p:inputText value="#{empresaBean.empresa.digConta}"
-					style="width:100%;" />
-			</div>
-			<div class="ui-g-6">
-				<p:selectOneRadio value="#{empresaBean.empresa.contaConjunta}">
-					<f:selectItem itemLabel="SIM" itemValue="true" />
-					<f:selectItem itemLabel="NÃO" itemValue="false" />
-				</p:selectOneRadio>
-			</div>
+	<div class="ui-g">
+		<div class="ui-g-6" style="padding-top: 0px; padding-bottom: 0px;">
+			<p:outputLabel value="Nome do Banco" />
 		</div>
-	</h:form>
+		<div class="ui-g-6" style="padding-top: 0px; padding-bottom: 0px;">
+			<p:outputLabel value="Tipo de Conta" />
+		</div>
+		<div class="ui-g-6">
+			<p:inputText value="#{empresaBean.empresa.banco}" style="width:100%;" />
+		</div>
+		<div class="ui-g-6">
+			<p:inputText value="#{empresaBean.empresa.tipoConta}"
+				style="width:100%;" />
+		</div>
+
+		<div class="ui-g-3" style="padding-top: 0px; padding-bottom: 0px;">
+			<p:outputLabel value="Agência:" />
+		</div>
+		<div class="ui-g-3" style="padding-top: 0px; padding-bottom: 0px;">
+			<p:outputLabel value="Número da Conta:" />
+		</div>
+		<div class="ui-g-6" style="padding-top: 0px; padding-bottom: 0px;">
+			<p:outputLabel value="Conta Conjunta:" />
+		</div>
+		<div class="ui-g-2">
+			<p:inputText value="#{empresaBean.empresa.agencia}"
+				style="width:100%;" />
+		</div>
+		<div class="ui-g-1">
+			<p:inputText value="#{empresaBean.empresa.digAgencia}"
+				style="width:100%;" />
+		</div>
+		<div class="ui-g-2">
+			<p:inputText value="#{empresaBean.empresa.numConta}"
+				style="width:100%;" />
+		</div>
+		<div class="ui-g-1">
+			<p:inputText value="#{empresaBean.empresa.digConta}"
+				style="width:100%;" />
+		</div>
+		<div class="ui-g-6">
+			<p:selectOneRadio value="#{empresaBean.empresa.contaConjunta}">
+				<f:selectItem itemLabel="SIM" itemValue="true" />
+				<f:selectItem itemLabel="NÃO" itemValue="false" />
+			</p:selectOneRadio>
+		</div>
+	</div>
+
+	<h:panelGrid columns="1" >
+		<p:outputLabel value="Constar Em:" />
+		<p:selectBooleanCheckbox itemLabel="Cliente"
+			value="#{empresaBean.empresa.cliente}" />
+		<p:selectBooleanCheckbox itemLabel="Fornecedor"
+			value="#{empresaBean.empresa.fornecedor}" />
+		<p:selectBooleanCheckbox itemLabel="Funcionário"
+			value="#{empresaBean.empresa.funcionario}" />
+			<p:selectBooleanCheckbox itemLabel="Profissional"
+			value="#{empresaBean.empresa.profissional}" />
+	</h:panelGrid>
+
 
 </ui:composition>

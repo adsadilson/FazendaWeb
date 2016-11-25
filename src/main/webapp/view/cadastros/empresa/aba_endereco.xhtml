@@ -4,42 +4,41 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-	<h:form>
 		<p:panelGrid styleClass="semBorda" style="padding: 0px;">
 			<p:row>
 				<p:column colspan="2">
-					<p:outputLabel for="txtCep" value="Cep:" />
+					<p:outputLabel for="txtEndCep" value="Cep:" />
 				</p:column>
 			</p:row>
 			<p:row>
 				<p:column colspan="2">
-					<p:inputMask id="txtCep" value="#{empresaBean.empresa.cep}"
+					<p:inputMask id="txtEndCep" value="#{empresaBean.empresa.cep}"
 						mask="99999-999" size="10" />
 				</p:column>
 			</p:row>
 
 			<p:row>
 				<p:column colspan="2">
-					<p:outputLabel for="txtEndereco" value="Endereço:" />
+					<p:outputLabel for="txtEndEndereco" value="Endereço:" />
 				</p:column>
 				<p:column>
-					<p:outputLabel for="txtNum" value="Número:" />
+					<p:outputLabel for="txtEndNum" value="Número:" />
 				</p:column>
 				<p:column>
-					<p:outputLabel for="txtComplemento" value="Complemento:" />
+					<p:outputLabel for="txtEndComplemento" value="Complemento:" />
 				</p:column>
 			</p:row>
 			<p:row>
 				<p:column colspan="2">
-					<p:inputText id="txtEndereco"
+					<p:inputText id="txtEndEndereco"
 						value="#{empresaBean.empresa.endereco}" style="width:97%;" />
 				</p:column>
 				<p:column>
-					<p:inputText id="txtNum" value="#{empresaBean.empresa.numero}"
+					<p:inputText id="txtEndNum" value="#{empresaBean.empresa.numero}"
 						size="4" />
 				</p:column>
 				<p:column>
-					<p:inputText id="txtComplemento"
+					<p:inputText id="txtEndComplemento"
 						value="#{empresaBean.empresa.complemento}" />
 				</p:column>
 			</p:row>
@@ -47,34 +46,33 @@
 
 			<p:row>
 				<p:column colspan="1">
-					<p:outputLabel for="txtBairro" value="Bairro:" />
+					<p:outputLabel for="txtEndBairro" value="Bairro:" />
 				</p:column>
 				<p:column>
-					<p:outputLabel for="txtEstado" value="Estado:" />
+					<p:outputLabel for="txtEndEstado" value="Estado:" />
 				</p:column>
 				<p:column colspan="2">
-					<p:outputLabel for="txtCidade" value="Cidade:" />
+					<p:outputLabel for="txtEndCidade" value="Cidade:" />
 				</p:column>
 			</p:row>
 			<p:row>
 				<p:column colspan="1">
-					<p:inputText id="txtBairro" value="#{empresaBean.empresa.bairro}"
+					<p:inputText id="txtEndBairro" value="#{empresaBean.empresa.bairro}"
 						size="25" />
 				</p:column>
 				<p:column>
-					<p:selectOneMenu id="txtEstado" value="#{empresaBean.empresa.uf}">
+					<p:selectOneMenu id="txtEndEstado" value="#{empresaBean.empresa.uf}">
 						<f:selectItem itemLabel="Selecione..." value="#{null}" />
 						<f:selectItems value="#{empresaBean.estados}" var="obj"
-							itemLabel="#{obj.sigla}" itemValue="#{obj}" />
+							itemLabel="#{obj.sigla}" itemValue="#{obj.sigla}" />
 					</p:selectOneMenu>
 				</p:column>
 				<p:column colspan="2">
-					<p:inputText id="txtCidade" value="#{empresaBean.empresa.cidade}"
+					<p:inputText id="txtEndCidade" value="#{empresaBean.empresa.cidade}"
 						style="width:97%;" />
 				</p:column>
 			</p:row>
 
 		</p:panelGrid>
-	</h:form>
 
 </ui:composition>

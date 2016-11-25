@@ -50,6 +50,7 @@ public class AutenticacaoBean implements Serializable {
 
 	public void autenticar() {
 		try {
+			System.out.println("metodo autenticar");
 			usuarioLogado = usuarioService.autenticar(usuario.getNome(), usuario.getSenha());
 			if (usuarioLogado == null) {
 				Messages.addGlobalError("Login ou senha não correspondem");

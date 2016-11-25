@@ -11,14 +11,13 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import br.com.apss.fazendaweb.enums.Estado;
+import br.com.apss.fazendaweb.enums.EstadoCivil;
 import br.com.apss.fazendaweb.enums.Sexo;
 import br.com.apss.fazendaweb.enums.TipoDoc;
 import br.com.apss.fazendaweb.enums.TipoPessoa;
@@ -66,8 +65,8 @@ public class Pessoa implements Serializable {
 	@Column(name = "sexo", nullable = true, length = 1)
 	private Sexo sexo;
 
-	@ManyToOne
-	@JoinColumn(name = "estado_civil_id")
+	@Column(name = "estado_civil", length = 30)
+	@Enumerated(EnumType.STRING)
 	private EstadoCivil estadoCivil;
 
 	@Column(name = "conjuge", length = 80)
@@ -95,6 +94,7 @@ public class Pessoa implements Serializable {
 	private String bairro;
 
 	@Column(name = "uf", nullable = true, length = 2)
+	@Enumerated(EnumType.STRING)
 	private Estado uf;
 
 	@Column(name = "cidade", nullable = true, length = 80)
@@ -124,8 +124,8 @@ public class Pessoa implements Serializable {
 	@Column(name = "ocupacao", length = 80)
 	private String ocupacao;
 
-	@Column(name = "empresa", length = 80)
-	private String empresa;
+	@Column(name = "nome_empresa", length = 80)
+	private String nomeEmpresa;
 
 	@Column(name = "emp_telefone", length = 20)
 	private String empTelefone;
@@ -146,7 +146,8 @@ public class Pessoa implements Serializable {
 	private String empBairro;
 
 	@Column(name = "emp_uf", length = 2)
-	private String empUf;
+	@Enumerated(EnumType.STRING)
+	private Estado empUf;
 
 	@Column(name = "emp_cidade", length = 80)
 	private String empCidade;
@@ -185,6 +186,21 @@ public class Pessoa implements Serializable {
 	@Column(name = "trabalha", length = 1)
 	private Boolean trabalha;
 
+	@Column(name = "empresa", length = 1)
+	private Boolean empresa;
+
+	@Column(name = "funcionario", length = 1)
+	private Boolean funcionario;
+
+	@Column(name = "cliente", length = 1)
+	private Boolean cliente;
+
+	@Column(name = "fornecedor", length = 1)
+	private Boolean fornecedor;
+
+	@Column(name = "profissional", length = 1)
+	private Boolean profissional;
+
 	public Long getId() {
 		return id;
 	}
@@ -198,7 +214,7 @@ public class Pessoa implements Serializable {
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.nome = nome.toUpperCase();
 	}
 
 	public String getCpfCnpj() {
@@ -214,7 +230,7 @@ public class Pessoa implements Serializable {
 	}
 
 	public void setEmail(String email) {
-		this.email = email;
+		this.email = email == null ? email : email.toLowerCase();
 	}
 
 	public Date getNascimento() {
@@ -262,7 +278,7 @@ public class Pessoa implements Serializable {
 	}
 
 	public void setContato(String contato) {
-		this.contato = contato;
+		this.contato = contato == null ? contato : contato.toUpperCase();
 	}
 
 	public Sexo getSexo() {
@@ -286,7 +302,8 @@ public class Pessoa implements Serializable {
 	}
 
 	public void setConjuge(String conjuge) {
-		this.conjuge = conjuge;
+		this.conjuge = conjuge == null ? conjuge : conjuge.toUpperCase();
+		;
 	}
 
 	public String getPai() {
@@ -294,7 +311,8 @@ public class Pessoa implements Serializable {
 	}
 
 	public void setPai(String pai) {
-		this.pai = pai;
+		this.pai = pai == null ? pai : pai.toUpperCase();
+		;
 	}
 
 	public String getMae() {
@@ -302,7 +320,8 @@ public class Pessoa implements Serializable {
 	}
 
 	public void setMae(String mae) {
-		this.mae = mae;
+		this.mae = mae == null ? mae : mae.toUpperCase();
+		;
 	}
 
 	public String getCep() {
@@ -318,7 +337,8 @@ public class Pessoa implements Serializable {
 	}
 
 	public void setEndereco(String endereco) {
-		this.endereco = endereco;
+		this.endereco = endereco == null ? endereco : endereco.toUpperCase();
+		;
 	}
 
 	public String getNumero() {
@@ -326,7 +346,8 @@ public class Pessoa implements Serializable {
 	}
 
 	public void setNumero(String numero) {
-		this.numero = numero;
+		this.numero = numero == null ? null : numero.toUpperCase();
+		;
 	}
 
 	public String getComplemento() {
@@ -334,7 +355,9 @@ public class Pessoa implements Serializable {
 	}
 
 	public void setComplemento(String complemento) {
-		this.complemento = complemento;
+		this.complemento = complemento == null ? null : complemento.toUpperCase();
+		;
+		;
 	}
 
 	public String getBairro() {
@@ -342,7 +365,9 @@ public class Pessoa implements Serializable {
 	}
 
 	public void setBairro(String bairro) {
-		this.bairro = bairro;
+		this.bairro = bairro == null ? null : bairro.toUpperCase();
+		;
+		;
 	}
 
 	public Estado getUf() {
@@ -425,12 +450,12 @@ public class Pessoa implements Serializable {
 		this.ocupacao = ocupacao;
 	}
 
-	public String getEmpresa() {
-		return empresa;
+	public String getNomeEmpresa() {
+		return nomeEmpresa;
 	}
 
-	public void setEmpresa(String empresa) {
-		this.empresa = empresa;
+	public void setNomeEmpresa(String nomeEmpresa) {
+		this.nomeEmpresa = nomeEmpresa;
 	}
 
 	public String getEmpTelefone() {
@@ -481,11 +506,11 @@ public class Pessoa implements Serializable {
 		this.empBairro = empBairro;
 	}
 
-	public String getEmpUf() {
+	public Estado getEmpUf() {
 		return empUf;
 	}
 
-	public void setEmpUf(String empUf) {
+	public void setEmpUf(Estado empUf) {
 		this.empUf = empUf;
 	}
 
@@ -575,6 +600,46 @@ public class Pessoa implements Serializable {
 
 	public void setTrabalha(Boolean trabalha) {
 		this.trabalha = trabalha;
+	}
+
+	public Boolean getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Boolean empresa) {
+		this.empresa = empresa;
+	}
+
+	public Boolean getFuncionario() {
+		return funcionario;
+	}
+
+	public void setFuncionario(Boolean funcionario) {
+		this.funcionario = funcionario;
+	}
+
+	public Boolean getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Boolean cliente) {
+		this.cliente = cliente;
+	}
+
+	public Boolean getFornecedor() {
+		return fornecedor;
+	}
+
+	public void setFornecedor(Boolean fornecedor) {
+		this.fornecedor = fornecedor;
+	}
+
+	public Boolean getProfissional() {
+		return profissional;
+	}
+
+	public void setProfissional(Boolean profissional) {
+		this.profissional = profissional;
 	}
 
 	@Override

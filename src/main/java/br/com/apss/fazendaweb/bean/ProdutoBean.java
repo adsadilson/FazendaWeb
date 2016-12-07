@@ -21,6 +21,7 @@ import br.com.apss.fazendaweb.service.ProdutoService;
 import br.com.apss.fazendaweb.service.UnidadeMedidaService;
 import br.com.apss.fazendaweb.util.FacesUtil;
 
+/*Adilson Paraguai*/
 @Named
 @ViewScoped
 public class ProdutoBean implements Serializable {

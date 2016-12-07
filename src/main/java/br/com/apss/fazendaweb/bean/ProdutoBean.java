@@ -1,6 +1,7 @@
 package br.com.apss.fazendaweb.bean;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,9 +14,11 @@ import org.omnifaces.util.Messages;
 
 import br.com.apss.fazendaweb.enums.AtivoInativo;
 import br.com.apss.fazendaweb.enums.TipoProduto;
+import br.com.apss.fazendaweb.model.GrupoProduto;
 import br.com.apss.fazendaweb.model.Pessoa;
 import br.com.apss.fazendaweb.model.Produto;
 import br.com.apss.fazendaweb.model.UnidadeMedida;
+import br.com.apss.fazendaweb.service.GrupoProdutoService;
 import br.com.apss.fazendaweb.service.PessoaService;
 import br.com.apss.fazendaweb.service.ProdutoService;
 import br.com.apss.fazendaweb.service.UnidadeMedidaService;
@@ -34,12 +37,15 @@ public class ProdutoBean implements Serializable {
 
 	@Inject
 	ProdutoService produtoService;
-	
+
 	@Inject
 	PessoaService fornecedorService;
-	
+
 	@Inject
 	UnidadeMedidaService unidadeService;
+
+	@Inject
+	GrupoProdutoService categoriaService;
 
 	/****************************** Metodos *************************/
 
@@ -48,9 +54,8 @@ public class ProdutoBean implements Serializable {
 		if (FacesUtil.isNotPostback()) {
 			carregarTabela();
 		}
-		
+
 	}
-	
 
 	private void carregarTabela() {
 		produto = new Produto();
@@ -63,7 +68,6 @@ public class ProdutoBean implements Serializable {
 	public List<AtivoInativo> getAtivoInativos() {
 		return Arrays.asList(AtivoInativo.values());
 	}
-
 
 	public List<TipoProduto> getTipoProdutos() {
 		return Arrays.asList(TipoProduto.values());
@@ -81,6 +85,15 @@ public class ProdutoBean implements Serializable {
 		Messages.addGlobalInfo("Registro salvo com sucesso");
 	}
 
+	public void calcMargem() {
+		BigDecimal n = produto.getVlrCusto();
+		BigDecimal n2 = produto.getMargLucro();
+		int i = n.compareTo(n2);		
+		System.out.println(i);
+			
+			Messages.addGlobalInfo("Valor " + i);
+	}
+
 	public void excluir() {
 		produtoService.remover(this.produto);
 		this.produtoSelecionado = null;
@@ -91,8 +104,8 @@ public class ProdutoBean implements Serializable {
 	public void editar() {
 		this.produto = produtoService.buscarPorId(produtoSelecionado.getId());
 	}
-	
-	public List<Pessoa> getFornecedores(){
+
+	public List<Pessoa> getFornecedores() {
 		Pessoa p = new Pessoa();
 		p.setFornecedor(true);
 		p.setCliente(false);
@@ -101,11 +114,17 @@ public class ProdutoBean implements Serializable {
 		p.setProfissional(false);
 		return fornecedorService.listarPorCondicao(p);
 	}
-	
-	public List<UnidadeMedida> getUnidades(){
+
+	public List<UnidadeMedida> getUnidades() {
 		UnidadeMedida u = new UnidadeMedida();
 		u.setStatus(true);
 		return unidadeService.grupoCondicao(u);
+	}
+
+	public List<GrupoProduto> getCategorias() {
+		GrupoProduto gp = new GrupoProduto();
+		gp.setStatus(true);
+		return categoriaService.grupoCondicao(gp);
 	}
 
 	/****************************** Getters e Setters *************************/
@@ -122,11 +141,9 @@ public class ProdutoBean implements Serializable {
 		return produtos;
 	}
 
-
 	public void setProdutos(List<Produto> produtos) {
 		this.produtos = produtos;
 	}
-
 
 	public Produto getProdutoSelecionado() {
 		return produtoSelecionado;

@@ -63,15 +63,12 @@ public class GrupoProdutoRepository implements Serializable {
 		Session session = em.unwrap(Session.class);
 		Criteria criteria = session.createCriteria(GrupoProduto.class);
 
-		if (op.getStatus().equals("ATIVO")) {
+		if (op.getStatus()) {
 			criteria.add(Restrictions.ge("status", true));
-		}
-		if (op.getStatus().equals("INATIVO")) {
-			criteria.add(Restrictions.le("status", false));
 		}
 
 		return criteria.addOrder(Order.asc("nome")).list();
 	}
-
+	
 
 }

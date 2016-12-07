@@ -9,6 +9,30 @@
 
 	<ui:define name="titulo">Produto</ui:define>
 
+	<script type="text/javascript">
+
+                function mascara(o, f) {
+                    v_obj = o;
+                    v_fun = f;
+                    setTimeout("execmascara()", 1);
+                }
+
+                function execmascara() {
+                    v_obj.value = v_fun(v_obj.value);
+                }
+
+                function valor(v) {
+                    v = v.replace(/\D/g, "");
+                    v = v.replace(/[0-9]{15}/, "invÃ¡lido");
+                    v = v.replace(/(\d{1})(\d{11})$/, "$1.$2"); // coloca ponto antes dos ultimos 11 digitos
+                    v = v.replace(/(\d{1})(\d{8})$/, "$1.$2"); // coloca ponto antes dos ultimos 8 digitos
+                    v = v.replace(/(\d{1})(\d{3})$/, "$1.$2"); // coloca ponto antes dos ultimos 5 digitos
+                    return v;
+                }
+
+
+            </script>
+
 	<ui:define name="corpo">
 
 		<f:metadata>
@@ -115,10 +139,10 @@
 					<!-- 1ª LINHA -->
 					<p:row>
 						<p:column colspan="1">
-							<p:outputLabel value="Cádigo Barra:" />
+							<p:outputLabel value="Cádigo Barra" />
 						</p:column>
 						<p:column colspan="3">
-							<p:outputLabel value="Descriçao:" />
+							<p:outputLabel for="txtDescricao" value="Descriçao" />
 						</p:column>
 					</p:row>
 					<p:row>
@@ -126,23 +150,26 @@
 							<p:inputText size="13" />
 						</p:column>
 						<p:column colspan="3">
-							<p:inputText style="width: 97%;" />
+							<p:inputText id="txtDescricao" style="width: 97%;"
+								required="true" requiredMessage="Informe a descrição" />
 						</p:column>
 					</p:row>
 					<!-- 2ª LINHA -->
 					<p:row>
 						<p:column colspan="5">
-							<p:commandLink value="Fornecedor:"
+							<p:commandLink value="Fornecedor"
 								onclick="PF('dialogCadastroForn').show()" process="@this"
-								update="form-cadastro-forn" action="#{fornecedorBean.novoCadastro}">
+								update="form-cadastro-forn"
+								action="#{fornecedorBean.novoCadastro}">
 								<p:resetInput target="form-cadastro-forn" />
 							</p:commandLink>
 						</p:column>
 					</p:row>
 					<p:row>
 						<p:column colspan="5">
-							<p:selectOneMenu id="comboFornecedor" style="width:94%;" filter="true"
-								converter="omnifaces.SelectItemsConverter"
+							<p:selectOneMenu id="comboFornecedor" style="width:94%;"
+								required="true" requiredMessage="Selecione um fornecedor"
+								filter="true" converter="omnifaces.SelectItemsConverter"
 								value="#{produtoBean.produto.fornecedor}">
 								<f:selectItem itemLabel="Selecione..." itemValue="#{null}" />
 								<f:selectItems value="#{produtoBean.fornecedores}" var="f"
@@ -154,21 +181,30 @@
 					<!-- 3ª LINHA -->
 					<p:row>
 						<p:column colspan="1">
-							<h:commandLink value="Unidade;">
-							</h:commandLink>
+							<p:commandLink value="Unidade"
+								onclick="PF('dialogCadastroUn').show()" process="@this"
+								update="form-cadastro-un"
+								action="#{unidadeMedidaBean.novoCadastro}">
+								<p:resetInput target="form-cadastro-un" />
+							</p:commandLink>
 						</p:column>
 						<p:column colspan="1">
-							<p:outputLabel value="Tipo:" />
+							<p:outputLabel for="txtTipo" value="Tipo" />
 						</p:column>
 						<p:column colspan="2">
-							<h:commandLink value="Categoria:">
-							</h:commandLink>
+							<p:commandLink value="Grupo de Produto"
+								onclick="PF('dialogCadastroCat').show()" process="@this"
+								update="form-cadastro-cat"
+								action="#{grupoProdutoBean.novoCadastro}">
+								<p:resetInput target="form-cadastro-cat" />
+							</p:commandLink>
 						</p:column>
 
 					</p:row>
 					<p:row>
 						<p:column colspan="1">
 							<p:selectOneMenu id="comboUnidade" style="width:100px;"
+								required="true" requiredMessage="Selecione um unidade"
 								converter="omnifaces.SelectItemsConverter"
 								value="#{produtoBean.produto.unidadeMedia}">
 								<f:selectItem itemLabel="Selecione..." itemValue="#{null}" />
@@ -177,13 +213,22 @@
 							</p:selectOneMenu>
 						</p:column>
 						<p:column colspan="1">
-							<p:selectOneMenu id="txtTipo" style="width:93px;">
-								<f:selectItem itemLabel="" value="#{null}" />
+							<p:selectOneMenu id="txtTipo" style="width:93px;" required="true"
+								value="#{produtoBean.produto.tipoProduto}"
+								requiredMessage="Selecione um tipo">
+								<f:selectItem itemLabel="Selecione..." value="#{null}" />
+								<f:selectItems value="#{produtoBean.tipoProdutos}" var="tp"
+									itemLabel="#{tp.descricao}" itemValue="#{tp}" />
 							</p:selectOneMenu>
 						</p:column>
 						<p:column colspan="2">
-							<p:selectOneMenu id="txtCategoria" style="width:87%;">
-								<f:selectItem itemLabel="Selecione..." value="#{null}" />
+							<p:selectOneMenu id="comboCategoria" style="width:87%;"
+								required="true" requiredMessage="Selecione um categoria"
+								filter="true" converter="omnifaces.SelectItemsConverter"
+								value="#{produtoBean.produto.grupoProduto}">
+								<f:selectItem itemLabel="Selecione..." itemValue="#{null}" />
+								<f:selectItems value="#{produtoBean.categorias}" var="c"
+									itemLabel="#{c.nome}" itemValue="#{c}" />
 							</p:selectOneMenu>
 						</p:column>
 
@@ -192,13 +237,13 @@
 					<!-- 4ª LINHA -->
 					<p:row>
 						<p:column>
-							<p:outputLabel value="Quantidade:" />
+							<p:outputLabel value="Quantidade" />
 						</p:column>
 						<p:column>
-							<p:outputLabel value="Qtd Minimo:" />
+							<p:outputLabel value="Qtd Minimo" />
 						</p:column>
 						<p:column>
-							<p:outputLabel value="Qtd Máximo.:" />
+							<p:outputLabel value="Qtd Máximo" />
 						</p:column>
 						<p:column>
 							<p:outputLabel value="Ultima Compra" />
@@ -206,46 +251,66 @@
 					</p:row>
 					<p:row>
 						<p:column>
-							<p:inputText size="13" />
+							<p:inputNumber size="13"
+								value="#{produtoBean.produto.quantidade}" decimalSeparator=","
+								thousandSeparator=".">
+							</p:inputNumber>
 						</p:column>
 						<p:column>
-							<p:inputText size="12" />
+							<p:inputNumber size="12" value="#{produtoBean.produto.qtdMinma}"
+								decimalSeparator="," thousandSeparator=".">
+							</p:inputNumber>
 						</p:column>
 						<p:column>
-							<p:inputText size="10" />
+							<p:inputNumber size="10" value="#{produtoBean.produto.qtdMaxima}"
+								decimalSeparator="," thousandSeparator=".">
+							</p:inputNumber>
 						</p:column>
 						<p:column>
-							<p:inputText size="10" />
+							<p:inputText size="10" disabled="true" />
 						</p:column>
 					</p:row>
 
 					<!-- 5ª LINHA -->
 					<p:row>
 						<p:column>
-							<p:outputLabel value="Vlr. de Custo:" />
+							<p:outputLabel for="txtCusto" value="Vlr. de Custo" />
 						</p:column>
 						<p:column>
-							<p:outputLabel value="Marg. Lucro (%):" />
+							<p:outputLabel value="Marg. Lucro (%)" />
 						</p:column>
 						<p:column>
-							<p:outputLabel value="Vlr. de Venda:" />
+							<p:outputLabel for="txtVenda" value="Vlr. de Venda" />
 						</p:column>
 						<p:column>
-							<p:outputLabel value="Ultima Venda:" />
+							<p:outputLabel value="Ultima Venda" />
 						</p:column>
 					</p:row>
 					<p:row>
 						<p:column>
-							<p:inputText size="13" />
+							<p:inputNumber size="13" id="txtCusto" required="true"
+								requiredMessage="Informe o valor de custo"
+								value="#{produtoBean.produto.vlrCusto}" symbol="R$ "
+								decimalSeparator="," thousandSeparator=".">
+							</p:inputNumber>
 						</p:column>
 						<p:column>
-							<p:inputText size="12" />
+							<p:inputNumber id="margem" size="12"
+								value="#{produtoBean.produto.margLucro}" symbol="%"
+								symbolPosition="s" emptyValue="sign">
+								<p:ajax update="form-cadastro:margem, form-cadastro:txtVenda"
+									listener="#{produtoBean.calcMargem}" />
+							</p:inputNumber>
 						</p:column>
 						<p:column>
-							<p:inputText size="10" />
+							<p:inputNumber size="10" id="txtVenda" required="true"
+								requiredMessage="Informe o valor de venda"
+								value="#{produtoBean.produto.vlrVenda}" symbol="R$ "
+								decimalSeparator="," thousandSeparator=".">
+							</p:inputNumber>
 						</p:column>
 						<p:column>
-							<p:inputText size="10" />
+							<p:inputText size="10" disabled="true" />
 						</p:column>
 					</p:row>
 				</p:panelGrid>
@@ -286,10 +351,11 @@
 				</p:panelGrid>
 			</h:form>
 		</p:dialog>
-		
-		<p:dialog header="Manutenção Fornecedor" widgetVar="dialogCadastroForn"
-			modal="true" resizable="false" draggable="true" id="dgCadastroForn"
-			closeOnEscape="true" width="743" appendTo="@(body)">
+
+		<p:dialog header="Manutenção Fornecedor"
+			widgetVar="dialogCadastroForn" modal="true" resizable="false"
+			draggable="true" id="dgCadastroForn" closeOnEscape="true" width="743"
+			appendTo="@(body)">
 
 			<h:form id="form-cadastro-forn">
 				<p:panelGrid styleClass="semBorda" style="padding: 0px;">
@@ -345,15 +411,13 @@
 								<p:inputMask id="txtCpf"
 									rendered='#{fornecedorBean.fornecedor.tipoPessoa=="F"}'
 									mask="999.999.999-99"
-									value="#{fornecedorBean.fornecedor.cpfCnpj}"
-									required="true" requiredMessage="Informe o CNPJ / CPF:"
-									style="width: 140px;" />
+									value="#{fornecedorBean.fornecedor.cpfCnpj}" required="true"
+									requiredMessage="Informe o CNPJ / CPF:" style="width: 140px;" />
 								<p:inputMask id="txtCpf2"
 									rendered='#{fornecedorBean.fornecedor.tipoPessoa=="J"}'
 									mask="99.999.999/9999-99"
-									value="#{fornecedorBean.fornecedor.cpfCnpj}"
-									required="true" requiredMessage="Informe o CNPJ / CPF:"
-									style="width: 140px;" />
+									value="#{fornecedorBean.fornecedor.cpfCnpj}" required="true"
+									requiredMessage="Informe o CNPJ / CPF:" style="width: 140px;" />
 							</h:panelGroup>
 						</p:column>
 						<p:column colspan="1">
@@ -505,8 +569,8 @@
 				<p:toolbar style="margin-top: 20px" styleClass="semPreenchimento">
 					<p:toolbarGroup align="right" style="margin-right: 0px;">
 						<p:commandButton value="Cancelar" icon="cancelar-icon"
-							style="margin-left:0px;" oncomplete="PF('dialogCadastroForn').hide()"
-							immediate="true" />
+							style="margin-left:0px;"
+							oncomplete="PF('dialogCadastroForn').hide()" immediate="true" />
 						<p:commandButton value="Salvar" icon="salvar-icon"
 							id="salvarCommandButton"
 							update="form-cadastro-forn, :form-cadastro:comboFornecedor"
@@ -527,9 +591,82 @@
 					</p:toolbarGroup>
 				</p:toolbar>
 				<p:defaultCommand target="salvarCommandButton" />
+			</h:form>
+		</p:dialog>
+
+		<p:dialog header="Manutenção Unidade de Medida"
+			widgetVar="dialogCadastroUn" modal="true" resizable="false"
+			draggable="true" id="dgCadastroUn" closeOnEscape="true" width="430"
+			appendTo="@(body)">
+
+			<h:form id="form-cadastro-un">
+
+				<p:panelGrid columns="2" styleClass="semBorda">
+
+					<p:outputLabel for="txtId" value="ID:" />
+					<p:inputText id="txtId" size="5" style="text-align:center;"
+						disabled="true" value="#{unidadeMedidaBean.unidadeMedida.id}" />
+
+					<p:outputLabel for="txtNome" value="Sigla:" />
+					<p:inputText id="txtNome" size="10" maxlength="5" required="true"
+						requiredMessage="Informe o nome"
+						value="#{unidadeMedidaBean.unidadeMedida.nome}" />
+
+					<p:outputLabel for="txtDesc" value="Descrição:" />
+					<p:inputText id="txtDesc" size="35" maxlength="35" required="true"
+						requiredMessage="Informe o descrição"
+						value="#{unidadeMedidaBean.unidadeMedida.descricao}" />
+
+					<p:outputLabel value="Ativo:" />
+					<p:selectBooleanCheckbox
+						value="#{unidadeMedidaBean.unidadeMedida.status}" />
+
+				</p:panelGrid>
+
+				<h:panelGrid columns="2" style="margin-top: 20px;">
+					<p:commandButton value="Salvar" icon="salvar-icon"
+						update="form-cadastro-un, :form-cadastro:comboUnidade"
+						action="#{unidadeMedidaBean.salvar}"
+						oncomplete="if(!args.validationFailed) PF('dialogCadastroUn').hide()" />
+					<p:commandButton value="Cancelar" icon="cancelar-icon"
+						style="margin-left:0px;"
+						oncomplete="PF('dialogCadastroUn').hide()" immediate="true" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+
+		<p:dialog header="Manutenção Grupo de Produto"
+			widgetVar="dialogCadastroCat" modal="true" resizable="false"
+			draggable="true" id="dgCadastroCat" closeOnEscape="true" width="430"
+			appendTo="@(body)">
+			<h:form id="form-cadastro-cat">
+				<p:panelGrid columns="2" styleClass="semBorda">
+					<p:outputLabel for="txtId" value="ID:" />
+					<p:inputText id="txtId" size="5" style="text-align:center;"
+						disabled="true" value="#{grupoProdutoBean.grupoProduto.id}" />
+
+					<p:outputLabel for="txtNome" value="Nome:" />
+					<p:inputText id="txtNome" size="35" maxlength="35" required="true"
+						requiredMessage="Informe o nome"
+						value="#{grupoProdutoBean.grupoProduto.nome}" />
+
+					<p:outputLabel value="Ativo:" />
+					<p:selectBooleanCheckbox
+						value="#{grupoProdutoBean.grupoProduto.status}" />
+
+				</p:panelGrid>
+
+				<h:panelGrid columns="2" style="margin-top: 20px;">
+					<p:commandButton value="Salvar" icon="salvar-icon"
+						update="form-cadastro-cat, :form-cadastro:comboCategoria"
+						action="#{grupoProdutoBean.salvar}"
+						oncomplete="if(!args.validationFailed) PF('dialogCadastroCat').hide()" />
+					<p:commandButton value="Cancelar" icon="cancelar-icon"
+						style="margin-left:0px;"
+						oncomplete="PF('dialogCadastroCat').hide()" immediate="true" />
+				</h:panelGrid>
 
 			</h:form>
-
 		</p:dialog>
 
 	</ui:define>

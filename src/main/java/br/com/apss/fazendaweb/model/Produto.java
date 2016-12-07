@@ -54,22 +54,22 @@ public class Produto implements Serializable {
 	private TipoProduto tipoProduto;
 
 	@Column(name = "quantidade", precision = 12, scale = 2)
-	private BigDecimal quantidade;
+	private BigDecimal quantidade = BigDecimal.ZERO;
 
 	@Column(name = "qtd_minima", precision = 12, scale = 2)
-	private BigDecimal qtdMinma;
+	private BigDecimal qtdMinma = BigDecimal.ZERO;
 
 	@Column(name = "qtd_maxima", precision = 12, scale = 2)
-	private BigDecimal qtdMaxima;
+	private BigDecimal qtdMaxima = BigDecimal.ZERO;
 
 	@Column(name = "vlr_custo", precision = 12, scale = 2)
-	private BigDecimal vlrCusto;
+	private BigDecimal vlrCusto = BigDecimal.ZERO;
 
 	@Column(name = "vlr_venda", precision = 12, scale = 2)
-	private BigDecimal vlrVenda;
+	private BigDecimal vlrVenda = BigDecimal.ZERO;
 
 	@Column(name = "marg_lucro", precision = 12, scale = 2)
-	private BigDecimal margLucro;
+	private BigDecimal margLucro = BigDecimal.ZERO;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "dt_ultima_compra")

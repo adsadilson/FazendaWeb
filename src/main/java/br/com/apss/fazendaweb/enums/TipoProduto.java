@@ -2,9 +2,9 @@ package br.com.apss.fazendaweb.enums;
 
 public enum TipoProduto {
 
-	REV("REVENDA"),
-	CON("CONSUMO"),
-	SER("SERVICO");
+	REVENDA("REVENDA"),
+	CONSUMO("CONSUMO"),
+	SERVICO("SERVIÇO");
 	
 	private String descricao;
 

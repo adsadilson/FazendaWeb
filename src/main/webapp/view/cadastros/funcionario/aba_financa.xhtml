@@ -12,10 +12,11 @@
 			<p:outputLabel value="Tipo de Conta" />
 		</div>
 		<div class="ui-g-6">
-			<p:inputText value="#{empresaBean.empresa.banco}" style="width:100%;" />
+			<p:inputText value="#{funcionarioBean.funcionario.banco}"
+				style="width:100%;" />
 		</div>
 		<div class="ui-g-6">
-			<p:inputText value="#{empresaBean.empresa.tipoConta}"
+			<p:inputText value="#{funcionarioBean.funcionario.tipoConta}"
 				style="width:100%;" />
 		</div>
 
@@ -29,39 +30,41 @@
 			<p:outputLabel value="Conta Conjunta:" />
 		</div>
 		<div class="ui-g-2">
-			<p:inputText value="#{empresaBean.empresa.agencia}"
+			<p:inputText value="#{funcionarioBean.funcionario.agencia}"
 				style="width:100%;" />
 		</div>
 		<div class="ui-g-1">
-			<p:inputText value="#{empresaBean.empresa.digAgencia}"
+			<p:inputText value="#{funcionarioBean.funcionario.digAgencia}"
 				style="width:100%;" />
 		</div>
 		<div class="ui-g-2">
-			<p:inputText value="#{empresaBean.empresa.numConta}"
+			<p:inputText value="#{funcionarioBean.funcionario.numConta}"
 				style="width:100%;" />
 		</div>
 		<div class="ui-g-1">
-			<p:inputText value="#{empresaBean.empresa.digConta}"
+			<p:inputText value="#{funcionarioBean.funcionario.digConta}"
 				style="width:100%;" />
 		</div>
 		<div class="ui-g-6">
-			<p:selectOneRadio value="#{empresaBean.empresa.contaConjunta}">
+			<p:selectOneRadio
+				value="#{funcionarioBean.funcionario.contaConjunta}">
 				<f:selectItem itemLabel="SIM" itemValue="true" />
 				<f:selectItem itemLabel="NÃO" itemValue="false" />
 			</p:selectOneRadio>
 		</div>
 	</div>
 
-	<h:panelGrid columns="1" >
+	<h:panelGrid columns="1">
 		<p:outputLabel value="Constar Em:" />
 		<p:selectBooleanCheckbox itemLabel="Cliente"
-			value="#{empresaBean.empresa.cliente}" />
+			value="#{funcionarioBean.funcionario.cliente}" />
 		<p:selectBooleanCheckbox itemLabel="Fornecedor"
-			value="#{empresaBean.empresa.fornecedor}" />
+			value="#{funcionarioBean.funcionario.fornecedor}" />
 		<p:selectBooleanCheckbox itemLabel="Funcionário"
-			value="#{empresaBean.empresa.funcionario}" />
-			<p:selectBooleanCheckbox itemLabel="Profissional"
-			value="#{empresaBean.empresa.profissional}" />
+			value="#{funcionarioBean.funcionario.funcionario}"
+			rendered="#{funcionarioBean.funcionario.funcionario} eq false}" />
+		<p:selectBooleanCheckbox itemLabel="Profissional"
+			value="#{funcionarioBean.funcionario.profissional}" />
 	</h:panelGrid>
 
 

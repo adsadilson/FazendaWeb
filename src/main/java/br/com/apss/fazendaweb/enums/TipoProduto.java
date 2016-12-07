@@ -1,15 +1,14 @@
 package br.com.apss.fazendaweb.enums;
 
-public enum UnidadeMedida {
+public enum TipoProduto {
 
-	KG("KG - KILOGRAMA"),
-	UN("UN - UNIDADE"),
-	PC("PC - PACOTE"),
-	CX("CX - CAIXA");
+	REV("REVENDA"),
+	CON("CONSUMO"),
+	SER("SERVICO");
 	
 	private String descricao;
 
-	UnidadeMedida(String descricao) {
+	TipoProduto(String descricao) {
 		this.descricao = descricao;
 	}
 	

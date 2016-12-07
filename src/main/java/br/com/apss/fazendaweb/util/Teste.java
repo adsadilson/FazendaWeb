@@ -6,8 +6,11 @@ import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.print.attribute.standard.MediaSize.ISO;
 
 import org.apache.shiro.crypto.hash.SimpleHash;
+import org.flywaydb.core.Flyway;
+import org.postgresql.ds.PGPoolingDataSource;
 
 import br.com.apss.fazendaweb.model.Usuario;
 
@@ -64,24 +67,41 @@ public class Teste implements Serializable {
 	}
 
 	public static void main(String[] args) {
+		
 		try {
-			/*EntityManagerFactory factory = Persistence.createEntityManagerFactory("FazendaPU");
+			EntityManagerFactory factory = Persistence.createEntityManagerFactory("FazendaPU");
 			EntityManager entityManager = factory.createEntityManager();
 			entityManager.getTransaction().begin();
 			entityManager.getTransaction().commit();
-			entityManager.close();*/
-			Usuario user = new Usuario();
-			user.setAtivo(true);
-			user.setNome("ADMIN");
-			user.setCadastro(new Date());
-			user.setEmail("admin@yahoo.com.br");
-			SimpleHash hash = new SimpleHash("md5", "1");
-			user.setSenha(hash.toHex());
-			salvar(user);
-			System.out.println("Salvando a usuário.");
+			entityManager.close();
+			System.out.println("Operação realizada com sucesso.");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		// Criação do DataSource
+		PGPoolingDataSource dataSource = new PGPoolingDataSource();
+		dataSource.setUser("postgres");
+		dataSource.setPassword("postgres");
+		dataSource.setDatabaseName("dbfazenda");
+		dataSource.setInitialConnections(10);
+		dataSource.setPortNumber(5432);
+		dataSource.setServerName("localhost");
+		 
+		// Inicialição do FlyWay
+		Flyway flyway = new Flyway();
+		flyway.setDataSource(dataSource);
+		flyway.setBaselineOnMigrate(true);
+		flyway.setTable("version");
+		flyway.setSqlMigrationPrefix("V");
+		flyway.setSqlMigrationSeparator("_");
+		flyway.setEncoding("ISO-8859-1");
+		flyway.setValidateOnMigrate(true);
+		 
+		// executa Migração;
+		flyway.migrate();
+		
+		
 
 	}
 }

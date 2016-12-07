@@ -20,7 +20,6 @@ import br.com.apss.fazendaweb.enums.Estado;
 import br.com.apss.fazendaweb.enums.EstadoCivil;
 import br.com.apss.fazendaweb.enums.Sexo;
 import br.com.apss.fazendaweb.enums.TipoDoc;
-import br.com.apss.fazendaweb.enums.TipoPessoa;
 
 @Entity
 @Table(name = "pessoa")
@@ -36,11 +35,26 @@ public class Pessoa implements Serializable {
 	@Column(name = "nome", nullable = true, length = 80)
 	private String nome;
 
+	@Column(name = "fantasia", length = 80)
+	private String fantasia;
+
+	@Column(name = "responsavel", length = 80)
+	private String responsavel;
+
+	@Column(name = "cmv", length = 30)
+	private String cmv;
+
+	@Column(name = "tipo_profissional", length = 80)
+	private String tipoProfissional;
+
 	@Column(name = "cpf_cnpj", nullable = true, length = 20)
 	private String cpfCnpj;
 
 	@Column(name = "email", length = 200)
 	private String email;
+
+	@Column(name = "site", length = 200)
+	private String site;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "nascimento", length = 10)
@@ -176,9 +190,8 @@ public class Pessoa implements Serializable {
 	@Column(name = "renda", precision = 12, scale = 2)
 	private BigDecimal renda;
 
-	@Enumerated(EnumType.STRING)
-	@Column(name = "tipo_pessoa", length = 10)
-	private TipoPessoa tipoPessoa;
+	@Column(name = "tipo_pessoa", length = 1)
+	private String tipoPessoa;
 
 	@Column(name = "status", length = 1)
 	private Boolean status;
@@ -213,8 +226,32 @@ public class Pessoa implements Serializable {
 		return nome;
 	}
 
+	public void setFantasia(String fantasia) {
+		this.fantasia = email == null ? null : fantasia.toUpperCase();
+	}
+
+	public String getFantasia() {
+		return fantasia;
+	}
+
 	public void setNome(String nome) {
 		this.nome = nome.toUpperCase();
+	}
+
+	public String getCmv() {
+		return cmv;
+	}
+
+	public void setCmv(String cmv) {
+		this.cmv = cmv;
+	}
+
+	public String getTipoProfissional() {
+		return tipoProfissional;
+	}
+
+	public void setTipoProfissional(String tipoProfissional) {
+		this.tipoProfissional = tipoProfissional;
 	}
 
 	public String getCpfCnpj() {
@@ -231,6 +268,14 @@ public class Pessoa implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email == null ? email : email.toLowerCase();
+	}
+
+	public String getSite() {
+		return site;
+	}
+
+	public void setSite(String site) {
+		this.site = site == null ? null : site.toLowerCase();
 	}
 
 	public Date getNascimento() {
@@ -306,6 +351,14 @@ public class Pessoa implements Serializable {
 		;
 	}
 
+	public String getResponsavel() {
+		return responsavel;
+	}
+
+	public void setResponsavel(String responsavel) {
+		this.responsavel = responsavel == null ? null : responsavel.toUpperCase();
+	}
+
 	public String getPai() {
 		return pai;
 	}
@@ -378,11 +431,11 @@ public class Pessoa implements Serializable {
 		this.uf = uf;
 	}
 
-	public TipoPessoa getTipoPessoa() {
+	public String getTipoPessoa() {
 		return tipoPessoa;
 	}
 
-	public void setTipoPessoa(TipoPessoa tipoPessoa) {
+	public void setTipoPessoa(String tipoPessoa) {
 		this.tipoPessoa = tipoPessoa;
 	}
 
@@ -399,7 +452,7 @@ public class Pessoa implements Serializable {
 	}
 
 	public void setCidade(String cidade) {
-		this.cidade = cidade;
+		this.cidade = cidade.toUpperCase();
 	}
 
 	public String getNumDoc() {

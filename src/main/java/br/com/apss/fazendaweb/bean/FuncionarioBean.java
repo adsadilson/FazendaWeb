@@ -23,16 +23,16 @@ import br.com.apss.fazendaweb.util.FacesUtil;
 
 @Named
 @ViewScoped
-public class EmpresaBean implements Serializable {
+public class FuncionarioBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Pessoa empresa;
-	private List<Pessoa> empresas = new ArrayList<>();
-	private Pessoa empresaSelecionado;
+	private Pessoa funcionario;
+	private List<Pessoa> funcionarios = new ArrayList<>();
+	private Pessoa funcionarioSelecionado;
 
 	@Inject
-	PessoaService empresaService;
+	PessoaService funcionarioService;
 
 	/****************************** Metodos *************************/
 
@@ -41,31 +41,29 @@ public class EmpresaBean implements Serializable {
 		if (FacesUtil.isNotPostback()) {
 			carregarTabela();
 		}
-		
 	}
-	
 
 	private void carregarTabela() {
-		empresa = new Pessoa();
-		empresa.setEmpresa(true);
-		empresa.setCliente(false);
-		empresa.setFornecedor(false);
-		empresa.setFuncionario(false);
-		empresa.setProfissional(false);
-		empresas = empresaService.listarPorCondicao(empresa);
+		funcionario = new Pessoa();
+		funcionario.setFuncionario(true);
+		funcionario.setCliente(false);
+		funcionario.setEmpresa(false);
+		funcionario.setFornecedor(false);
+		funcionario.setProfissional(false);
+		funcionarios = funcionarioService.listarPorCondicao(funcionario);
 	}
 
-	public EmpresaBean() {
+	public FuncionarioBean() {
 	}
 
 	public List<AtivoInativo> getAtivoInativos() {
 		return Arrays.asList(AtivoInativo.values());
 	}
-
+	
 	public List<Sexo> getSexos() {
 		return Arrays.asList(Sexo.values());
 	}
-
+	
 	public List<Estado> getEstados() {
 		return Arrays.asList(Estado.values());
 	}
@@ -73,67 +71,67 @@ public class EmpresaBean implements Serializable {
 	public List<EstadoCivil> getEstadoCivis() {
 		return Arrays.asList(EstadoCivil.values());
 	}
-
+	
 	public List<TipoDoc> getTipoDocs() {
 		return Arrays.asList(TipoDoc.values());
 	}
-
+	
 	public List<TipoPessoa> getTipoPessoas() {
 		return Arrays.asList(TipoPessoa.values());
 	}
-
 	public void novoCadastro() {
-		empresa = new Pessoa();
-		empresa.setTrabalha(false);
-		empresa.setContaConjunta(false);
-		empresa.setStatus(true);
-		empresa.setTipoPessoa("J");
+		funcionario = new Pessoa();
+		funcionario.setTrabalha(false);
+		funcionario.setContaConjunta(false);
+		funcionario.setStatus(true);
+		funcionario.setTipoPessoa("F");
 	}
 
 	public void salvar() {
-		empresa.setEmpresa(true);
-		empresaService.salvar(this.empresa);
-		this.empresaSelecionado = null;
+		funcionario.setFuncionario(true);
+		funcionarioService.salvar(this.funcionario);
+		this.funcionarioSelecionado = null;
 		carregarTabela();
 		Messages.addGlobalInfo("Registro salvo com sucesso");
 	}
 
 	public void excluir() {
-		empresaService.remover(this.empresa);
-		this.empresaSelecionado = null;
+		funcionarioService.remover(this.funcionario);
+		this.funcionarioSelecionado = null;
 		carregarTabela();
 		Messages.addGlobalInfo("Registro excluido com sucesso");
 	}
 
 	public void editar() {
-		this.empresa = empresaService.buscarPorId(empresaSelecionado.getId());
+		this.funcionario = funcionarioService.buscarPorId(funcionarioSelecionado.getId());
 	}
 
 	/****************************** Getters e Setters *************************/
 
-	public Pessoa getEmpresa() {
-		return empresa;
+	public Pessoa getFuncionario() {
+		return funcionario;
 	}
 
-	public void setEmpresa(Pessoa empresa) {
-		this.empresa = empresa;
+	public void setFuncionario(Pessoa funcionario) {
+		this.funcionario = funcionario;
 	}
 
-	public List<Pessoa> getEmpresas() {
-		return empresas;
+	public List<Pessoa> getFuncionarios() {
+		return funcionarios;
 	}
 
-	public void setEmpresas(List<Pessoa> empresas) {
-		this.empresas = empresas;
+	public void setFuncionarios(List<Pessoa> funcionarios) {
+		this.funcionarios = funcionarios;
 	}
 
-	public Pessoa getEmpresaSelecionado() {
-		return empresaSelecionado;
+	public Pessoa getFuncionarioSelecionado() {
+		return funcionarioSelecionado;
 	}
 
-	public void setEmpresaSelecionado(Pessoa empresaSelecionado) {
-		this.empresaSelecionado = empresaSelecionado;
+	public void setFuncionarioSelecionado(Pessoa funcionarioSelecionado) {
+		this.funcionarioSelecionado = funcionarioSelecionado;
 	}
 }
 
-/****************************** Getters e Setters *************************/
+	/****************************** Getters e Setters *************************/
+

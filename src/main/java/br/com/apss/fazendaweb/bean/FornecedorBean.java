@@ -23,16 +23,16 @@ import br.com.apss.fazendaweb.util.FacesUtil;
 
 @Named
 @ViewScoped
-public class EmpresaBean implements Serializable {
+public class FornecedorBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Pessoa empresa;
-	private List<Pessoa> empresas = new ArrayList<>();
-	private Pessoa empresaSelecionado;
+	private Pessoa fornecedor;
+	private List<Pessoa> fornecedors = new ArrayList<>();
+	private Pessoa fornecedorSelecionado;
 
 	@Inject
-	PessoaService empresaService;
+	PessoaService fornecedorService;
 
 	/****************************** Metodos *************************/
 
@@ -41,21 +41,19 @@ public class EmpresaBean implements Serializable {
 		if (FacesUtil.isNotPostback()) {
 			carregarTabela();
 		}
-		
 	}
-	
 
 	private void carregarTabela() {
-		empresa = new Pessoa();
-		empresa.setEmpresa(true);
-		empresa.setCliente(false);
-		empresa.setFornecedor(false);
-		empresa.setFuncionario(false);
-		empresa.setProfissional(false);
-		empresas = empresaService.listarPorCondicao(empresa);
+		fornecedor = new Pessoa();
+		fornecedor.setFornecedor(true);
+		fornecedor.setEmpresa(false);
+		fornecedor.setCliente(false);
+		fornecedor.setFuncionario(false);
+		fornecedor.setProfissional(false);
+		fornecedors = fornecedorService.listarPorCondicao(fornecedor);
 	}
 
-	public EmpresaBean() {
+	public FornecedorBean() {
 	}
 
 	public List<AtivoInativo> getAtivoInativos() {
@@ -83,56 +81,56 @@ public class EmpresaBean implements Serializable {
 	}
 
 	public void novoCadastro() {
-		empresa = new Pessoa();
-		empresa.setTrabalha(false);
-		empresa.setContaConjunta(false);
-		empresa.setStatus(true);
-		empresa.setTipoPessoa("J");
+		fornecedor = new Pessoa();
+		fornecedor.setTrabalha(false);
+		fornecedor.setContaConjunta(false);
+		fornecedor.setStatus(true);
+		fornecedor.setTipoPessoa("J");
 	}
 
 	public void salvar() {
-		empresa.setEmpresa(true);
-		empresaService.salvar(this.empresa);
-		this.empresaSelecionado = null;
+		fornecedor.setFornecedor(true);
+		fornecedorService.salvar(this.fornecedor);
+		this.fornecedorSelecionado = null;
 		carregarTabela();
 		Messages.addGlobalInfo("Registro salvo com sucesso");
 	}
 
 	public void excluir() {
-		empresaService.remover(this.empresa);
-		this.empresaSelecionado = null;
+		fornecedorService.remover(this.fornecedor);
+		this.fornecedorSelecionado = null;
 		carregarTabela();
 		Messages.addGlobalInfo("Registro excluido com sucesso");
 	}
 
 	public void editar() {
-		this.empresa = empresaService.buscarPorId(empresaSelecionado.getId());
+		this.fornecedor = fornecedorService.buscarPorId(fornecedorSelecionado.getId());
 	}
 
 	/****************************** Getters e Setters *************************/
 
-	public Pessoa getEmpresa() {
-		return empresa;
+	public Pessoa getFornecedor() {
+		return fornecedor;
 	}
 
-	public void setEmpresa(Pessoa empresa) {
-		this.empresa = empresa;
+	public void setFornecedor(Pessoa fornecedor) {
+		this.fornecedor = fornecedor;
 	}
 
-	public List<Pessoa> getEmpresas() {
-		return empresas;
+	public List<Pessoa> getFornecedors() {
+		return fornecedors;
 	}
 
-	public void setEmpresas(List<Pessoa> empresas) {
-		this.empresas = empresas;
+	public void setFornecedors(List<Pessoa> fornecedors) {
+		this.fornecedors = fornecedors;
 	}
 
-	public Pessoa getEmpresaSelecionado() {
-		return empresaSelecionado;
+	public Pessoa getFornecedorSelecionado() {
+		return fornecedorSelecionado;
 	}
 
-	public void setEmpresaSelecionado(Pessoa empresaSelecionado) {
-		this.empresaSelecionado = empresaSelecionado;
+	public void setFornecedorSelecionado(Pessoa fornecedorSelecionado) {
+		this.fornecedorSelecionado = fornecedorSelecionado;
 	}
 }
 

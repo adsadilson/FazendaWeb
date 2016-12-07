@@ -23,16 +23,16 @@ import br.com.apss.fazendaweb.util.FacesUtil;
 
 @Named
 @ViewScoped
-public class EmpresaBean implements Serializable {
+public class ClienteBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Pessoa empresa;
-	private List<Pessoa> empresas = new ArrayList<>();
-	private Pessoa empresaSelecionado;
+	private Pessoa cliente;
+	private List<Pessoa> clientes = new ArrayList<>();
+	private Pessoa clienteSelecionado;
 
 	@Inject
-	PessoaService empresaService;
+	PessoaService clienteService;
 
 	/****************************** Metodos *************************/
 
@@ -41,31 +41,29 @@ public class EmpresaBean implements Serializable {
 		if (FacesUtil.isNotPostback()) {
 			carregarTabela();
 		}
-		
 	}
-	
 
 	private void carregarTabela() {
-		empresa = new Pessoa();
-		empresa.setEmpresa(true);
-		empresa.setCliente(false);
-		empresa.setFornecedor(false);
-		empresa.setFuncionario(false);
-		empresa.setProfissional(false);
-		empresas = empresaService.listarPorCondicao(empresa);
+		cliente = new Pessoa();
+		cliente.setCliente(true);
+		cliente.setFuncionario(false);
+		cliente.setEmpresa(false);
+		cliente.setFornecedor(false);
+		cliente.setProfissional(false);
+		clientes = clienteService.listarPorCondicao(cliente);
 	}
 
-	public EmpresaBean() {
+	public ClienteBean() {
 	}
 
 	public List<AtivoInativo> getAtivoInativos() {
 		return Arrays.asList(AtivoInativo.values());
 	}
-
+	
 	public List<Sexo> getSexos() {
 		return Arrays.asList(Sexo.values());
 	}
-
+	
 	public List<Estado> getEstados() {
 		return Arrays.asList(Estado.values());
 	}
@@ -73,67 +71,67 @@ public class EmpresaBean implements Serializable {
 	public List<EstadoCivil> getEstadoCivis() {
 		return Arrays.asList(EstadoCivil.values());
 	}
-
+	
 	public List<TipoDoc> getTipoDocs() {
 		return Arrays.asList(TipoDoc.values());
 	}
-
+	
 	public List<TipoPessoa> getTipoPessoas() {
 		return Arrays.asList(TipoPessoa.values());
 	}
-
 	public void novoCadastro() {
-		empresa = new Pessoa();
-		empresa.setTrabalha(false);
-		empresa.setContaConjunta(false);
-		empresa.setStatus(true);
-		empresa.setTipoPessoa("J");
+		cliente = new Pessoa();
+		cliente.setTrabalha(false);
+		cliente.setContaConjunta(false);
+		cliente.setStatus(true);
+		cliente.setTipoPessoa("J");
 	}
 
 	public void salvar() {
-		empresa.setEmpresa(true);
-		empresaService.salvar(this.empresa);
-		this.empresaSelecionado = null;
+		cliente.setCliente(true);
+		clienteService.salvar(this.cliente);
+		this.clienteSelecionado = null;
 		carregarTabela();
 		Messages.addGlobalInfo("Registro salvo com sucesso");
 	}
 
 	public void excluir() {
-		empresaService.remover(this.empresa);
-		this.empresaSelecionado = null;
+		clienteService.remover(this.cliente);
+		this.clienteSelecionado = null;
 		carregarTabela();
 		Messages.addGlobalInfo("Registro excluido com sucesso");
 	}
 
 	public void editar() {
-		this.empresa = empresaService.buscarPorId(empresaSelecionado.getId());
+		this.cliente = clienteService.buscarPorId(clienteSelecionado.getId());
 	}
 
 	/****************************** Getters e Setters *************************/
 
-	public Pessoa getEmpresa() {
-		return empresa;
+	public Pessoa getCliente() {
+		return cliente;
 	}
 
-	public void setEmpresa(Pessoa empresa) {
-		this.empresa = empresa;
+	public void setCliente(Pessoa cliente) {
+		this.cliente = cliente;
 	}
 
-	public List<Pessoa> getEmpresas() {
-		return empresas;
+	public List<Pessoa> getClientes() {
+		return clientes;
 	}
 
-	public void setEmpresas(List<Pessoa> empresas) {
-		this.empresas = empresas;
+	public void setClientes(List<Pessoa> clientes) {
+		this.clientes = clientes;
 	}
 
-	public Pessoa getEmpresaSelecionado() {
-		return empresaSelecionado;
+	public Pessoa getClienteSelecionado() {
+		return clienteSelecionado;
 	}
 
-	public void setEmpresaSelecionado(Pessoa empresaSelecionado) {
-		this.empresaSelecionado = empresaSelecionado;
+	public void setClienteSelecionado(Pessoa clienteSelecionado) {
+		this.clienteSelecionado = clienteSelecionado;
 	}
 }
 
-/****************************** Getters e Setters *************************/
+	/****************************** Getters e Setters *************************/
+

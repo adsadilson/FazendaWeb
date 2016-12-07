@@ -39,6 +39,12 @@ public class PessoaService implements Serializable {
 	public List<Pessoa> listarTodos() {
 		return pessoaRepository.listarTodos();
 	}
+	
+	public List<Pessoa> listarPorCondicao(Pessoa op) {
+		return pessoaRepository.listarPorCondicao(op);
+		
+	}
+	
 
 	public List<Pessoa> grupoCondicao(Pessoa op) {
 		return pessoaRepository.grupoCondicao(op);

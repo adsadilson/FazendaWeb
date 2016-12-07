@@ -23,16 +23,16 @@ import br.com.apss.fazendaweb.util.FacesUtil;
 
 @Named
 @ViewScoped
-public class EmpresaBean implements Serializable {
+public class ProfissionalBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Pessoa empresa;
-	private List<Pessoa> empresas = new ArrayList<>();
-	private Pessoa empresaSelecionado;
+	private Pessoa profissional;
+	private List<Pessoa> profissionals = new ArrayList<>();
+	private Pessoa profissionalSelecionado;
 
 	@Inject
-	PessoaService empresaService;
+	PessoaService profissionalService;
 
 	/****************************** Metodos *************************/
 
@@ -46,16 +46,16 @@ public class EmpresaBean implements Serializable {
 	
 
 	private void carregarTabela() {
-		empresa = new Pessoa();
-		empresa.setEmpresa(true);
-		empresa.setCliente(false);
-		empresa.setFornecedor(false);
-		empresa.setFuncionario(false);
-		empresa.setProfissional(false);
-		empresas = empresaService.listarPorCondicao(empresa);
+		profissional = new Pessoa();
+		profissional.setProfissional(true);
+		profissional.setEmpresa(false);
+		profissional.setFuncionario(false);
+		profissional.setCliente(false);
+		profissional.setFornecedor(false);
+		profissionals = profissionalService.listarPorCondicao(profissional);
 	}
 
-	public EmpresaBean() {
+	public ProfissionalBean() {
 	}
 
 	public List<AtivoInativo> getAtivoInativos() {
@@ -83,56 +83,56 @@ public class EmpresaBean implements Serializable {
 	}
 
 	public void novoCadastro() {
-		empresa = new Pessoa();
-		empresa.setTrabalha(false);
-		empresa.setContaConjunta(false);
-		empresa.setStatus(true);
-		empresa.setTipoPessoa("J");
+		profissional = new Pessoa();
+		profissional.setTrabalha(false);
+		profissional.setContaConjunta(false);
+		profissional.setStatus(true);
+		profissional.setTipoPessoa("J");
 	}
 
 	public void salvar() {
-		empresa.setEmpresa(true);
-		empresaService.salvar(this.empresa);
-		this.empresaSelecionado = null;
+		profissional.setProfissional(true);
+		profissionalService.salvar(this.profissional);
+		this.profissionalSelecionado = null;
 		carregarTabela();
 		Messages.addGlobalInfo("Registro salvo com sucesso");
 	}
 
 	public void excluir() {
-		empresaService.remover(this.empresa);
-		this.empresaSelecionado = null;
+		profissionalService.remover(this.profissional);
+		this.profissionalSelecionado = null;
 		carregarTabela();
 		Messages.addGlobalInfo("Registro excluido com sucesso");
 	}
 
 	public void editar() {
-		this.empresa = empresaService.buscarPorId(empresaSelecionado.getId());
+		this.profissional = profissionalService.buscarPorId(profissionalSelecionado.getId());
 	}
 
 	/****************************** Getters e Setters *************************/
 
-	public Pessoa getEmpresa() {
-		return empresa;
+	public Pessoa getProfissional() {
+		return profissional;
 	}
 
-	public void setEmpresa(Pessoa empresa) {
-		this.empresa = empresa;
+	public void setProfissional(Pessoa profissional) {
+		this.profissional = profissional;
 	}
 
-	public List<Pessoa> getEmpresas() {
-		return empresas;
+	public List<Pessoa> getProfissionals() {
+		return profissionals;
 	}
 
-	public void setEmpresas(List<Pessoa> empresas) {
-		this.empresas = empresas;
+	public void setProfissionals(List<Pessoa> profissionals) {
+		this.profissionals = profissionals;
 	}
 
-	public Pessoa getEmpresaSelecionado() {
-		return empresaSelecionado;
+	public Pessoa getProfissionalSelecionado() {
+		return profissionalSelecionado;
 	}
 
-	public void setEmpresaSelecionado(Pessoa empresaSelecionado) {
-		this.empresaSelecionado = empresaSelecionado;
+	public void setProfissionalSelecionado(Pessoa profissionalSelecionado) {
+		this.profissionalSelecionado = profissionalSelecionado;
 	}
 }
 

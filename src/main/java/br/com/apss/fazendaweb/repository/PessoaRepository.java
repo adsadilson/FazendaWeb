@@ -16,7 +16,6 @@ import org.hibernate.criterion.Restrictions;
 import br.com.apss.fazendaweb.model.Pessoa;
 import br.com.apss.fazendaweb.util.NegocioException;
 
-
 public class PessoaRepository implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -28,7 +27,6 @@ public class PessoaRepository implements Serializable {
 		return em.merge(e);
 	}
 
-	
 	public void remove(Pessoa pessoa) {
 		try {
 			pessoa = porId(pessoa.getId());
@@ -40,7 +38,7 @@ public class PessoaRepository implements Serializable {
 	}
 
 	public Pessoa porId(Long value) {
-		System.out.println("repository "+value);
+		System.out.println("repository " + value);
 		return em.find(Pessoa.class, value);
 	}
 
@@ -48,16 +46,44 @@ public class PessoaRepository implements Serializable {
 		return em.createQuery("from Pessoa order by nome", Pessoa.class).getResultList();
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<Pessoa> listarPorCondicao(Pessoa op) {
+		Session session = em.unwrap(Session.class);
+		Criteria criteria = session.createCriteria(Pessoa.class);
+
+		if (op.getEmpresa()) {
+			criteria.add(Restrictions.ge("empresa", true));
+		}
+		
+		if (op.getCliente()) {
+			criteria.add(Restrictions.ge("cliente", true));
+		}
+
+		if (op.getFornecedor()) {
+			criteria.add(Restrictions.ge("fornecedor", true));
+		}
+		
+		if (op.getProfissional()) {
+			criteria.add(Restrictions.ge("profissional", true));
+		}
+		
+		if (op.getFuncionario()) {
+			criteria.add(Restrictions.ge("funcionario", true));
+		}
+		
+
+		return criteria.addOrder(Order.asc("nome")).list();
+	}
+
 	public Pessoa porNome(String nome) {
 		try {
-			return em.createQuery("from Pessoa where nome = :nome", Pessoa.class)
-					.setParameter("nome", nome).getSingleResult();
+			return em.createQuery("from Pessoa where nome = :nome", Pessoa.class).setParameter("nome", nome)
+					.getSingleResult();
 		} catch (NoResultException e) {
 			return null;
 		}
 	}
-	
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Pessoa> grupoCondicao(Pessoa op) {
 		Session session = em.unwrap(Session.class);
@@ -72,6 +98,5 @@ public class PessoaRepository implements Serializable {
 
 		return criteria.addOrder(Order.asc("nome")).list();
 	}
-
 
 }

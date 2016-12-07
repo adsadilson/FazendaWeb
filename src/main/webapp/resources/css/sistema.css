@@ -18,6 +18,10 @@
 	padding-bottom: 1px !importante;
 }
 
+.ui-panelgrid td {
+	padding: 2px !important;
+}
+
 #logo {
 	position: fixed;
 	left: 0px;
@@ -54,6 +58,10 @@
 
 .ui-inputtext {
 	text-transform: uppercase;
+}
+
+#txtEmail {
+	text-transform: lowercase;
 }
 
 .ajax-status {

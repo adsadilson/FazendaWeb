@@ -51,11 +51,14 @@
 			<p:menubar styleClass="menu-sistema">
 				<p:submenu label="Cadastros">
 					<p:submenu label="Colaboradores">
-						<ui:remove>
-							<p:menuitem value="Profissionais" />
-							<p:menuitem value="Fornecedores" />
-							<p:menuitem value="Proprietario" />
-						</ui:remove>
+						<p:menuitem value="Clientes"
+							outcome="/view/cadastros/cliente/cliente.xhtml" />
+						<p:menuitem value="Fornecedores"
+							outcome="/view/cadastros/fornecedor/fornecedor.xhtml" />
+						<p:menuitem value="Profissionais"
+							outcome="/view/cadastros/profissional/profissional.xhtml" />
+						<p:menuitem value="Funcionários"
+							outcome="/view/cadastros/funcionario/funcionario.xhtml" />
 						<p:menuitem value="Empresa"
 							outcome="/view/cadastros/empresa/empresa.xhtml" />
 					</p:submenu>
@@ -71,9 +74,8 @@
 						<p:menuitem value="Origem" outcome="/view/cadastros/origem.xhtml" />
 					</p:submenu>
 					<p:submenu label="Produtos">
-						<ui:remove>
-							<p:menuitem value="Produtos" />
-						</ui:remove>
+						<p:menuitem value="Produtos"
+							outcome="/view/cadastros/produto/produto.xhtml" />
 						<p:menuitem value="Grupo de Produtos"
 							outcome="/view/cadastros/grupo_produto.xhtml" />
 						<p:menuitem value="Unidade de Media"

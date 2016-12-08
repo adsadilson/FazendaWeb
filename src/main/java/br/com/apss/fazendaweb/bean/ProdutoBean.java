@@ -2,6 +2,7 @@ package br.com.apss.fazendaweb.bean;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -85,15 +86,6 @@ public class ProdutoBean implements Serializable {
 		Messages.addGlobalInfo("Registro salvo com sucesso");
 	}
 
-	public void calcMargem() {
-		BigDecimal n = produto.getVlrCusto();
-		BigDecimal n2 = produto.getMargLucro();
-		int i = n.compareTo(n2);		
-		System.out.println(i);
-			
-			Messages.addGlobalInfo("Valor " + i);
-	}
-
 	public void excluir() {
 		produtoService.remover(this.produto);
 		this.produtoSelecionado = null;
@@ -125,6 +117,30 @@ public class ProdutoBean implements Serializable {
 		GrupoProduto gp = new GrupoProduto();
 		gp.setStatus(true);
 		return categoriaService.grupoCondicao(gp);
+	}
+
+	public void calcMargem() {
+		BigDecimal n = produto.getVlrCusto();
+		BigDecimal n3 = BigDecimal.ZERO;
+		BigDecimal n2 = produto.getMargLucro();
+		if (produto.getVlrCusto().signum() > 0 && produto.getMargLucro().signum() > 0) {
+			n3 = (n.multiply(n2)).divide(new BigDecimal(100)).add(n);
+			produto.setVlrVenda(n3);
+		} else {
+			produto.setVlrVenda(BigDecimal.ZERO);
+		}
+	}
+
+	public void calcVenda() {
+		BigDecimal n = produto.getVlrCusto();
+		BigDecimal n3 = BigDecimal.ZERO;
+		BigDecimal n2 = produto.getVlrVenda();
+		if (n.signum() > 0 && n2.signum() > 0) {
+			n3 = (n2.subtract(n)).divide(n, MathContext.DECIMAL128).multiply(new BigDecimal(100));
+			produto.setMargLucro(n3);
+		} else {
+			produto.setMargLucro(BigDecimal.ZERO);
+		}
 	}
 
 	/****************************** Getters e Setters *************************/

@@ -63,13 +63,13 @@ public class Produto implements Serializable {
 	private BigDecimal qtdMaxima = BigDecimal.ZERO;
 
 	@Column(name = "vlr_custo", precision = 12, scale = 2)
-	private BigDecimal vlrCusto = BigDecimal.ZERO;
+	private BigDecimal vlrCusto;
 
 	@Column(name = "vlr_venda", precision = 12, scale = 2)
-	private BigDecimal vlrVenda = BigDecimal.ZERO;
+	private BigDecimal vlrVenda;
 
 	@Column(name = "marg_lucro", precision = 12, scale = 2)
-	private BigDecimal margLucro = BigDecimal.ZERO;
+	private BigDecimal margLucro;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "dt_ultima_compra")

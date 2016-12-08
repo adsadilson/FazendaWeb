@@ -9,30 +9,6 @@
 
 	<ui:define name="titulo">Produto</ui:define>
 
-	<script type="text/javascript">
-
-                function mascara(o, f) {
-                    v_obj = o;
-                    v_fun = f;
-                    setTimeout("execmascara()", 1);
-                }
-
-                function execmascara() {
-                    v_obj.value = v_fun(v_obj.value);
-                }
-
-                function valor(v) {
-                    v = v.replace(/\D/g, "");
-                    v = v.replace(/[0-9]{15}/, "invÃ¡lido");
-                    v = v.replace(/(\d{1})(\d{11})$/, "$1.$2"); // coloca ponto antes dos ultimos 11 digitos
-                    v = v.replace(/(\d{1})(\d{8})$/, "$1.$2"); // coloca ponto antes dos ultimos 8 digitos
-                    v = v.replace(/(\d{1})(\d{3})$/, "$1.$2"); // coloca ponto antes dos ultimos 5 digitos
-                    return v;
-                }
-
-
-            </script>
-
 	<ui:define name="corpo">
 
 		<f:metadata>
@@ -277,7 +253,7 @@
 							<p:outputLabel for="txtCusto" value="Vlr. de Custo" />
 						</p:column>
 						<p:column>
-							<p:outputLabel value="Marg. Lucro (%)" />
+							<p:outputLabel for="margem" value="Marg. Lucro (%)" />
 						</p:column>
 						<p:column>
 							<p:outputLabel for="txtVenda" value="Vlr. de Venda" />
@@ -288,17 +264,20 @@
 					</p:row>
 					<p:row>
 						<p:column>
-							<p:inputNumber size="13" id="txtCusto" required="true"
-								requiredMessage="Informe o valor de custo"
+							<p:inputNumber size="13" id="txtCusto" required="true" emptyValue="empty"
 								value="#{produtoBean.produto.vlrCusto}" symbol="R$ "
 								decimalSeparator="," thousandSeparator=".">
+								<p:ajax process="form-cadastro:txtVenda, form-cadastro:txtCusto" 
+								update="form-cadastro:margem, form-cadastro:txtCusto"
+									listener="#{produtoBean.calcVenda}" />
 							</p:inputNumber>
 						</p:column>
 						<p:column>
-							<p:inputNumber id="margem" size="12"
+							<p:inputNumber id="margem" size="12" required="true" emptyValue="empty"
 								value="#{produtoBean.produto.margLucro}" symbol="%"
-								symbolPosition="s" emptyValue="sign">
-								<p:ajax update="form-cadastro:margem, form-cadastro:txtVenda"
+								symbolPosition="s" >
+								<p:ajax process="form-cadastro:margem, form-cadastro:txtCusto" 
+								update="form-cadastro:txtVenda"
 									listener="#{produtoBean.calcMargem}" />
 							</p:inputNumber>
 						</p:column>
@@ -307,6 +286,9 @@
 								requiredMessage="Informe o valor de venda"
 								value="#{produtoBean.produto.vlrVenda}" symbol="R$ "
 								decimalSeparator="," thousandSeparator=".">
+								<p:ajax process="form-cadastro:txtVenda, form-cadastro:txtCusto" 
+								update="form-cadastro:margem"
+									listener="#{produtoBean.calcVenda}" />
 							</p:inputNumber>
 						</p:column>
 						<p:column>

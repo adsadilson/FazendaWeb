@@ -55,6 +55,15 @@ public class ProdutoRepository implements Serializable {
 		}
 	}
 
+	public Produto porCodigoBarra(String codigo_barra) {
+		try {
+			return em.createQuery("from Produto where codigo_barra = :codigo_barra", Produto.class)
+					.setParameter("codigo_barra", codigo_barra).getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+
 	@SuppressWarnings("unchecked")
 	public List<Produto> grupoCondicao(Produto op) {
 		Session session = em.unwrap(Session.class);

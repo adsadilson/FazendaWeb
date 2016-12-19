@@ -27,7 +27,7 @@
 						update="form-cadastro" action="#{produtoBean.novoCadastro}">
 						<p:resetInput target="form-cadastro" />
 					</p:commandButton>
-					<p:commandButton icon="editar-icon" value="Editar"
+					<p:commandButton icon="editar-icon" value="Editar" style="margin-left: 5px; margin-right: 5px;"
 						oncomplete="PF('dialogCadastro').show()" process="@this"
 						update="form-cadastro" action="#{produtoBean.editar}"
 						disabled="#{produtoBean.produtoSelecionado == null}">
@@ -63,43 +63,61 @@
 				<p:ajax event="rowSelect" update="form-menu, form-table" />
 				<p:ajax event="rowUnselect" update="form-menu, form-table" />
 
-				<p:column headerText="Código" sortBy="#{produto.id}"
-					style="text-align: center; width: 90px">
-					<h:outputText value="#{produto.id}" />
-				</p:column>
-
 				<p:column headerText="Código de Barra"
 					sortBy="#{produto.codigoBarra}"
 					style="text-align: center; width: 130px">
 					<h:outputText value="#{produto.codigoBarra}" />
 				</p:column>
 
-				<p:column headerText="Descrição" style="width: 350px"
+				<p:column headerText="Descrição" style="width: 270px"
 					sortBy="#{produto.nome}">
 					<h:outputText value="#{produto.nome}" />
 				</p:column>
 
-				<p:column headerText="Tipo" style="width: 50px; text-align: center;"
+				<p:column headerText="Tipo" style="width: 85px; text-align: center;"
 					sortBy="#{produto.tipoProduto}">
 					<h:outputText value="#{produto.tipoProduto}" />
 				</p:column>
 
-
-				<p:column headerText="Prç. Venda" style="width: 100px"
-					sortBy="#{produto.vlrVenda}">
-					<h:outputText value="#{produto.vlrVenda}" />
+				<p:column headerText="Categoria"
+					style="text-align: center; width: 170px"
+					sortBy="#{produto.grupoProduto.nome}">
+					<h:outputText value="#{produto.grupoProduto.nome}">
+					</h:outputText>
 				</p:column>
 
-				<p:column headerText="Prç. Custo" style="width: 100px"
+				<p:column headerText="Und." style="text-align: center; width: 70px"
+					sortBy="#{produto.unidadeMedia.nome}">
+					<h:outputText value="#{produto.unidadeMedia.nome}">
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Quantidade"
+					style="text-align: center; width: 100px"
+					sortBy="#{produto.quantidade}">
+					<h:outputText value="#{produto.quantidade}" >
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Preço Venda"
+					style="text-align: right; width: 100px"
+					sortBy="#{produto.vlrVenda}">
+					<h:outputText value="#{produto.vlrVenda}">
+						<f:convertNumber type="currency" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Preço Custo"
+					style="text-align: right; width: 100px"
 					sortBy="#{produto.vlrCusto}">
-					<h:outputText value="#{produto.vlrCusto}" />
+					<h:outputText value="#{produto.vlrCusto}">
+						<f:convertNumber type="currency" />
+					</h:outputText>
 				</p:column>
 
 				<p:column headerText="Status" sortBy="#{produto.status}"
-					style="text-align: center; width: 100px">
+					style="text-align: center; width: 90px">
 					<h:outputText value="#{produto.status ? 'ATIVO' : 'INATIVO'}" />
-				</p:column>
-				<p:column>
 				</p:column>
 
 			</p:dataTable>
@@ -107,7 +125,8 @@
 		</h:form>
 
 		<p:dialog header="Manutenção Produto" widgetVar="dialogCadastro"
-			modal="true" resizable="false" draggable="true" id="dgCadastro"
+			modal="true"
+			resizable="false" draggable="true" id="dgCadastro"
 			closeOnEscape="true" width="525" appendTo="@(body)">
 
 			<h:form id="form-cadastro">
@@ -115,7 +134,7 @@
 					<!-- 1ª LINHA -->
 					<p:row>
 						<p:column colspan="1">
-							<p:outputLabel value="Cádigo Barra" />
+							<p:outputLabel value="Código Barra" />
 						</p:column>
 						<p:column colspan="3">
 							<p:outputLabel for="txtDescricao" value="Descriçao" />
@@ -123,11 +142,13 @@
 					</p:row>
 					<p:row>
 						<p:column colspan="1">
-							<p:inputText size="13" />
+							<p:inputText id="txtCodigoBarra" size="13"
+								value="#{produtoBean.produto.codigoBarra}" />
 						</p:column>
 						<p:column colspan="3">
 							<p:inputText id="txtDescricao" style="width: 97%;"
-								required="true" requiredMessage="Informe a descrição" />
+								value="#{produtoBean.produto.nome}" required="true"
+								requiredMessage="Informe a descrição" />
 						</p:column>
 					</p:row>
 					<!-- 2ª LINHA -->
@@ -199,7 +220,7 @@
 						</p:column>
 						<p:column colspan="2">
 							<p:selectOneMenu id="comboCategoria" style="width:87%;"
-								required="true" requiredMessage="Selecione um categoria"
+								required="true" requiredMessage="Selecione um grupo produto"
 								filter="true" converter="omnifaces.SelectItemsConverter"
 								value="#{produtoBean.produto.grupoProduto}">
 								<f:selectItem itemLabel="Selecione..." itemValue="#{null}" />
@@ -227,7 +248,7 @@
 					</p:row>
 					<p:row>
 						<p:column>
-							<p:inputNumber size="13"
+							<p:inputNumber size="13" disabled="true"
 								value="#{produtoBean.produto.quantidade}" decimalSeparator=","
 								thousandSeparator=".">
 							</p:inputNumber>
@@ -243,7 +264,8 @@
 							</p:inputNumber>
 						</p:column>
 						<p:column>
-							<p:inputText size="10" disabled="true" />
+							<p:inputText size="10" disabled="true"
+								value="#{produtoBean.produto.dtUltimaCompra}" />
 						</p:column>
 					</p:row>
 
@@ -264,20 +286,20 @@
 					</p:row>
 					<p:row>
 						<p:column>
-							<p:inputNumber size="13" id="txtCusto" required="true" emptyValue="empty"
-								value="#{produtoBean.produto.vlrCusto}" symbol="R$ "
-								decimalSeparator="," thousandSeparator=".">
-								<p:ajax process="form-cadastro:txtVenda, form-cadastro:txtCusto" 
-								update="form-cadastro:margem, form-cadastro:txtCusto"
+							<p:inputNumber size="13" id="txtCusto" required="true"
+								emptyValue="empty" value="#{produtoBean.produto.vlrCusto}"
+								symbol="R$ " decimalSeparator="," thousandSeparator=".">
+								<p:ajax process="form-cadastro:txtVenda, form-cadastro:txtCusto"
+									update="form-cadastro:margem, form-cadastro:txtCusto"
 									listener="#{produtoBean.calcVenda}" />
 							</p:inputNumber>
 						</p:column>
 						<p:column>
-							<p:inputNumber id="margem" size="12" required="true" emptyValue="empty"
-								value="#{produtoBean.produto.margLucro}" symbol="%"
-								symbolPosition="s" >
-								<p:ajax process="form-cadastro:margem, form-cadastro:txtCusto" 
-								update="form-cadastro:txtVenda"
+							<p:inputNumber id="margem" size="12" required="true"
+								emptyValue="empty" value="#{produtoBean.produto.margLucro}"
+								symbol="%" symbolPosition="s">
+								<p:ajax process="form-cadastro:margem, form-cadastro:txtCusto"
+									update="form-cadastro:txtVenda"
 									listener="#{produtoBean.calcMargem}" />
 							</p:inputNumber>
 						</p:column>
@@ -286,13 +308,14 @@
 								requiredMessage="Informe o valor de venda"
 								value="#{produtoBean.produto.vlrVenda}" symbol="R$ "
 								decimalSeparator="," thousandSeparator=".">
-								<p:ajax process="form-cadastro:txtVenda, form-cadastro:txtCusto" 
-								update="form-cadastro:margem"
+								<p:ajax process="form-cadastro:txtVenda, form-cadastro:txtCusto"
+									update="form-cadastro:margem"
 									listener="#{produtoBean.calcVenda}" />
 							</p:inputNumber>
 						</p:column>
 						<p:column>
-							<p:inputText size="10" disabled="true" />
+							<p:inputText size="10" disabled="true"
+								value="#{produtoBean.produto.dtUltimaVenda}" />
 						</p:column>
 					</p:row>
 				</p:panelGrid>
@@ -303,7 +326,7 @@
 							style="margin-left:0px;" oncomplete="PF('dialogCadastro').hide()"
 							immediate="true" />
 						<p:commandButton value="Salvar" icon="salvar-icon"
-							id="salvarCommandButton"
+							id="salvarCommandButton" style="margin-left:6px;" 
 							update="form-cadastro, form-table, form-menu"
 							action="#{produtoBean.salvar}"
 							oncomplete="if(!args.validationFailed) PF('dialogCadastro').hide()" />
@@ -334,7 +357,7 @@
 			</h:form>
 		</p:dialog>
 
-		<p:dialog header="Manutenção Fornecedor"
+		<p:dialog header="Manutenção Fornecedor" 
 			widgetVar="dialogCadastroForn" modal="true" resizable="false"
 			draggable="true" id="dgCadastroForn" closeOnEscape="true" width="743"
 			appendTo="@(body)">

@@ -1,28 +1,24 @@
 package br.com.apss.fazendaweb.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "origem")
-@SequenceGenerator(name = "ORIGEM_ID", sequenceName = "ORIGEM_SEQ", allocationSize = 1)
-public class Origem implements Serializable {
+@Table(name = "condicao_corporal")
+@SequenceGenerator(name = "CONDICAO_CORPORAL_ID", sequenceName = "CONDICAO_CORPORAL_SEQ", allocationSize = 1)
+public class CondicaoCorporal implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "ORIGEM_ID")
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "CONDICAO_CORPORAL_ID")
 	private Long id;
 
 	@Column(name = "nome", nullable = true, length = 80)
@@ -30,12 +26,6 @@ public class Origem implements Serializable {
 
 	@Column(name = "status", nullable = false, length = 1)
 	private Boolean status;
-
-	@OneToMany(mappedBy = "especie", fetch = FetchType.LAZY)
-	private List<Raca> racas = new ArrayList<>();
-
-	@OneToMany(mappedBy = "origem", fetch = FetchType.LAZY)
-	private List<Animal> animais = new ArrayList<>();
 
 	public Long getId() {
 		return id;
@@ -61,22 +51,6 @@ public class Origem implements Serializable {
 		this.status = status;
 	}
 
-	public List<Raca> getRacas() {
-		return racas;
-	}
-
-	public void setRacas(List<Raca> racas) {
-		this.racas = racas;
-	}
-
-	public List<Animal> getAnimais() {
-		return animais;
-	}
-
-	public void setAnimais(List<Animal> animais) {
-		this.animais = animais;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -93,7 +67,7 @@ public class Origem implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Origem other = (Origem) obj;
+		CondicaoCorporal other = (CondicaoCorporal) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

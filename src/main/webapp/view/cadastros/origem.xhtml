@@ -29,7 +29,8 @@
 					</p:commandButton>
 					<p:commandButton icon="editar-icon" value="Editar"
 						oncomplete="PF('dialogCadastro').show()" process="@this"
-						update="form-cadastro" action="#{origemBean.editar}"
+						style="margin-left: 3px; margin-right: 3px" update="form-cadastro"
+						action="#{origemBean.editar}"
 						disabled="#{origemBean.origemSelecionado == null}">
 						<p:resetInput target="form-cadastro" />
 					</p:commandButton>
@@ -38,9 +39,6 @@
 						update=":form-Exclusao" action="#{origemBean.editar}"
 						disabled="#{origemBean.origemSelecionado == null}">
 					</p:commandButton>
-					<p:separator />
-					<p:commandButton icon="fa fa-filter" title="Filtrar Registro"
-						style="margin-left:5px;" oncomplete="PF('dialogFiltro').show()" />
 				</p:toolbarGroup>
 				<p:toolbarGroup align="right">
 					<p:button value="Fechar" icon="fa fa-power-off"
@@ -51,14 +49,12 @@
 
 		<h:form id="form-table">
 
-			<p:dataTable id="tbl-origem"
-				value="#{origemBean.origems}" var="origem"
-				style="margin-top: 5px"
+			<p:dataTable id="tbl-origem" value="#{origemBean.origems}"
+				var="origem" style="margin-top: 5px"
 				emptyMessage="Nenhuma registro encontrada." rows="10"
 				paginator="true" paginatorAlwaysVisible="false"
 				paginatorPosition="bottom" selectionMode="single"
-				selection="#{origemBean.origemSelecionado}"
-				rowKey="#{origem.id}">
+				selection="#{origemBean.origemSelecionado}" rowKey="#{origem.id}">
 
 				<p:ajax event="rowSelect" update="form-menu, form-table" />
 				<p:ajax event="rowUnselect" update="form-menu, form-table" />
@@ -84,10 +80,9 @@
 
 		</h:form>
 
-		<p:dialog header="Manutenção Origem"
-			widgetVar="dialogCadastro" modal="true" resizable="false"
-			draggable="true" id="dgCadastro" closeOnEscape="true" width="430"
-			appendTo="@(body)">
+		<p:dialog header="Manutenção Origem" widgetVar="dialogCadastro"
+			modal="true" resizable="false" draggable="true" id="dgCadastro"
+			closeOnEscape="true" width="400" appendTo="@(body)">
 
 			<h:form id="form-cadastro">
 
@@ -99,35 +94,35 @@
 
 					<p:outputLabel for="txtNome" value="Nome:" />
 					<p:inputText id="txtNome" size="35" maxlength="35" required="true"
-						requiredMessage="Informe o nome"
-						value="#{origemBean.origem.nome}" />
+						requiredMessage="Informe o nome" value="#{origemBean.origem.nome}" />
 
 					<p:outputLabel value="Ativo:" />
-					<p:selectBooleanCheckbox
-						value="#{origemBean.origem.status}" />
+					<p:selectBooleanCheckbox value="#{origemBean.origem.status}" />
 
 				</p:panelGrid>
 
-				<h:panelGrid columns="2" style="margin-top: 20px;">
-					<p:commandButton value="Salvar" icon="salvar-icon"
-						update="form-cadastro, form-table, form-menu"
-						action="#{origemBean.salvar}"
-						oncomplete="if(!args.validationFailed) PF('dialogCadastro').hide()" />
-					<p:commandButton value="Cancelar" icon="cancelar-icon"
-						style="margin-left:0px;" oncomplete="PF('dialogCadastro').hide()"
-						immediate="true" />
-				</h:panelGrid>
+				<p:toolbar style="margin-top: 20px" styleClass="semPreenchimento">
+					<p:toolbarGroup align="right" style="margin-right: 0px;">
+						<p:commandButton value="Cancelar" icon="cancelar-icon"
+							style="margin-right: 3px;" oncomplete="PF('dialogCadastro').hide()"
+							immediate="true" />
+						<p:commandButton value="Salvar" icon="salvar-icon"
+							update="form-cadastro, form-table, form-menu"
+							action="#{origemBean.salvar}" id="salvarCommandButton"
+							oncomplete="if(!args.validationFailed) PF('dialogCadastro').hide()" />
+					</p:toolbarGroup>
+				</p:toolbar>
+				<p:defaultCommand target="salvarCommandButton" />
 
 			</h:form>
 		</p:dialog>
 
-		<p:dialog header="Exclusão Origem"
-			widgetVar="confirmacaoExclusao" modal="true" resizable="false"
-			draggable="true" closeOnEscape="true" width="400" appendTo="@(body)">
+		<p:dialog header="Exclusão Origem" widgetVar="confirmacaoExclusao"
+			modal="true" resizable="false" draggable="true" closeOnEscape="true"
+			width="400" appendTo="@(body)">
 			<h:form id="form-Exclusao">
 				<p:panelGrid columns="1" styleClass="semBorda">
-					<p:outputLabel
-						value="Tem certeza que deseja excluir a Origem:" />
+					<p:outputLabel value="Tem certeza que deseja excluir a Origem:" />
 					<p:outputLabel
 						value="#{origemBean.origem.id} - #{origemBean.origem.nome} ?" />
 				</p:panelGrid>

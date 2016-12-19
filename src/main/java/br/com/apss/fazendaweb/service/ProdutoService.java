@@ -3,6 +3,7 @@ package br.com.apss.fazendaweb.service;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import br.com.apss.fazendaweb.model.Produto;
@@ -19,11 +20,17 @@ public class ProdutoService implements Serializable {
 
 	@Transactional
 	public Produto salvar(Produto produto) {
-		Produto produtoExistente = produtoRepository.porNome(produto.getNome());
+		Produto produtoExistente = produtoRepository.porCodigoBarra(produto.getCodigoBarra());
 
 		if (produtoExistente != null && !produtoExistente.equals(produto)) {
-			throw new NegocioException("Já existe uma Produto com esse nome informado.");
+			FacesContext.getCurrentInstance().validationFailed();
+			throw new NegocioException("Já existe uma Produto com esse codigo de barra informado.");
 		}
+		if (produto.getVlrCusto().compareTo(produto.getVlrVenda()) == 1){
+			FacesContext.getCurrentInstance().validationFailed();
+			throw new NegocioException("O valor de Custo não pode ser maior que o valor de venda.");
+		}
+		
 		return produtoRepository.save(produto);
 	}
 

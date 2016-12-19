@@ -95,7 +95,7 @@ public class Produto implements Serializable {
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.nome = nome.toUpperCase();
 	}
 
 	public String getCodigoBarra() {

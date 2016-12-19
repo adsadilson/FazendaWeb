@@ -27,6 +27,7 @@
 						<p:resetInput target="form-cadastro" />
 					</p:commandButton>
 					<p:commandButton icon="editar-icon" value="Editar"
+						style="margin-left: 3px; margin-right: 3px"
 						oncomplete="PF('dialogCadastro').show()" process="@this"
 						update="form-cadastro" action="#{racaBean.editar}"
 						disabled="#{racaBean.racaSelecionado == null}">
@@ -37,9 +38,6 @@
 						update=":form-Exclusao" action="#{racaBean.editar}"
 						disabled="#{racaBean.racaSelecionado == null}">
 					</p:commandButton>
-					<p:separator />
-					<p:commandButton icon="fa fa-filter" title="Filtrar Registro"
-						style="margin-left:5px;" oncomplete="PF('dialogFiltro').show()" />
 				</p:toolbarGroup>
 				<p:toolbarGroup align="right">
 					<p:button value="Fechar" icon="fa fa-power-off"
@@ -87,7 +85,7 @@
 
 		<p:dialog header="Manutenção Raça" widgetVar="dialogCadastro"
 			modal="true" resizable="false" draggable="true" id="dgCadastro"
-			closeOnEscape="true" width="430" appendTo="@(body)">
+			closeOnEscape="true" width="400" appendTo="@(body)">
 
 			<h:form id="form-cadastro">
 
@@ -115,7 +113,7 @@
 					</p:panelGrid>
 
 					<p:outputLabel for="txtNome" value="Nome:" />
-					<p:inputText id="txtNome" size="35" maxlength="35" required="true"
+					<p:inputText id="txtNome" size="37" maxlength="35" required="true"
 						requiredMessage="Informe o nome" value="#{racaBean.raca.nome}" />
 
 					<p:outputLabel value="Ativo:" />
@@ -123,15 +121,18 @@
 
 				</p:panelGrid>
 
-				<h:panelGrid columns="2" style="margin-top: 20px;">
-					<p:commandButton value="Salvar" icon="salvar-icon"
-						update="form-cadastro, form-table, form-menu"
-						action="#{racaBean.salvar}"
-						oncomplete="if(!args.validationFailed) PF('dialogCadastro').hide()" />
-					<p:commandButton value="Cancelar" icon="cancelar-icon"
-						style="margin-left:0px;" oncomplete="PF('dialogCadastro').hide()"
-						immediate="true" />
-				</h:panelGrid>
+				<p:toolbar style="margin-top: 20px" styleClass="semPreenchimento">
+					<p:toolbarGroup align="right" style="margin-right: 0px;">
+						<p:commandButton value="Cancelar" icon="cancelar-icon"
+							style="margin-right:3px;"
+							oncomplete="PF('dialogCadastro').hide()" immediate="true" />
+						<p:commandButton value="Salvar" icon="salvar-icon"
+							update="form-cadastro, form-table, form-menu"
+							action="#{racaBean.salvar}" id="salvarCommandButton"
+							oncomplete="if(!args.validationFailed) PF('dialogCadastro').hide()" />
+					</p:toolbarGroup>
+				</p:toolbar>
+				<p:defaultCommand target="salvarCommandButton" />
 
 			</h:form>
 		</p:dialog>

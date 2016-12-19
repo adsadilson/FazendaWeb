@@ -29,7 +29,8 @@
 					</p:commandButton>
 					<p:commandButton icon="editar-icon" value="Editar"
 						oncomplete="PF('dialogCadastro').show()" process="@this"
-						update="form-cadastro" action="#{pelagemBean.editar}"
+						style="margin-left: 3px; margin-right: 3px" update="form-cadastro"
+						action="#{pelagemBean.editar}"
 						disabled="#{pelagemBean.pelagemSelecionado == null}">
 						<p:resetInput target="form-cadastro" />
 					</p:commandButton>
@@ -38,9 +39,6 @@
 						update=":form-Exclusao" action="#{pelagemBean.editar}"
 						disabled="#{pelagemBean.pelagemSelecionado == null}">
 					</p:commandButton>
-					<p:separator />
-					<p:commandButton icon="fa fa-filter" title="Filtrar Registro"
-						style="margin-left:5px;" oncomplete="PF('dialogFiltro').show()" />
 				</p:toolbarGroup>
 				<p:toolbarGroup align="right">
 					<p:button value="Fechar" icon="fa fa-power-off"
@@ -51,14 +49,12 @@
 
 		<h:form id="form-table">
 
-			<p:dataTable id="tbl-pelagem"
-				value="#{pelagemBean.pelagems}" var="pelagem"
-				style="margin-top: 5px"
+			<p:dataTable id="tbl-pelagem" value="#{pelagemBean.pelagems}"
+				var="pelagem" style="margin-top: 5px"
 				emptyMessage="Nenhuma registro encontrada." rows="10"
 				paginator="true" paginatorAlwaysVisible="false"
 				paginatorPosition="bottom" selectionMode="single"
-				selection="#{pelagemBean.pelagemSelecionado}"
-				rowKey="#{pelagem.id}">
+				selection="#{pelagemBean.pelagemSelecionado}" rowKey="#{pelagem.id}">
 
 				<p:ajax event="rowSelect" update="form-menu, form-table" />
 				<p:ajax event="rowUnselect" update="form-menu, form-table" />
@@ -84,10 +80,9 @@
 
 		</h:form>
 
-		<p:dialog header="Manutenção Pelagem"
-			widgetVar="dialogCadastro" modal="true" resizable="false"
-			draggable="true" id="dgCadastro" closeOnEscape="true" width="430"
-			appendTo="@(body)">
+		<p:dialog header="Manutenção Pelagem" widgetVar="dialogCadastro"
+			modal="true" resizable="false" draggable="true" id="dgCadastro"
+			closeOnEscape="true" width="400" appendTo="@(body)">
 
 			<h:form id="form-cadastro">
 
@@ -103,31 +98,32 @@
 						value="#{pelagemBean.pelagem.nome}" />
 
 					<p:outputLabel value="Ativo:" />
-					<p:selectBooleanCheckbox
-						value="#{pelagemBean.pelagem.status}" />
+					<p:selectBooleanCheckbox value="#{pelagemBean.pelagem.status}" />
 
 				</p:panelGrid>
 
-				<h:panelGrid columns="2" style="margin-top: 20px;">
-					<p:commandButton value="Salvar" icon="salvar-icon"
-						update="form-cadastro, form-table, form-menu"
-						action="#{pelagemBean.salvar}"
-						oncomplete="if(!args.validationFailed) PF('dialogCadastro').hide()" />
+				<p:toolbar style="margin-top: 20px" styleClass="semPreenchimento">
+					<p:toolbarGroup align="right" style="margin-right: 0px;">
 					<p:commandButton value="Cancelar" icon="cancelar-icon"
-						style="margin-left:0px;" oncomplete="PF('dialogCadastro').hide()"
+						style="margin-right:3px;" oncomplete="PF('dialogCadastro').hide()"
 						immediate="true" />
-				</h:panelGrid>
+						<p:commandButton value="Salvar" icon="salvar-icon"
+						update="form-cadastro, form-table, form-menu"
+						action="#{pelagemBean.salvar}" id="salvarCommandButton"
+						oncomplete="if(!args.validationFailed) PF('dialogCadastro').hide()" />
+					</p:toolbarGroup>
+				</p:toolbar>
+				<p:defaultCommand target="salvarCommandButton" />
 
 			</h:form>
 		</p:dialog>
 
-		<p:dialog header="Exclusão Pelagem"
-			widgetVar="confirmacaoExclusao" modal="true" resizable="false"
-			draggable="true" closeOnEscape="true" width="400" appendTo="@(body)">
+		<p:dialog header="Exclusão Pelagem" widgetVar="confirmacaoExclusao"
+			modal="true" resizable="false" draggable="true" closeOnEscape="true"
+			width="400" appendTo="@(body)">
 			<h:form id="form-Exclusao">
 				<p:panelGrid columns="1" styleClass="semBorda">
-					<p:outputLabel
-						value="Tem certeza que deseja excluir a Pelagem:" />
+					<p:outputLabel value="Tem certeza que deseja excluir a Pelagem:" />
 					<p:outputLabel
 						value="#{pelagemBean.pelagem.id} - #{pelagemBean.pelagem.nome} ?" />
 				</p:panelGrid>

@@ -1,14 +1,18 @@
 package br.com.apss.fazendaweb.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -32,6 +36,9 @@ public class Raca implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "especie_id", nullable = true)
 	private Especie especie;
+
+	@OneToMany(mappedBy = "raca", fetch = FetchType.LAZY)
+	private List<Animal> animais = new ArrayList<>();
 
 	public Long getId() {
 		return id;
@@ -63,6 +70,14 @@ public class Raca implements Serializable {
 
 	public void setEspecie(Especie especie) {
 		this.especie = especie;
+	}
+
+	public List<Animal> getAnimais() {
+		return animais;
+	}
+
+	public void setAnimais(List<Animal> animais) {
+		this.animais = animais;
 	}
 
 	@Override

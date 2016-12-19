@@ -1,0 +1,339 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/template/layout_padrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+	<ui:define name="titulo">Animal</ui:define>
+
+	<ui:define name="corpo">
+
+		<f:metadata>
+			<f:viewParam name="dummy" />
+			<f:event listener="#{animalBean.inicializarBean}"
+				type="preRenderView" />
+		</f:metadata>
+
+		<h1>Listagem de Animals</h1>
+
+		<h:form id="form-menu">
+			<p:toolbar styleClass="semPreenchimento">
+				<p:toolbarGroup>
+					<p:commandButton icon="novo-icon" value="Novo"
+						oncomplete="PF('dialogCadastro').show()" process="@this"
+						update="form-cadastro" action="#{animalBean.novoCadastro}">
+						<p:resetInput target="form-cadastro" />
+					</p:commandButton>
+					<p:commandButton icon="editar-icon" value="Editar"
+						style="margin-left: 5px; margin-right: 5px;"
+						oncomplete="PF('dialogCadastro').show()" process="@this"
+						update="form-cadastro" action="#{animalBean.editar}"
+						disabled="#{animalBean.animalSelecionado == null}">
+						<p:resetInput target="form-cadastro" />
+					</p:commandButton>
+					<p:commandButton icon="excluir-icon" value="Excluir"
+						oncomplete="PF('confirmacaoExclusao').show()" process="@this"
+						update=":form-Exclusao" action="#{animalBean.editar}"
+						disabled="#{animalBean.animalSelecionado == null}">
+					</p:commandButton>
+					<ui:remove>
+						<p:separator />
+						<p:commandButton icon="fa fa-filter" title="Filtrar Registro"
+							style="margin-left:5px;" oncomplete="PF('dialogFiltro').show()" />
+					</ui:remove>
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:button value="Fechar" icon="fa fa-power-off"
+						outcome="/home.xhtml" />
+				</p:toolbarGroup>
+			</p:toolbar>
+		</h:form>
+
+		<h:form id="form-table">
+
+			<p:dataTable id="tbl-animal" value="#{animalBean.animals}"
+				var="animal" style="margin-top: 5px"
+				emptyMessage="Nenhuma registro encontrada." rows="10"
+				paginator="true" paginatorAlwaysVisible="false"
+				paginatorPosition="bottom" selectionMode="single"
+				selection="#{animalBean.animalSelecionado}" rowKey="#{animal.id}">
+
+				<p:ajax event="rowSelect" update="form-menu, form-table" />
+				<p:ajax event="rowUnselect" update="form-menu, form-table" />
+
+				<p:column headerText="Código" sortBy="#{animal.id}"
+					style="text-align: center; width: 65px">
+					<h:outputText value="#{animal.id}" />
+				</p:column>
+
+				<p:column headerText="Nome" style="width: 250px"
+					sortBy="#{animal.nome}">
+					<h:outputText value="#{animal.nome}" />
+				</p:column>
+
+				<p:column headerText="Brinco"
+					style="width: 60px; text-align: center;" sortBy="#{animal.brinco}">
+					<h:outputText value="#{animal.brinco}" />
+				</p:column>
+
+				<p:column headerText="Nascimento"
+					style="width: 80px; text-align: center;"
+					sortBy="#{animal.nascimento}">
+					<h:outputText value="#{animal.nascimento}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Origem"
+					style="text-align: center; width: 130px">
+					<h:outputText value="#{animal.origem.nome}" />
+				</p:column>
+
+				<p:column headerText="Raça" style="text-align: center; width: 130px">
+					<h:outputText value="#{animal.raca.nome}" />
+				</p:column>
+
+				<p:column headerText="Categoria"
+					style="text-align: center; width: 130px">
+					<h:outputText value="#{animal.categoria.nome}" />
+				</p:column>
+
+				<p:column headerText="Gênero"
+					style="text-align: center; width: 70px">
+					<h:outputText value="#{animal.genero}" />
+				</p:column>
+
+				<p:column headerText="Status" sortBy="#{animal.status}"
+					style="text-align: center; width: 90px">
+					<h:outputText value="#{animal.status ? 'ATIVO' : 'INATIVO'}" />
+				</p:column>
+
+			</p:dataTable>
+
+		</h:form>
+
+		<p:dialog header="Manutenção Animal" widgetVar="dialogCadastro"
+			modal="true" resizable="false" draggable="true" id="dgCadastro"
+			closeOnEscape="true" width="710" height="400" appendTo="@(body)">
+
+			<h:form id="form-cadastro">
+				<p:tabView style="height: 320px;">
+					<p:tab title="Cadastro">
+						<p:panelGrid styleClass="semBorda">
+
+							<p:row>
+								<p:column>
+									<p:outputLabel for="id" value="ID" />
+								</p:column>
+								<p:column colspan="2">
+									<p:outputLabel for="nome" value="Nome" />
+								</p:column>
+								<p:column>
+									<p:outputLabel for="brinco" value="Brinco" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>
+									<p:inputText id="id" size="12" disabled="true"
+										value="#{animalBean.animal.id}" />
+								</p:column>
+								<p:column colspan="2">
+									<p:inputText id="nome" style="width: 97%;" required="true"
+										requiredMessage="Informe o nome"
+										value="#{animalBean.animal.nome}" />
+								</p:column>
+								<p:column>
+									<p:inputText id="brinco" size="18"
+										value="#{animalBean.animal.brinco}" />
+								</p:column>
+							</p:row>
+
+							<p:row>
+								<p:column>
+									<p:outputLabel for="nasc" value="Nascimento" />
+								</p:column>
+								<p:column>
+									<p:outputLabel for="origem" value="Origem" />
+								</p:column>
+								<p:column>
+									<p:outputLabel for="raca" value="Raça" />
+								</p:column>
+								<p:column>
+									<p:outputLabel for="categoria" value="Categoria" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>
+									<p:calendar id="nasc" size="12" pattern="dd/MM/yyyy"
+										locale="pt_BR" required="true"
+										value="#{animalBean.animal.nascimento}"
+										requiredMessage="Informe o nascimento" />
+								</p:column>
+								<p:column>
+									<p:selectOneMenu id="origem" autoWidth="false"
+										style="width: 150px;" required="true"
+										requiredMessage="Selecione um grupo produto"
+										converter="omnifaces.SelectItemsConverter"
+										value="#{animalBean.animal.origem}">
+										<f:selectItem itemLabel="Selecione..." itemValue="#{null}" />
+										<f:selectItems value="#{animalBean.origens}" var="o"
+											itemLabel="#{o.nome}" itemValue="#{o}" />
+									</p:selectOneMenu>
+								</p:column>
+								<p:column>
+									<p:selectOneMenu id="raca" autoWidth="false" required="true"
+										value="#{animalBean.animal.raca}"
+										converter="omnifaces.SelectItemsConverter"
+										requiredMessage="Selecione a raça" style="width: 135px;">
+										<f:selectItem itemLabel="Selecione..." itemValue="#{null}" />
+										<f:selectItems value="#{animalBean.racas}" var="r"
+											itemLabel="#{r.nome}" itemValue="#{r}" />
+									</p:selectOneMenu>
+								</p:column>
+								<p:column>
+									<p:selectOneMenu id="categoria" autoWidth="false"
+										style="width: 135px;"
+										converter="omnifaces.SelectItemsConverter"
+										value="#{animalBean.animal.categoria}" required="true"
+										requiredMessage="Selecione a categoria">
+										<f:selectItem itemLabel="Selecione..." itemValue="#{null}" />
+										<f:selectItems value="#{animalBean.categorias}" var="c"
+											itemLabel="#{c.nome}" itemValue="#{c}" />
+									</p:selectOneMenu>
+								</p:column>
+							</p:row>
+
+							<p:row>
+								<p:column>
+									<p:outputLabel for="sexo" value="Gênero" />
+								</p:column>
+								<p:column>
+									<p:outputLabel for="pelagem" value="Pelagem" />
+								</p:column>
+								<p:column>
+									<p:outputLabel for="rgn" value="RGN" />
+								</p:column>
+								<p:column>
+									<p:outputLabel for="rgd" value="RGD" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>
+									<p:selectOneMenu id="sexo" required="true"
+										requiredMessage="Informe o gênero"
+										value="#{animalBean.animal.genero}"
+										style="width: 30px; min-width: 30px; ">
+										<f:selectItem itemLabel="Selecione..." value="#{null}" />
+										<f:selectItems value="#{animalBean.generos}" var="obj"
+											itemLabel="#{obj.descricao}" itemValue="#{obj}" />
+									</p:selectOneMenu>
+								</p:column>
+								<p:column>
+									<p:selectOneMenu id="pelagem" autoWidth="false" required="true"
+										requiredMessage="Selecione o pelagem"
+										converter="omnifaces.SelectItemsConverter"
+										value="#{animalBean.animal.pelagem}" style="width: 150px;">
+										<f:selectItem itemLabel="Selecione..." itemValue="#{null}" />
+										<f:selectItems value="#{animalBean.pelagens}" var="p"
+											itemLabel="#{p.nome}" itemValue="#{p}" />
+									</p:selectOneMenu>
+								</p:column>
+								<p:column>
+									<p:inputText id="rgn" size="18"
+										value="#{animalBean.animal.rgn}" />
+								</p:column>
+								<p:column>
+									<p:inputText id="rgd" size="18"
+										value="#{animalBean.animal.rgd}" />
+								</p:column>
+							</p:row>
+
+							<p:row>
+								<p:column colspan="2">
+									<p:outputLabel for="pai" value="Pai" />
+								</p:column>
+								<p:column colspan="2">
+									<p:outputLabel for="obs" value="Observação" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column colspan="2">
+									<p:inputText id="pai" style="width: 97%"
+										value="#{animalBean.animal.pai}" />
+								</p:column>
+								<p:column colspan="2" rowspan="3">
+									<p:inputTextarea id="obs"  rows="5" style="width: 97%; height: 97%;"
+										value="#{animalBean.animal.obs}" />
+								</p:column>
+							</p:row>
+
+							<p:row>
+								<p:column colspan="2">
+									<p:outputLabel for="mae" value="Mãe" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column colspan="2">
+									<p:inputText id="mae" style="width: 97%"
+										value="#{animalBean.animal.mae}" />
+								</p:column>
+							</p:row>
+
+						</p:panelGrid>
+					</p:tab>
+					<p:tab title="Sanidade">
+
+					</p:tab>
+					<p:tab title="Reprodução">
+
+					</p:tab>
+					<p:tab title="Foto">
+
+					</p:tab>
+
+				</p:tabView>
+
+				<p:toolbar style="margin-top: 20px" styleClass="semPreenchimento">
+					<p:toolbarGroup align="right" style="margin-right: 0px;">
+						<p:commandButton value="Cancelar" icon="cancelar-icon"
+							style="margin-right: 3px;"
+							oncomplete="PF('dialogCadastro').hide()" immediate="true" />
+						<p:commandButton value="Salvar" icon="salvar-icon"
+							update="form-cadastro form-table form-menu"
+							action="#{animalBean.salvar}" id="salvarCommandButton"
+							oncomplete="if(!args.validationFailed) PF('dialogCadastro').hide()" />
+					</p:toolbarGroup>
+				</p:toolbar>
+				<p:defaultCommand target="salvarCommandButton" />
+
+
+			</h:form>
+
+		</p:dialog>
+
+		<p:dialog header="Exclusão Animal" widgetVar="confirmacaoExclusao"
+			modal="true" resizable="false" draggable="true" closeOnEscape="true"
+			width="400" appendTo="@(body)">
+			<h:form id="form-Exclusao">
+				<p:panelGrid columns="1" styleClass="semBorda">
+					<p:outputLabel value="Tem certeza que deseja excluir a Animal:" />
+					<p:outputLabel
+						value="#{animalBean.animal.id} - #{animalBean.animal.nome} ?" />
+				</p:panelGrid>
+				<p:panelGrid styleClass="semBorda">
+					<p:button value="Não" style="margin-right:8px; margin-top: 15px"
+						onclick="PF('confirmacaoExclusao').hide(); return false;" />
+					<p:commandButton value="Sim" action="#{animalBean.excluir}"
+						update="form-table, form-menu"
+						oncomplete="if(!args.validationFailed) PF('confirmacaoExclusao').hide()" />
+				</p:panelGrid>
+			</h:form>
+		</p:dialog>
+
+
+	</ui:define>
+
+</ui:composition>

@@ -116,11 +116,13 @@
 		</h:form>
 
 		<p:dialog header="Manutenção Animal" widgetVar="dialogCadastro"
-			modal="true" resizable="false" draggable="true" id="dgCadastro"
-			closeOnEscape="true" width="710" height="400" appendTo="@(body)">
+			styleClass="espacamento-dialog" modal="true" resizable="false"
+			draggable="true" id="dgCadastro" closeOnEscape="true" width="710"
+			height="437" appendTo="@(body)">
 
 			<h:form id="form-cadastro">
-				<p:tabView style="height: 320px;">
+				<p:tabView id="tabview" style="height: 365px;"
+					styleClass="espacamento-tabview">
 					<p:tab title="Cadastro">
 						<p:panelGrid styleClass="semBorda">
 
@@ -156,13 +158,27 @@
 									<p:outputLabel for="nasc" value="Nascimento" />
 								</p:column>
 								<p:column>
-									<p:outputLabel for="origem" value="Origem" />
+									<p:commandLink value="Origem"
+										onclick="PF('dialogCadastroOrigem').show()" process="@this"
+										update="form-cadastro-origem"
+										action="#{origemBean.novoCadastro}">
+										<p:resetInput target="form-cadastro-origem" />
+									</p:commandLink>
 								</p:column>
 								<p:column>
-									<p:outputLabel for="raca" value="Raça" />
+									<p:commandLink value="Raça"
+										onclick="PF('dialogCadastroRaca').show()" process="@this"
+										update="form-cadastro-raca" action="#{racaBean.novoCadastro}">
+										<p:resetInput target="form-cadastro-raca" />
+									</p:commandLink>
 								</p:column>
 								<p:column>
-									<p:outputLabel for="categoria" value="Categoria" />
+									<p:commandLink value="Categoria"
+										onclick="PF('dialogCadastroCategoria').show()" process="@this"
+										update="form-cadastro-categoria"
+										action="#{categoriaBean.novoCadastro}">
+										<p:resetInput target="form-cadastro-categoria" />
+									</p:commandLink>
 								</p:column>
 							</p:row>
 							<p:row>
@@ -211,7 +227,12 @@
 									<p:outputLabel for="sexo" value="Gênero" />
 								</p:column>
 								<p:column>
-									<p:outputLabel for="pelagem" value="Pelagem" />
+									<p:commandLink value="Pelagem"
+										onclick="PF('dialogCadastroPelagem').show()" process="@this"
+										update="form-cadastro-pelagem"
+										action="#{pelagemBean.novoCadastro}">
+										<p:resetInput target="form-cadastro-pelagem" />
+									</p:commandLink>
 								</p:column>
 								<p:column>
 									<p:outputLabel for="rgn" value="RGN" />
@@ -265,7 +286,8 @@
 										value="#{animalBean.animal.pai}" />
 								</p:column>
 								<p:column colspan="2" rowspan="3">
-									<p:inputTextarea id="obs"  rows="5" style="width: 97%; height: 97%;"
+									<p:inputTextarea id="obs" rows="5"
+										style="width: 97%; height: 97%;"
 										value="#{animalBean.animal.obs}" />
 								</p:column>
 							</p:row>
@@ -284,15 +306,155 @@
 
 						</p:panelGrid>
 					</p:tab>
-					<p:tab title="Sanidade">
+					<p:tab title="Reg. de Exame">
+						<p:dataTable var="car" value="#{dtBasicView.cars}"
+							style="height: 220px;">
+							<p:column headerText="Dt Exame" style="width: 80px;">
+								<h:outputText value="#{car.id}" />
+							</p:column>
 
+							<p:column headerText="Tipo de Exame">
+								<h:outputText value="#{car.year}" />
+							</p:column>
+
+							<p:column headerText="Resultado">
+								<h:outputText value="#{car.brand}" />
+							</p:column>
+
+							<p:column headerText="Observação">
+								<h:outputText value="#{car.color}" />
+							</p:column>
+						</p:dataTable>
 					</p:tab>
-					<p:tab title="Reprodução">
+					<p:tab title="Reg. de Tratamento">
+						<p:dataTable var="car" value="#{dtBasicView.cars}"
+							style="height: 220px;">
+							<p:column headerText="Dt Tratamento" style="width: 100px;">
+								<h:outputText value="#{car.id}" />
+							</p:column>
 
+							<p:column headerText="Tipo Tratamento">
+								<h:outputText value="#{car.year}" />
+							</p:column>
+
+							<p:column headerText="Medicamento">
+								<h:outputText value="#{car.brand}" />
+							</p:column>
+
+							<p:column headerText="Qtde" style="width: 50px;">
+								<h:outputText value="#{car.color}" />
+							</p:column>
+
+							<p:column headerText="Und." style="width: 50px;">
+								<h:outputText value="#{car.color}" />
+							</p:column>
+						</p:dataTable>
+					</p:tab>
+					<p:tab title="Reg. de Vacina">
+						<p:dataTable var="car" value="#{dtBasicView.cars}"
+							style="height: 220px;">
+							<p:column headerText="Dt Vacina" style="width: 100px;">
+								<h:outputText value="#{car.id}" />
+							</p:column>
+
+							<p:column headerText="Tipo Vacina">
+								<h:outputText value="#{car.year}" />
+							</p:column>
+
+							<p:column headerText="Observação">
+								<h:outputText value="#{car.brand}" />
+							</p:column>
+
+						</p:dataTable>
+					</p:tab>
+					<p:tab title="Reg. de Cobetura">
+						<p:dataTable id="tbCobetura" var="car" value="#{dtBasicView.cars}"
+							styleClass="table-tela-animal">
+							<p:column headerText="Dt Cobetura" style="width: 100px;">
+								<h:outputText value="#{car.id}" />
+							</p:column>
+
+							<p:column headerText="Tipo Cobetura" style="width: 120px;">
+								<h:outputText value="#{car.year}" />
+							</p:column>
+
+							<p:column headerText="Dt Diagnóstico" style="width: 120px;">
+								<h:outputText value="#{car.brand}" />
+							</p:column>
+
+							<p:column headerText="Resultado" style="width: 150px;">
+								<h:outputText value="#{car.color}" />
+							</p:column>
+							<p:column headerText="Prev. Parto" style="width: 120px;">
+								<h:outputText value="#{car.color}" />
+							</p:column>
+						</p:dataTable>
+					</p:tab>
+					<p:tab title="Reg. de Parto">
+						<p:dataTable var="car" value="#{dtBasicView.cars}"
+							style="height: 220px;" styleClass="table-tela-animal">
+							<p:column headerText="Dt Cobetura" style="width: 100px;">
+								<h:outputText value="#{car.id}" />
+							</p:column>
+
+							<p:column headerText="Dt Parto" style="width: 100px;">
+								<h:outputText value="#{car.year}" />
+							</p:column>
+
+							<p:column headerText="Tipo Parto" style="width: 150px;">
+								<h:outputText value="#{car.brand}" />
+							</p:column>
+
+							<p:column headerText="Qt. Cria" style="width: 60px;">
+								<h:outputText value="#{car.color}" />
+							</p:column>
+
+							<p:column headerText="Sexo" style="width: 45px;">
+								<h:outputText value="#{car.color}" />
+							</p:column>
+
+							<p:column headerText="Cond. Coporal" style="width: 120px;">
+								<h:outputText value="#{car.color}" />
+							</p:column>
+
+							<p:column headerText="IEP (Dias)" style="width: 70px;">
+								<h:outputText value="#{car.color}" />
+							</p:column>
+
+						</p:dataTable>
+					</p:tab>
+					<p:tab title="Reg. de Secagem">
+						<p:dataTable var="car" value="#{dtBasicView.cars}"
+							style="height: 220px;" >
+							<p:column headerText="Dt Parto" style="width: 90px;">
+								<h:outputText value="#{car.id}" />
+							</p:column>
+
+							<p:column headerText="Dt Secagem" style="width: 90px;">
+								<h:outputText value="#{car.year}" />
+							</p:column>
+
+							<p:column headerText="Tipo Secagem" style="width: 130px;">
+								<h:outputText value="#{car.brand}" />
+							</p:column>
+
+							<p:column headerText="Cond. coporal" style="width: 120px;">
+								<h:outputText value="#{car.color}" />
+							</p:column>
+
+							<p:column headerText="Lactação (Dias)" style="width: 120px;">
+								<h:outputText value="#{car.color}" />
+							</p:column>
+
+						</p:dataTable>
+					</p:tab>
+					
+					<ui:remove>
+					<p:tab title="Reprodução">
 					</p:tab>
 					<p:tab title="Foto">
-
 					</p:tab>
+					</ui:remove>
 
 				</p:tabView>
 
@@ -330,6 +492,176 @@
 						update="form-table, form-menu"
 						oncomplete="if(!args.validationFailed) PF('confirmacaoExclusao').hide()" />
 				</p:panelGrid>
+			</h:form>
+		</p:dialog>
+
+		<p:dialog header="Manutenção Origem" widgetVar="dialogCadastroOrigem"
+			modal="true" resizable="false" draggable="true" id="dgCadastroOrigem"
+			closeOnEscape="true" width="400" appendTo="@(body)">
+
+			<h:form id="form-cadastro-origem">
+
+				<p:panelGrid columns="2" styleClass="semBorda">
+
+					<p:outputLabel for="txtIdOrigem" value="ID:" />
+					<p:inputText id="txtIdOrigem" size="5" style="text-align:center;"
+						disabled="true" value="#{origemBean.origem.id}" />
+
+					<p:outputLabel for="txtNomeOrigem" value="Nome:" />
+					<p:inputText id="txtNomeOrigem" size="35" maxlength="35"
+						required="true" requiredMessage="Informe o nome"
+						value="#{origemBean.origem.nome}" />
+
+					<p:outputLabel value="Ativo:" />
+					<p:selectBooleanCheckbox value="#{origemBean.origem.status}"
+						disabled="true" />
+
+				</p:panelGrid>
+
+				<p:toolbar style="margin-top: 20px" styleClass="semPreenchimento">
+					<p:toolbarGroup align="right" style="margin-right: 0px;">
+						<p:commandButton value="Cancelar" icon="cancelar-icon"
+							style="margin-right: 3px;"
+							oncomplete="PF('dialogCadastroOrigem').hide()" immediate="true" />
+						<p:commandButton value="Salvar" icon="salvar-icon"
+							update="form-cadastro-origem, :form-cadastro:tabview:origem"
+							action="#{origemBean.salvar}" id="salvarCommandButtonOrigem"
+							oncomplete="if(!args.validationFailed) PF('dialogCadastroOrigem').hide()" />
+					</p:toolbarGroup>
+				</p:toolbar>
+				<p:defaultCommand target="salvarCommandButtonOrigem" />
+			</h:form>
+		</p:dialog>
+
+		<p:dialog header="Manutenção Raça" widgetVar="dialogCadastroRaca"
+			modal="true" resizable="false" draggable="true" id="dgCadastroRaca"
+			closeOnEscape="true" width="400" appendTo="@(body)">
+
+			<h:form id="form-cadastro-raca">
+
+				<p:panelGrid columns="2" styleClass="semBorda">
+
+					<p:outputLabel for="txtIdRaca" value="ID:" />
+					<p:inputText id="txtIdRaca" size="5" style="text-align:center;"
+						disabled="true" value="#{racaBean.raca.id}" />
+
+					<p:outputLabel for="comboRaca" value="Espécie" />
+					<p:selectOneMenu id="comboRaca" style="width:180px; top:3px;"
+						converter="omnifaces.SelectItemsConverter" required="true"
+						requiredMessage="Selecione uma espécie"
+						value="#{racaBean.raca.especie}">
+						<f:selectItem itemLabel="Selecione..." itemValue="#{null}" />
+						<f:selectItems value="#{racaBean.especies}" var="especie"
+							itemLabel="#{especie.nome}" itemValue="#{especie}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="txtNomeRaca" value="Nome:" />
+					<p:inputText id="txtNomeRaca" size="37" maxlength="35"
+						required="true" requiredMessage="Informe o nome"
+						value="#{racaBean.raca.nome}" />
+
+					<p:outputLabel value="Ativo:" />
+					<p:selectBooleanCheckbox value="#{racaBean.raca.status}"
+						disabled="true" />
+
+				</p:panelGrid>
+
+				<p:toolbar style="margin-top: 20px" styleClass="semPreenchimento">
+					<p:toolbarGroup align="right" style="margin-right: 0px;">
+						<p:commandButton value="Cancelar" icon="cancelar-icon"
+							style="margin-right:3px;"
+							oncomplete="PF('dialogCadastroRaca').hide()" immediate="true" />
+						<p:commandButton value="Salvar" icon="salvar-icon"
+							update="form-cadastro-raca, :form-cadastro:tabview:raca"
+							action="#{racaBean.salvar}" id="salvarCommandButtonRaca"
+							oncomplete="if(!args.validationFailed) PF('dialogCadastroRaca').hide()" />
+					</p:toolbarGroup>
+				</p:toolbar>
+				<p:defaultCommand target="salvarCommandButtonRaca" />
+
+			</h:form>
+		</p:dialog>
+
+		<p:dialog header="Manutenção Categoria"
+			widgetVar="dialogCadastroCategoria" modal="true" resizable="false"
+			draggable="true" id="dgCadastroCategoria" closeOnEscape="true"
+			width="400" appendTo="@(body)">
+
+			<h:form id="form-cadastro-categoria">
+
+				<p:panelGrid columns="2" styleClass="semBorda">
+
+					<p:outputLabel for="txtIdCategoria" value="ID:" />
+					<p:inputText id="txtIdCategoria" size="5"
+						style="text-align:center;" disabled="true"
+						value="#{categoriaBean.categoria.id}" />
+
+					<p:outputLabel for="txtNomeCategoria" value="Nome:" />
+					<p:inputText id="txtNomeCategoria" size="35" maxlength="35"
+						required="true" requiredMessage="Informe o nome"
+						value="#{categoriaBean.categoria.nome}" />
+
+					<p:outputLabel value="Ativo:" />
+					<p:selectBooleanCheckbox value="#{categoriaBean.categoria.status}"
+						disabled="true" />
+
+				</p:panelGrid>
+
+				<p:toolbar style="margin-top: 20px" styleClass="semPreenchimento">
+					<p:toolbarGroup align="right" style="margin-right: 0px;">
+						<p:commandButton value="Cancelar" icon="cancelar-icon"
+							style="margin-right: 3px;"
+							oncomplete="PF('dialogCadastroCategoria').hide()"
+							immediate="true" />
+						<p:commandButton value="Salvar" icon="salvar-icon"
+							update="form-cadastro-categoria, form-cadastro:tabview:categoria"
+							action="#{categoriaBean.salvar}"
+							id="salvarCommandButtonCategoria"
+							oncomplete="if(!args.validationFailed) PF('dialogCadastroCategoria').hide()" />
+					</p:toolbarGroup>
+				</p:toolbar>
+				<p:defaultCommand target="salvarCommandButtonCategoria" />
+
+			</h:form>
+		</p:dialog>
+
+		<p:dialog header="Manutenção Pelagem"
+			widgetVar="dialogCadastroPelagem" modal="true" resizable="false"
+			draggable="true" id="dgCadastroPelagem" closeOnEscape="true"
+			width="400" appendTo="@(body)">
+
+			<h:form id="form-cadastro-pelagem">
+
+				<p:panelGrid columns="2" styleClass="semBorda">
+
+					<p:outputLabel for="txtIdPelagem" value="ID:" />
+					<p:inputText id="txtIdPelagem" size="5" style="text-align:center;"
+						disabled="true" value="#{pelagemBean.pelagem.id}" />
+
+					<p:outputLabel for="txtNomePelagem" value="Nome:" />
+					<p:inputText id="txtNomePelagem" size="35" maxlength="35"
+						required="true" requiredMessage="Informe o nome"
+						value="#{pelagemBean.pelagem.nome}" />
+
+					<p:outputLabel value="Ativo:" />
+					<p:selectBooleanCheckbox value="#{pelagemBean.pelagem.status}"
+						disabled="true" />
+
+				</p:panelGrid>
+
+				<p:toolbar style="margin-top: 20px" styleClass="semPreenchimento">
+					<p:toolbarGroup align="right" style="margin-right: 0px;">
+						<p:commandButton value="Cancelar" icon="cancelar-icon"
+							style="margin-right:3px;"
+							oncomplete="PF('dialogCadastroPelagem').hide()" immediate="true" />
+						<p:commandButton value="Salvar" icon="salvar-icon"
+							update="form-cadastro-pelagem, form-cadastro:tabview:pelagem"
+							action="#{pelagemBean.salvar}" id="salvarCommandButtonPelagem"
+							oncomplete="if(!args.validationFailed) PF('dialogCadastroPelagem').hide()" />
+					</p:toolbarGroup>
+				</p:toolbar>
+				<p:defaultCommand target="salvarCommandButtonPelagem" />
+
 			</h:form>
 		</p:dialog>
 

@@ -1,17 +1,21 @@
 package br.com.apss.fazendaweb.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -77,6 +81,9 @@ public class Animal implements Serializable {
 
 	@Column(name = "status", length = 1)
 	private Boolean status;
+	
+	@OneToMany(mappedBy = "animal", fetch = FetchType.LAZY)
+	private List<FichaAnimal> fichaAnimals = new ArrayList<>();
 
 	public Long getId() {
 		return id;
@@ -196,6 +203,14 @@ public class Animal implements Serializable {
 
 	public void setStatus(Boolean status) {
 		this.status = status;
+	}
+	
+	public List<FichaAnimal> getFichaAnimals() {
+		return fichaAnimals;
+	}
+
+	public void setFichaAnimals(List<FichaAnimal> fichaAnimals) {
+		this.fichaAnimals = fichaAnimals;
 	}
 
 	@Override

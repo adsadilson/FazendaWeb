@@ -70,12 +70,13 @@
 						<p:menuitem value="Pelagem"
 							outcome="/view/cadastros/pelagem.xhtml" />
 						<p:menuitem value="Origem" outcome="/view/cadastros/origem.xhtml" />
-						<p:menuitem value="Categoria" outcome="/view/cadastros/categoria.xhtml" />
+						<p:menuitem value="Categoria"
+							outcome="/view/cadastros/categoria.xhtml" />
 						<p:menuitem value="Causa da Morte"
 							outcome="/view/cadastros/causa_morte.xhtml" />
 						<p:menuitem value="Condição Corporal"
 							outcome="/view/cadastros/condicao_corporal.xhtml" />
-							<p:menuitem value="Motivo da Venda"
+						<p:menuitem value="Motivo da Venda"
 							outcome="/view/cadastros/motivo_venda.xhtml" />
 					</p:submenu>
 					<p:submenu label="Produtos">
@@ -93,6 +94,31 @@
 							outcome="/view/cadastros/grupo_usuario.xhtml" />
 						<p:menuitem value="Plano de Conta"
 							outcome="/view/cadastros/plano_conta.xhtml" />
+					</p:submenu>
+				</p:submenu>
+				<p:submenu label="Manutenção">
+					<p:submenu label="Animais">
+						<ui:remove>
+							<p:menuitem value="Compra/Venda"
+								outcome="/view/cadastros/animal.xhtml" />
+							<p:menuitem value="Raça" outcome="/view/cadastros/raca.xhtml" />
+							<p:menuitem value="Pessagem Corporal"
+								outcome="/view/cadastros/especie.xhtml" />
+							<p:menuitem value="Animal no Pasto"
+								outcome="/view/cadastros/pelagem.xhtml" />
+						</ui:remove>
+						<p:menuitem value="Cobetura"
+							outcome="/view/cadastros/origem.xhtml" />
+						<p:menuitem value="Parto"
+							outcome="/view/cadastros/categoria.xhtml" />
+						<p:menuitem value="Secagem"
+							outcome="/view/cadastros/causa_morte.xhtml" />
+						<p:menuitem value="Vacina"
+							outcome="/view/cadastros/condicao_corporal.xhtml" />
+						<p:menuitem value="Exame"
+							outcome="/view/cadastros/motivo_venda.xhtml" />
+						<p:menuitem value="Tratamento"
+							outcome="/view/cadastros/motivo_venda.xhtml" />
 					</p:submenu>
 				</p:submenu>
 				<ui:remove>

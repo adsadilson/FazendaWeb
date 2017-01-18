@@ -1,21 +1,40 @@
 @charset "utf-8";
 
-.salvar-icon{background-image: url(../resources/images/save.png) !important;}
-.novo-icon{background-image: url(../resources/images/new.png) !important;}
-.voltar-icon{background-image: url(../resources/images/voltar.png) !important;}
-.adicionar-icon{background-image: url(../resources/images/adicionar.png) !important;}
-.editar-icon{background-image: url(../resources/images/editar.png) !important;}
-.excluir-icon{background-image: url(../resources/images/del.png) !important;}
-.cancelar-icon{background-image: url(../resources/images/cancelar.png) !important;}
-.pesquisa-icon{background-image: url(../resources/images/pesquisa.png) !important;}
-
-.ui-dialog.ui-widget-content .ui-dialog-content {
-    
+.salvar-icon {
+	background-image: url(../resources/images/save.png) !important;
 }
 
-#distanciaLabel{
-	padding-top: 1px !importante;
-	padding-bottom: 1px !importante;
+.novo-icon {
+	background-image: url(../resources/images/new.png) !important;
+}
+
+.voltar-icon {
+	background-image: url(../resources/images/voltar.png) !important;
+}
+
+.adicionar-icon {
+	background-image: url(../resources/images/adicionar.png) !important;
+}
+
+.editar-icon {
+	background-image: url(../resources/images/editar.png) !important;
+}
+
+.excluir-icon {
+	background-image: url(../resources/images/del.png) !important;
+}
+
+.cancelar-icon {
+	background-image: url(../resources/images/cancelar.png) !important;
+}
+
+.pesquisa-icon {
+	background-image: url(../resources/images/pesquisa.png) !important;
+}
+
+#distanciaLabel {
+	padding-top: 1px !important e;
+	padding-bottom: 1px !important e;
 }
 
 .ui-panelgrid td {
@@ -54,6 +73,28 @@
 	background: none !important;
 	padding-bottom: 0.2em !important;
 	padding-top: 0.2em !important;
+}
+
+.ui-dialog.ui-widget-content.espacamento-dialog .ui-dialog-content {
+	padding-top: 1px;
+	padding-bottom: 0px;
+	font-size: 14px;
+}
+
+.table-tela-animal .ui-datatable-tablewrapper {
+    height: 280px;
+}
+
+.ui-tabs.espacamento-tabview .ui-tabs-panel {
+	padding-top: 7px;
+	padding-left: 3px;
+	padding-right: 3px;
+}
+
+.ui-dialog.ui-widget-content .ui-dialog-titlebar {
+	padding: 3px 15px;
+	border-bottom: 1px solid #eee;
+	background-color: #ffffff;
 }
 
 .ui-inputtext {
@@ -102,7 +143,7 @@ header {
 	background: -moz-linear-gradient(#0095da, #004869);
 	background: -webkit-linear-gradient(#0095da, #004869);
 	-ms-filter:
-		"progid:DXImageTransform.Microsoft.gradient(startColorstr='#0095da', endColorstr='#004869')"; 
+		"progid:DXImageTransform.Microsoft.gradient(startColorstr='#0095da', endColorstr='#004869')";
 	border-bottom: 1px solid #CACACA;
 	box-shadow: 0 0 7px #888;
 	/* background-image: url(../resources/images/textura6.jpg) !important; */
@@ -133,8 +174,7 @@ footer {
 	background: none !important;
 }
 
-.menu-sistema>.ui-menu-list>.ui-menuitem>a>.ui-menuitem-text
-	{
+.menu-sistema>.ui-menu-list>.ui-menuitem>a>.ui-menuitem-text {
 	color: #ffffff !important;
 }
 
@@ -143,6 +183,8 @@ footer {
 }
 )
 no-repeat
+
+
 
 
 ;

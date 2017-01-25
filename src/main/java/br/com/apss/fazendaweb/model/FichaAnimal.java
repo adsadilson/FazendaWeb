@@ -26,11 +26,14 @@ public class FichaAnimal implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "FICHA_ANIMAL_ID")
 	private Long id;
 
-	@Column(length = 80)
-	private String tipo;
+	@Column(name = "tipo_lanc", length = 80)
+	private String tipoLanc;
 
 	@Column(length = 80)
 	private String descricao;
+
+	@Column(name = "tipo_cobertura", length = 80)
+	private String tipoCobertura;
 
 	@Column(length = 80)
 	private String resultado;
@@ -48,16 +51,24 @@ public class FichaAnimal implements Serializable {
 	private String medicamento;
 
 	@Temporal(TemporalType.DATE)
+	@Column(name = "dt_cobertura")
+	private Date dtCobertura;
+
+	@Temporal(TemporalType.DATE)
 	@Column(name = "dt_lanc")
 	private Date dtLanc;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "dt_vencto")
-	private Date dtVencto;
+	@Column(name = "dt_parto")
+	private Date dtParto;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "dt_aux")
-	private Date dtAux;
+	@Column(name = "dt_cadastro")
+	private Date dtCadastro;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "dt_diagnostico")
+	private Date dtDiagnostico;
 
 	@Column(length = 10)
 	private String sexo;
@@ -65,10 +76,20 @@ public class FichaAnimal implements Serializable {
 	@Column(length = 80)
 	private String condCorporal;
 
+	@Column(length = 12)
+	private String partida;
+
+	@Column(length = 80)
+	private String reprodutor;
+
+	@Column(length = 80)
+	private String responsavel;
+
 	@ManyToOne
 	@JoinColumn(name = "animal_id")
 	private Animal animal;
 
+	
 	public Long getId() {
 		return id;
 	}
@@ -77,12 +98,28 @@ public class FichaAnimal implements Serializable {
 		this.id = id;
 	}
 
-	public String getTipo() {
-		return tipo;
+	public String getTipoLanc() {
+		return tipoLanc;
 	}
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public void setTipoLanc(String tipoLanc) {
+		this.tipoLanc = tipoLanc;
+	}
+
+	public String getTipoCobertura() {
+		return tipoCobertura;
+	}
+
+	public void setTipoCobertura(String tipoCobertura) {
+		this.tipoCobertura = tipoCobertura;
+	}
+
+	public Date getDtLanc() {
+		return dtLanc;
+	}
+
+	public void setDtLanc(Date dtLanc) {
+		this.dtLanc = dtLanc;
 	}
 
 	public String getDescricao() {
@@ -133,28 +170,36 @@ public class FichaAnimal implements Serializable {
 		this.medicamento = medicamento;
 	}
 
-	public Date getDtLanc() {
-		return dtLanc;
+	public Date getDtCobertura() {
+		return dtCobertura;
 	}
 
-	public void setDtLanc(Date dtLanc) {
-		this.dtLanc = dtLanc;
+	public void setDtCobertura(Date dtCobertura) {
+		this.dtCobertura = dtCobertura;
 	}
 
-	public Date getDtVencto() {
-		return dtVencto;
+	public Date getDtParto() {
+		return dtParto;
 	}
 
-	public void setDtVencto(Date dtVencto) {
-		this.dtVencto = dtVencto;
+	public void setDtParto(Date dtParto) {
+		this.dtParto = dtParto;
 	}
 
-	public Date getDtAux() {
-		return dtAux;
+	public Date getDtCadastro() {
+		return dtCadastro;
 	}
 
-	public void setDtAux(Date dtAux) {
-		this.dtAux = dtAux;
+	public void setDtCadastro(Date dtCadastro) {
+		this.dtCadastro = dtCadastro;
+	}
+
+	public Date getDtDiagnostico() {
+		return dtDiagnostico;
+	}
+
+	public void setDtDiagnostico(Date dtDiagnostico) {
+		this.dtDiagnostico = dtDiagnostico;
 	}
 
 	public String getSexo() {
@@ -179,6 +224,30 @@ public class FichaAnimal implements Serializable {
 
 	public void setAnimal(Animal animal) {
 		this.animal = animal;
+	}
+
+	public String getPartida() {
+		return partida;
+	}
+
+	public void setPartida(String partida) {
+		this.partida = partida;
+	}
+
+	public String getReprodutor() {
+		return reprodutor;
+	}
+
+	public void setReprodutor(String reprodutor) {
+		this.reprodutor = reprodutor;
+	}
+
+	public String getResponsavel() {
+		return responsavel;
+	}
+
+	public void setResponsavel(String responsavel) {
+		this.responsavel = responsavel;
 	}
 
 	@Override

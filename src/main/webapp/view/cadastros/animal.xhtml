@@ -74,8 +74,8 @@
 					<h:outputText value="#{animal.nome}" />
 				</p:column>
 
-				<p:column headerText="Brinco"
-					style="width: 60px; text-align: center;" sortBy="#{animal.brinco}">
+				<p:column headerText="Brinco" style="width: 60px; text-align: left;"
+					sortBy="#{animal.brinco}">
 					<h:outputText value="#{animal.brinco}" />
 				</p:column>
 
@@ -87,22 +87,21 @@
 					</h:outputText>
 				</p:column>
 
-				<p:column headerText="Origem"
-					style="text-align: center; width: 130px">
+				<p:column headerText="Origem" style="text-align: left; width: 130px">
 					<h:outputText value="#{animal.origem.nome}" />
 				</p:column>
 
-				<p:column headerText="Raça" style="text-align: center; width: 130px">
+				<p:column headerText="Raça" style="text-align: left; width: 130px">
 					<h:outputText value="#{animal.raca.nome}" />
 				</p:column>
 
 				<p:column headerText="Categoria"
-					style="text-align: center; width: 130px">
+					style="text-align: left; width: 130px">
 					<h:outputText value="#{animal.categoria.nome}" />
 				</p:column>
 
 				<p:column headerText="Gênero"
-					style="text-align: center; width: 70px">
+					style="text-align: center; width: 60px">
 					<h:outputText value="#{animal.genero}" />
 				</p:column>
 
@@ -116,14 +115,14 @@
 		</h:form>
 
 		<p:dialog header="Manutenção Animal" widgetVar="dialogCadastro"
-			styleClass="espacamento-dialog" modal="true" resizable="false"
-			draggable="true" id="dgCadastro" closeOnEscape="true" width="710"
+			styleClass="espacamento_dialog" modal="true" resizable="false"
+			draggable="true" id="dgCadastro" closeOnEscape="true" width="680"
 			height="437" appendTo="@(body)">
 
 			<h:form id="form-cadastro">
 				<p:tabView id="tabview" style="height: 365px;"
 					styleClass="espacamento-tabview">
-					<p:tab title="Cadastro">
+					<p:tab title="Cadastro Principal">
 						<p:panelGrid styleClass="semBorda">
 
 							<p:row>
@@ -148,7 +147,7 @@
 										value="#{animalBean.animal.nome}" />
 								</p:column>
 								<p:column>
-									<p:inputText id="brinco" size="18"
+									<p:inputText id="brinco" size="18" maxlength="8"
 										value="#{animalBean.animal.brinco}" />
 								</p:column>
 							</p:row>
@@ -306,7 +305,7 @@
 
 						</p:panelGrid>
 					</p:tab>
-					<p:tab title="Reg. de Exame">
+					<p:tab title="Registro Exame">
 						<p:dataTable var="car" value="#{dtBasicView.cars}"
 							style="height: 220px;">
 							<p:column headerText="Dt Exame" style="width: 80px;">
@@ -326,7 +325,7 @@
 							</p:column>
 						</p:dataTable>
 					</p:tab>
-					<p:tab title="Reg. de Tratamento">
+					<p:tab title="Registro Tratamento">
 						<p:dataTable var="car" value="#{dtBasicView.cars}"
 							style="height: 220px;">
 							<p:column headerText="Dt Tratamento" style="width: 100px;">
@@ -350,7 +349,7 @@
 							</p:column>
 						</p:dataTable>
 					</p:tab>
-					<p:tab title="Reg. de Vacina">
+					<p:tab title="Registro Vacina">
 						<p:dataTable var="car" value="#{dtBasicView.cars}"
 							style="height: 220px;">
 							<p:column headerText="Dt Vacina" style="width: 100px;">
@@ -367,33 +366,40 @@
 
 						</p:dataTable>
 					</p:tab>
-					<p:tab title="Reg. de Cobetura">
-						<p:dataTable id="tbCobetura" var="car" value="#{dtBasicView.cars}"
+					<p:tab title="Registro Cobertura">
+						<p:dataTable id="tbCobertura" var="car"
+							value="#{animalBean.animal.fichaAnimals}"
 							styleClass="table-tela-animal">
-							<p:column headerText="Dt Cobetura" style="width: 100px;">
-								<h:outputText value="#{car.id}" />
+							<p:column headerText="Dt Cobertura" style="width: 90px; text-align: center;">
+								<h:outputText value="#{car.dtCobertura}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
 							</p:column>
 
-							<p:column headerText="Tipo Cobetura" style="width: 120px;">
-								<h:outputText value="#{car.year}" />
+							<p:column headerText="Tipo Cobertura" style="width: 185px;">
+								<h:outputText value="#{car.tipoCobertura}" />
 							</p:column>
 
-							<p:column headerText="Dt Diagnóstico" style="width: 120px;">
-								<h:outputText value="#{car.brand}" />
+							<p:column headerText="Dt Diagnóstico" style="width: 110px; text-align: center;">
+								<h:outputText value="#{car.dtDiagnostico}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
 							</p:column>
 
-							<p:column headerText="Resultado" style="width: 150px;">
-								<h:outputText value="#{car.color}" />
+							<p:column headerText="Resultado" style="width: 80px; text-align: center;">
+								<h:outputText value="#{car.resultado}" />
 							</p:column>
-							<p:column headerText="Prev. Parto" style="width: 120px;">
-								<h:outputText value="#{car.color}" />
+							<p:column headerText="Prev. Parto" style="width: 85px; text-align: center;">
+								<h:outputText value="#{car.dtParto}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
 							</p:column>
 						</p:dataTable>
 					</p:tab>
-					<p:tab title="Reg. de Parto">
+					<p:tab title="Registro Parto">
 						<p:dataTable var="car" value="#{dtBasicView.cars}"
 							style="height: 220px;" styleClass="table-tela-animal">
-							<p:column headerText="Dt Cobetura" style="width: 100px;">
+							<p:column headerText="Dt Cobertura" style="width: 100px;">
 								<h:outputText value="#{car.id}" />
 							</p:column>
 
@@ -423,9 +429,9 @@
 
 						</p:dataTable>
 					</p:tab>
-					<p:tab title="Reg. de Secagem">
+					<p:tab title="Registro Secagem">
 						<p:dataTable var="car" value="#{dtBasicView.cars}"
-							style="height: 220px;" >
+							style="height: 220px;">
 							<p:column headerText="Dt Parto" style="width: 90px;">
 								<h:outputText value="#{car.id}" />
 							</p:column>
@@ -448,12 +454,12 @@
 
 						</p:dataTable>
 					</p:tab>
-					
+
 					<ui:remove>
-					<p:tab title="Reprodução">
-					</p:tab>
-					<p:tab title="Foto">
-					</p:tab>
+						<p:tab title="Reprodução">
+						</p:tab>
+						<p:tab title="Foto">
+						</p:tab>
 					</ui:remove>
 
 				</p:tabView>

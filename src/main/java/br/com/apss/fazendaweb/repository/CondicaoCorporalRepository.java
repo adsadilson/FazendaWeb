@@ -16,7 +16,6 @@ import org.hibernate.criterion.Restrictions;
 import br.com.apss.fazendaweb.model.CondicaoCorporal;
 import br.com.apss.fazendaweb.util.NegocioException;
 
-
 public class CondicaoCorporalRepository implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -28,7 +27,6 @@ public class CondicaoCorporalRepository implements Serializable {
 		return em.merge(e);
 	}
 
-	
 	public void remove(CondicaoCorporal condicaoCorporal) {
 		try {
 			condicaoCorporal = porId(condicaoCorporal.getId());
@@ -47,6 +45,11 @@ public class CondicaoCorporalRepository implements Serializable {
 		return em.createQuery("from CondicaoCorporal order by nome", CondicaoCorporal.class).getResultList();
 	}
 
+	public List<CondicaoCorporal> listarTodos(Boolean status) {
+		return em.createQuery("FROM CondicaoCorporal WHERE status=:status ORDER BY nome", CondicaoCorporal.class)
+				.setParameter("status", status).getResultList();
+	}
+
 	public CondicaoCorporal porNome(String nome) {
 		try {
 			return em.createQuery("from CondicaoCorporal where nome = :nome", CondicaoCorporal.class)
@@ -55,8 +58,7 @@ public class CondicaoCorporalRepository implements Serializable {
 			return null;
 		}
 	}
-	
-	
+
 	@SuppressWarnings("unchecked")
 	public List<CondicaoCorporal> grupoCondicao(CondicaoCorporal op) {
 		Session session = em.unwrap(Session.class);
@@ -71,6 +73,5 @@ public class CondicaoCorporalRepository implements Serializable {
 
 		return criteria.addOrder(Order.asc("nome")).list();
 	}
-
 
 }

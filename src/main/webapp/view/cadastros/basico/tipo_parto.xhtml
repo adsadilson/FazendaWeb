@@ -1,0 +1,122 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h2>Listagem tipo parto</h2>
+	
+	<f:metadata>
+			<f:viewParam name="dummy" />
+			<f:event listener="#{fichaCoberturaBean.inicializarBean}"
+				type="preRenderView" />
+		</f:metadata>
+
+	<h:form id="form-menu">
+		<p:toolbar styleClass="semPreenchimento">
+			<p:toolbarGroup>
+				<p:commandButton icon="novo-icon" value="Novo"
+					oncomplete="PF('dialogCadTipoParto').show()" process="@this"
+					update=":tabView:form-cadastro"
+					>
+					<p:resetInput target=":tabView:form-cadastro" />
+				</p:commandButton>
+				<p:commandButton icon="editar-icon" value="Editar"
+					style="margin-left: 5px; margin-right: 5px;"
+					oncomplete="PF('dialogCadastro').show()" process="@this"
+					action="#{fichaCoberturaBean.editar}"
+					disabled="#{fichaCoberturaBean.coberturaSelecionado == null}">
+					<p:resetInput target="form-cadastro" />
+				</p:commandButton>
+				<p:commandButton icon="excluir-icon" value="Excluir"
+					oncomplete="PF('confirmacaoExclusao').show()" process="@this"
+					action="#{fichaCoberturaBean.editar}"
+					disabled="#{fichaCoberturaBean.coberturaSelecionado == null}">
+				</p:commandButton>
+				<ui:remove>
+					<p:separator />
+					<p:commandButton icon="fa fa-filter" title="Filtrar Registro"
+						style="margin-left:5px;" oncomplete="PF('dialogFiltro').show()" />
+				</ui:remove>
+			</p:toolbarGroup>
+			<p:toolbarGroup align="right">
+				<p:button value="Fechar" icon="fa fa-power-off"
+					outcome="/home.xhtml" />
+			</p:toolbarGroup>
+		</p:toolbar>
+	</h:form>
+
+	<h:form id="form-table">
+		<p:dataTable id="tbl-cobertura"
+			 var="cobertura"
+			style="margin-top: 5px" styleClass="table-tela-manutecao"
+			emptyMessage="Nenhuma registro encontrada." rows="10"
+			paginator="true" paginatorAlwaysVisible="false"
+			paginatorPosition="bottom" selectionMode="single"
+			selection="#{fichaCoberturaBean.coberturaSelecionado}"
+			rowKey="#{cobertura.id}">
+
+			<p:ajax event="rowSelect" />
+			<p:ajax event="rowUnselect" />
+
+			<p:column headerText="Codigo"
+				style="width: 100px; text-align: center;"
+				sortBy="#{cobertura.animal.brinco}">
+				<h:outputText  />
+			</p:column>
+
+			<p:column headerText="Tipo de Parto" style="width: 250px"
+				sortBy="#{cobertura.animal.nome}">
+				<h:outputText  />
+			</p:column>
+
+			<p:column headerText="Status" style="text-align: left;"
+				sortBy="#{cobertura.dtParto}">
+				<h:outputText >
+					<f:convertDateTime pattern="dd/MM/yyyy" />
+				</h:outputText>
+			</p:column>
+
+		</p:dataTable>
+	</h:form>
+
+	<p:dialog header="Cadastro tipo Parto" widgetVar="dialogCadTipoParto"
+		modal="true" resizable="false" draggable="true" id="dgCadTipoParto"
+		closeOnEscape="true" width="400" appendTo="@(body)">
+
+		<h:form id="form-cadastro">
+			<p:panelGrid columns="2" styleClass="semBorda">
+
+				<p:outputLabel for="txtId" value="ID:" />
+				<p:inputText id="txtId" size="5" style="text-align:center;"
+					disabled="true" />
+
+				<p:outputLabel for="txtNome" value="Nome:" />
+				<p:inputText id="txtNome" size="35" maxlength="35" required="true"
+					requiredMessage="Informe o nome"  />
+
+				<p:outputLabel value="Ativo:" />
+				<p:selectBooleanCheckbox  />
+
+			</p:panelGrid>
+
+			<p:toolbar style="margin-top: 20px" styleClass="semPreenchimento">
+				<p:toolbarGroup align="right" style="margin-right: 0px;">
+					<p:commandButton value="Cancelar" icon="cancelar-icon"
+						style="margin-right: 3px;"
+						oncomplete="PF('dialogCadastro').hide()" immediate="true" />
+					<p:commandButton value="Salvar" icon="salvar-icon"
+						id="salvarCommandButton" update=":tabView:form-cadastro"
+						oncomplete="if(!args.validationFailed) PF('dialogCadTipoParto').hide()" />
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:defaultCommand target="salvarCommandButton" />
+
+		</h:form>
+
+	</p:dialog>
+
+
+
+
+</ui:composition>

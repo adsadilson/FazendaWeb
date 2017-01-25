@@ -54,7 +54,7 @@ public class PessoaRepository implements Serializable {
 		if (op.getEmpresa()) {
 			criteria.add(Restrictions.ge("empresa", true));
 		}
-		
+
 		if (op.getCliente()) {
 			criteria.add(Restrictions.ge("cliente", true));
 		}
@@ -62,15 +62,14 @@ public class PessoaRepository implements Serializable {
 		if (op.getFornecedor()) {
 			criteria.add(Restrictions.ge("fornecedor", true));
 		}
-		
+
 		if (op.getProfissional()) {
 			criteria.add(Restrictions.ge("profissional", true));
 		}
-		
+
 		if (op.getFuncionario()) {
 			criteria.add(Restrictions.ge("funcionario", true));
 		}
-		
 
 		return criteria.addOrder(Order.asc("nome")).list();
 	}
@@ -97,6 +96,11 @@ public class PessoaRepository implements Serializable {
 		}
 
 		return criteria.addOrder(Order.asc("nome")).list();
+	}
+
+	public List<Pessoa> listarProfissional(Boolean status) {
+		return em.createQuery("FROM Pessoa WHERE profissional='true' AND status=:status ORDER BY nome", Pessoa.class)
+				.setParameter("status", status).getResultList();
 	}
 
 }

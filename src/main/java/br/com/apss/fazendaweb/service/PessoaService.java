@@ -44,7 +44,6 @@ public class PessoaService implements Serializable {
 		return pessoaRepository.listarPorCondicao(op);
 		
 	}
-	
 
 	public List<Pessoa> grupoCondicao(Pessoa op) {
 		return pessoaRepository.grupoCondicao(op);
@@ -53,6 +52,11 @@ public class PessoaService implements Serializable {
 
 	public Pessoa porId(Long id) {
 		return pessoaRepository.porId(id);
+	}
+	
+	public List<Pessoa> listarProfissional(Boolean status) {
+		return pessoaRepository.listarProfissional(status);
+		
 	}
 
 }

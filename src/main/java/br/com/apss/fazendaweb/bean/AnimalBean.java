@@ -53,7 +53,7 @@ public class AnimalBean implements Serializable {
 	/****************************** Metodos *************************/
 
 	public void inicializarBean() {
-		System.out.println("Inicializando...");
+		System.out.println("AnimalBean: Inicializando...");
 		if (FacesUtil.isNotPostback()) {
 			carregarTabela();
 		}

@@ -12,6 +12,7 @@
 	<h:outputStylesheet library="css" name="sistema.css" />
 	<h:outputStylesheet library="primefaces" name="grid/grid.css" />
 	<h:outputScript target="body" library="js" name="locale.js" />
+	<h:outputScript target="body" library="js" name="closeDialog.js" />
 </h:head>
 
 <h:body>
@@ -94,6 +95,8 @@
 							outcome="/view/cadastros/grupo_usuario.xhtml" />
 						<p:menuitem value="Plano de Conta"
 							outcome="/view/cadastros/plano_conta.xhtml" />
+						<p:menuitem value="Cadastros Basicos"
+							outcome="/view/cadastros/basico/outros.xhtml" />
 					</p:submenu>
 				</p:submenu>
 				<p:submenu label="Manutenção">
@@ -107,12 +110,12 @@
 							<p:menuitem value="Animal no Pasto"
 								outcome="/view/cadastros/pelagem.xhtml" />
 						</ui:remove>
-						<p:menuitem value="Cobetura"
-							outcome="/view/cadastros/origem.xhtml" />
+						<p:menuitem value="Cobertura"
+							outcome="/view/manutecao/manutecao_cobertura.xhtml" />
 						<p:menuitem value="Parto"
-							outcome="/view/cadastros/categoria.xhtml" />
+							outcome="/view/manutecao/manutecao_parto.xhtml" />
 						<p:menuitem value="Secagem"
-							outcome="/view/cadastros/causa_morte.xhtml" />
+							outcome="/view/manutecao/manutecao_secagem.xhtml" />
 						<p:menuitem value="Vacina"
 							outcome="/view/cadastros/condicao_corporal.xhtml" />
 						<p:menuitem value="Exame"

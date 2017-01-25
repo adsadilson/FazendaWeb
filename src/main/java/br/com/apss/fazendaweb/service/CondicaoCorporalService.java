@@ -39,6 +39,10 @@ public class CondicaoCorporalService implements Serializable {
 	public List<CondicaoCorporal> listarTodos() {
 		return condicaoCorporalRepository.listarTodos();
 	}
+	
+	public List<CondicaoCorporal> listarTodos(Boolean status) {
+		return condicaoCorporalRepository.listarTodos(status);
+	}
 
 	public List<CondicaoCorporal> grupoCondicao(CondicaoCorporal op) {
 		return condicaoCorporalRepository.grupoCondicao(op);

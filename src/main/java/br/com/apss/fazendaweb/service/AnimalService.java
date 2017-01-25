@@ -40,9 +40,12 @@ public class AnimalService implements Serializable {
 		return animalRepository.listarTodos();
 	}
 
-	public List<Animal> grupoCondicao(Animal op) {
-		return animalRepository.grupoCondicao(op);
-		
+	public List<Animal> buscarAnimalCobertura() {
+		return animalRepository.buscarAnimalCobertura();
+	}
+	
+	public List<Animal> buscarAnimalReprodutor() {
+		return animalRepository.buscarAnimalReprodutor();
 	}
 
 	public Animal porId(Long id) {

@@ -15,6 +15,7 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
+import br.com.apss.fazendaweb.model.Animal;
 import br.com.apss.fazendaweb.model.FichaAnimal;
 import br.com.apss.fazendaweb.model.filter.FichaAnimalFilter;
 import br.com.apss.fazendaweb.util.NegocioException;
@@ -95,9 +96,25 @@ public class FichaAnimalRepository implements Serializable {
 	public List<FichaAnimal> grupoCondicao(FichaAnimal op) {
 		Session session = em.unwrap(Session.class);
 		Criteria criteria = session.createCriteria(FichaAnimal.class);
-
-
 		return criteria.addOrder(Order.asc("nome")).list();
+	}
+	
+	public List<FichaAnimal> porTipoLanc(String tipoLanc) {
+		try {
+			return em.createQuery("from FichaAnimal where tipo_lanc = :tipoLanc", FichaAnimal.class)
+					.setParameter("tipoLanc", tipoLanc).getResultList();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+	
+	public List<FichaAnimal> porAnimal(Animal animal) {
+		try {
+			return em.createQuery("from FichaAnimal where animal_id = :animal", FichaAnimal.class)
+					.setParameter("animal", animal).getResultList();
+		} catch (NoResultException e) {
+			return null;
+		}
 	}
 
 

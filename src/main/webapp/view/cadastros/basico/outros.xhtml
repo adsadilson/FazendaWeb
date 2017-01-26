@@ -8,29 +8,23 @@
 	xmlns:pe="http://primefaces.org/ui/extensions">
 
 	<ui:define name="titulo">Cadastros Basicos</ui:define>
-
+	
 	<ui:define name="corpo">
 
-		<f:metadata>
-			<f:viewParam name="dummy" />
-			<f:event listener="#{fichaCoberturaBean.inicializarBean}"
-				type="preRenderView" />
-		</f:metadata>
+			<h1>Cadastros Basicos</h1>
+			<p:tabView style="height: 350px;" id="tabView">
 
-		<h1>Cadastros Basicos</h1>
-
-		<p:tabView style="height: 380px;" id="tabView">
-
-			<p:tab title="Tipo Parto" id="tabParto">
+				<p:tab title="Tipo Parto" id="tabParto">
 					<ui:include src="tipo_parto.xhtml" />
-			</p:tab>
-			<p:tab title="Tipo Secagem"></p:tab>
-			<p:tab title="Tipo Vacina"></p:tab>
-			<p:tab title="Tipo Exame"></p:tab>
-			<p:tab title="Tipo Tratamento"></p:tab>
+				</p:tab>
+				<p:tab title="Tipo Secagem" id="tabSecagem">
+					<ui:include src="tipo_secagem.xhtml" />
+				</p:tab>
+				<p:tab title="Tipo Vacina"></p:tab>
+				<p:tab title="Tipo Exame"></p:tab>
+				<p:tab title="Tipo Tratamento"></p:tab>
 
-		</p:tabView>
-
+			</p:tabView>
 
 	</ui:define>
 

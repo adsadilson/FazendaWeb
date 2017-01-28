@@ -32,6 +32,25 @@
 	background-image: url(../resources/images/pesquisa.png) !important;
 }
 
+.fundo-titulo>.ui-widget-header {
+	border: none;
+	padding: 0px;
+	background: #a38e17;
+}
+
+/* cor de fundo do menu */
+.fundo-menu>.ui-widget-content {
+	border: none !important;
+	padding: 0px !important;
+	background: #004869;
+	background: -moz-linear-gradient(#0095da, #004869);
+	background: -webkit-linear-gradient(#0095da, #004869);
+	-ms-filter:
+		"progid:DXImageTransform.Microsoft.gradient(startColorstr='#0095da', endColorstr='#004869')";
+	border-bottom: 1px solid #CACACA;
+	box-shadow: 0 0 7px #888;
+}
+
 #distanciaLabel {
 	padding-top: 1px !important e;
 	padding-bottom: 1px !important e;
@@ -43,8 +62,8 @@
 
 #logo {
 	position: fixed;
-	left: 0px;
-	top: 0px;
+	left: 10px;
+	top: 5px;
 	width: 110px;
 	height: 90px;
 
@@ -88,16 +107,9 @@
 }
 
 /* espacamento do titulo das abas tabview */
-.ui-tabs .ui-tabs-nav.ui-widget-header li a{
+.ui-tabs .ui-tabs-nav.ui-widget-header li a {
 	padding-bottom: 5px;
 	padding-top: 5px;
-}
-
-.fundo-titulo>.ui-widget-header {
-	border: none !important;
-	background: none !important;
-	color: #333333;
-	font-weight: bold;
 }
 
 .ui-fieldset, .ui-fieldset .ui-fieldset-legend {
@@ -115,9 +127,9 @@
 	border: none !important;
 }
 
-
+/*tamanho do scrob*/
 .table-tela-manutecao .ui-datatable-tablewrapper {
-	height: 380px;
+	height: 100%;
 }
 
 /* espacamento dentro das aba */
@@ -130,7 +142,7 @@
 
 .ui-dialog.ui-widget-content .ui-dialog-titlebar {
 	padding: 3px 15px;
-	border-bottom: 1px solid #eee;
+	border: none !important;
 	background-color: #ffffff;
 }
 
@@ -190,6 +202,15 @@ header>div {
 	margin-left: 8px
 }
 
+h1 {
+	margin-left: 20px;
+}
+
+h2 {
+	color: #0088CC;
+	font-variant: small-caps;
+}
+
 #conteudo {
 	padding: 0px 8px;
 	min-height: 450px;
@@ -220,6 +241,12 @@ footer {
 }
 )
 no-repeat
+
+
+
+
+
+
 
 
 

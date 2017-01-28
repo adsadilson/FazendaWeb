@@ -20,7 +20,6 @@ import br.com.apss.fazendaweb.model.FichaAnimal;
 import br.com.apss.fazendaweb.model.filter.FichaAnimalFilter;
 import br.com.apss.fazendaweb.util.NegocioException;
 
-
 public class FichaAnimalRepository implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -32,7 +31,6 @@ public class FichaAnimalRepository implements Serializable {
 		return em.merge(e);
 	}
 
-	
 	public void remove(FichaAnimal fichaAnimal) {
 		try {
 			fichaAnimal = porId(fichaAnimal.getId());
@@ -44,7 +42,7 @@ public class FichaAnimalRepository implements Serializable {
 	}
 
 	public FichaAnimal porId(Long value) {
-		System.out.println("repository "+value);
+		System.out.println("repository " + value);
 		return em.find(FichaAnimal.class, value);
 	}
 
@@ -54,13 +52,13 @@ public class FichaAnimalRepository implements Serializable {
 
 	public FichaAnimal porNome(String nome) {
 		try {
-			return em.createQuery("from FichaAnimal where nome = :nome", FichaAnimal.class)
-					.setParameter("nome", nome).getSingleResult();
+			return em.createQuery("from FichaAnimal where nome = :nome", FichaAnimal.class).setParameter("nome", nome)
+					.getSingleResult();
 		} catch (NoResultException e) {
 			return null;
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<FichaAnimal> filtrados(FichaAnimalFilter filtro) {
 		Session session = em.unwrap(Session.class);
@@ -91,14 +89,14 @@ public class FichaAnimalRepository implements Serializable {
 
 		return criteria.addOrder(Order.asc("nome")).list();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<FichaAnimal> grupoCondicao(FichaAnimal op) {
 		Session session = em.unwrap(Session.class);
 		Criteria criteria = session.createCriteria(FichaAnimal.class);
 		return criteria.addOrder(Order.asc("nome")).list();
 	}
-	
+
 	public List<FichaAnimal> porTipoLanc(String tipoLanc) {
 		try {
 			return em.createQuery("from FichaAnimal where tipo_lanc = :tipoLanc", FichaAnimal.class)
@@ -107,7 +105,13 @@ public class FichaAnimalRepository implements Serializable {
 			return null;
 		}
 	}
-	
+
+	public List<FichaAnimal> buscarPraParto() {
+			String jpql = "from FichaAnimal f inner join Animal a on(a.id=f.animal.id)  "
+					+ "where f.resultado = 'POSITIVO' and f.dtParto is null";
+			return em.createQuery(jpql,FichaAnimal.class).getResultList();
+	}
+
 	public List<FichaAnimal> porAnimal(Animal animal) {
 		try {
 			return em.createQuery("from FichaAnimal where animal_id = :animal", FichaAnimal.class)
@@ -116,6 +120,5 @@ public class FichaAnimalRepository implements Serializable {
 			return null;
 		}
 	}
-
 
 }

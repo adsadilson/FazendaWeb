@@ -13,38 +13,38 @@ import javax.inject.Named;
 import org.omnifaces.util.Messages;
 
 import br.com.apss.fazendaweb.enums.AtivoInativo;
-import br.com.apss.fazendaweb.model.Origem;
-import br.com.apss.fazendaweb.service.OrigemService;
+import br.com.apss.fazendaweb.model.TipoExame;
+import br.com.apss.fazendaweb.service.TipoExameService;
 import br.com.apss.fazendaweb.util.FacesUtil;
 
 @Named
 @ViewScoped
-public class OrigemBean implements Serializable {
+public class TipoExameBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Origem origem;
-	private List<Origem> origems = new ArrayList<>();
-	private Origem origemSelecionado;
+	private TipoExame tipoExame;
+	private List<TipoExame> tipoExames = new ArrayList<>();
+	private TipoExame tipoExameSelecionado;
 
 	@Inject
-	OrigemService origemService;
+	TipoExameService tipoExameService;
 
 	/****************************** Metodos *************************/
 
 	@PostConstruct
 	public void inicializarBean() {
-		System.out.println("Inicializando...");
+		System.out.println("Tipo Parto: Inicializando...");
 		if (FacesUtil.isNotPostback()) {
 			carregarTabela();
 		}
 	}
 
 	private void carregarTabela() {
-		origems = origemService.listarTodos();
+		tipoExames = tipoExameService.listarTodos();
 	}
 
-	public OrigemBean() {
+	public TipoExameBean() {
 	}
 
 	public List<AtivoInativo> getAtivoInativo() {
@@ -52,52 +52,52 @@ public class OrigemBean implements Serializable {
 	}
 
 	public void novoCadastro() {
-		this.origem = new Origem();
-		this.origem.setStatus(true);
+		this.tipoExame = new TipoExame();
+		this.tipoExame.setStatus(true);
 	}
 
 	public void salvar() {
-		origemService.salvar(this.origem);
-		this.origemSelecionado = null;
+		tipoExameService.salvar(this.tipoExame);
+		this.tipoExameSelecionado = null;
 		carregarTabela();
 		Messages.addGlobalInfo("Registro salvo com sucesso");
 	}
 
 	public void excluir() {
-		origemService.remover(this.origem);
-		this.origemSelecionado = null;
+		tipoExameService.remover(this.tipoExame);
+		this.tipoExameSelecionado = null;
 		carregarTabela();
 		Messages.addGlobalInfo("Registro excluido com sucesso");
 	}
 
 	public void editar() {
-		this.origem = origemService.buscarPorId(origemSelecionado.getId());
+		this.tipoExame = tipoExameService.buscarPorId(tipoExameSelecionado.getId());
 	}
 
 	/****************************** Getters e Setters *************************/
 
-	public Origem getOrigem() {
-		return origem;
+	public TipoExame getTipoExame() {
+		return tipoExame;
 	}
 
-	public void setOrigem(Origem origem) {
-		this.origem = origem;
+	public void setTipoExame(TipoExame tipoExame) {
+		this.tipoExame = tipoExame;
 	}
 
-	public List<Origem> getOrigems() {
-		return origems;
+	public List<TipoExame> getTipoExames() {
+		return tipoExames;
 	}
 
-	public void setOrigems(List<Origem> origems) {
-		this.origems = origems;
+	public void setTipoExames(List<TipoExame> tipoExames) {
+		this.tipoExames = tipoExames;
 	}
 
-	public Origem getOrigemSelecionado() {
-		return origemSelecionado;
+	public TipoExame getTipoExameSelecionado() {
+		return tipoExameSelecionado;
 	}
 
-	public void setOrigemSelecionado(Origem origemSelecionado) {
-		this.origemSelecionado = origemSelecionado;
+	public void setTipoExameSelecionado(TipoExame tipoExameSelecionado) {
+		this.tipoExameSelecionado = tipoExameSelecionado;
 	}
 
 	/****************************** Getters e Setters *************************/

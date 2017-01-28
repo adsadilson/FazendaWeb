@@ -13,38 +13,38 @@ import javax.inject.Named;
 import org.omnifaces.util.Messages;
 
 import br.com.apss.fazendaweb.enums.AtivoInativo;
-import br.com.apss.fazendaweb.model.Origem;
-import br.com.apss.fazendaweb.service.OrigemService;
+import br.com.apss.fazendaweb.model.TipoVacina;
+import br.com.apss.fazendaweb.service.TipoVacinaService;
 import br.com.apss.fazendaweb.util.FacesUtil;
 
 @Named
 @ViewScoped
-public class OrigemBean implements Serializable {
+public class TipoVacinaBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Origem origem;
-	private List<Origem> origems = new ArrayList<>();
-	private Origem origemSelecionado;
+	private TipoVacina tipoVacina;
+	private List<TipoVacina> tipoVacinas = new ArrayList<>();
+	private TipoVacina tipoVacinaSelecionado;
 
 	@Inject
-	OrigemService origemService;
+	TipoVacinaService tipoVacinaService;
 
 	/****************************** Metodos *************************/
 
 	@PostConstruct
 	public void inicializarBean() {
-		System.out.println("Inicializando...");
+		System.out.println("Tipo Parto: Inicializando...");
 		if (FacesUtil.isNotPostback()) {
 			carregarTabela();
 		}
 	}
 
 	private void carregarTabela() {
-		origems = origemService.listarTodos();
+		tipoVacinas = tipoVacinaService.listarTodos();
 	}
 
-	public OrigemBean() {
+	public TipoVacinaBean() {
 	}
 
 	public List<AtivoInativo> getAtivoInativo() {
@@ -52,52 +52,52 @@ public class OrigemBean implements Serializable {
 	}
 
 	public void novoCadastro() {
-		this.origem = new Origem();
-		this.origem.setStatus(true);
+		this.tipoVacina = new TipoVacina();
+		this.tipoVacina.setStatus(true);
 	}
 
 	public void salvar() {
-		origemService.salvar(this.origem);
-		this.origemSelecionado = null;
+		tipoVacinaService.salvar(this.tipoVacina);
+		this.tipoVacinaSelecionado = null;
 		carregarTabela();
 		Messages.addGlobalInfo("Registro salvo com sucesso");
 	}
 
 	public void excluir() {
-		origemService.remover(this.origem);
-		this.origemSelecionado = null;
+		tipoVacinaService.remover(this.tipoVacina);
+		this.tipoVacinaSelecionado = null;
 		carregarTabela();
 		Messages.addGlobalInfo("Registro excluido com sucesso");
 	}
 
 	public void editar() {
-		this.origem = origemService.buscarPorId(origemSelecionado.getId());
+		this.tipoVacina = tipoVacinaService.buscarPorId(tipoVacinaSelecionado.getId());
 	}
 
 	/****************************** Getters e Setters *************************/
 
-	public Origem getOrigem() {
-		return origem;
+	public TipoVacina getTipoVacina() {
+		return tipoVacina;
 	}
 
-	public void setOrigem(Origem origem) {
-		this.origem = origem;
+	public void setTipoVacina(TipoVacina tipoVacina) {
+		this.tipoVacina = tipoVacina;
 	}
 
-	public List<Origem> getOrigems() {
-		return origems;
+	public List<TipoVacina> getTipoVacinas() {
+		return tipoVacinas;
 	}
 
-	public void setOrigems(List<Origem> origems) {
-		this.origems = origems;
+	public void setTipoVacinas(List<TipoVacina> tipoVacinas) {
+		this.tipoVacinas = tipoVacinas;
 	}
 
-	public Origem getOrigemSelecionado() {
-		return origemSelecionado;
+	public TipoVacina getTipoVacinaSelecionado() {
+		return tipoVacinaSelecionado;
 	}
 
-	public void setOrigemSelecionado(Origem origemSelecionado) {
-		this.origemSelecionado = origemSelecionado;
+	public void setTipoVacinaSelecionado(TipoVacina tipoVacinaSelecionado) {
+		this.tipoVacinaSelecionado = tipoVacinaSelecionado;
 	}
 
 	/****************************** Getters e Setters *************************/

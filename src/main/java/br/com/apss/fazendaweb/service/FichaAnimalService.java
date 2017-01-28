@@ -47,6 +47,11 @@ public class FichaAnimalService implements Serializable {
 	public List<FichaAnimal> porTipoLanc(String tipoLanc) {
 		return fichaAnimalRepository.porTipoLanc(tipoLanc);
 	}
+	
+	public List<FichaAnimal> buscarPraParto() {
+		return fichaAnimalRepository.buscarPraParto();
+	}
+	
 
 	public Boolean verificaCobertura(Animal animal, Boolean edicao, FichaAnimal cobertura) {
 		List<FichaAnimal> animais = fichaAnimalRepository.porAnimal(animal);

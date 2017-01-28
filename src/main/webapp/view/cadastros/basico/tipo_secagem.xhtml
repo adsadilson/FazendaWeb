@@ -4,14 +4,6 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-	<ui:remove>
-		<f:metadata>
-			<f:viewParam name="dummy" />
-			<f:event listener="#{tipoSecagemBean.inicializarBean}"
-				type="preRenderView" />
-		</f:metadata>
-	</ui:remove>
-
 	<h2>Listagem tipo secagem</h2>
 
 	<h:form id="frm-menu-secagem">
@@ -77,7 +69,7 @@
 
 			<p:column headerText="Status" style="text-align: left;"
 				sortBy="#{tipoSecagem.status}">
-				<h:outputText value="#{tipoSecagem.status}">
+				<h:outputText value="#{tipoSecagem.status ? 'ATIVO' : 'INATIVO'}">
 				</h:outputText>
 			</p:column>
 
@@ -98,7 +90,7 @@
 					onclick="PF('confirmacaoExclusaoSecagem').hide(); return false;" />
 				<p:commandButton value="Sim" action="#{tipoSecagemBean.excluir}"
 					update=":tabView:frm-menu-secagem, :tabView:frm-tabela-secagem"
-					oncomplete="if(!args.validationFailed) PF('confirmacaoExclusao').hide()" />
+					oncomplete="if(!args.validationFailed) PF('confirmacaoExclusaoSecagem').hide()" />
 
 			</p:panelGrid>
 		</h:form>
@@ -135,7 +127,7 @@
 						oncomplete="PF('dialogCadTipoSecagem').hide()" immediate="true" />
 					<p:commandButton value="Salvar" icon="salvar-icon"
 						id="salvarCommandButtonSecagem" action="#{tipoSecagemBean.salvar}"
-						update="@this"
+						update=":tabView:frm-cadastro-secagem :tabView:frm-tabela-secagem :tabView:frm-menu-secagem"
 						oncomplete="if(!args.validationFailed) PF('dialogCadTipoSecagem').hide()" />
 				</p:toolbarGroup>
 			</p:toolbar>

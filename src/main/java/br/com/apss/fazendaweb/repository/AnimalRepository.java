@@ -61,6 +61,12 @@ public class AnimalRepository implements Serializable {
 		return em.createQuery(jpql, Animal.class).getResultList();
 	}
 	
+	public List<Animal> buscarPraParto() {
+		String jpql = "SELECT a FROM Animal a INNER JOIN FichaAnimal f ON(a.id=f.animal.id) "
+				+ "WHERE f.resultado ='POSITIVO' and f.dtParto is null ORDER BY a.nome";
+		return em.createQuery(jpql, Animal.class).getResultList();
+	}
+	
 	public List<Animal> buscarAnimalReprodutor() {
 		String jpql = "SELECT a FROM Animal a INNER JOIN Categoria c ON(a.categoria.id=c.id) "
 				+ "WHERE c.nome IN ('REPRODUTOR') AND c.status='true' ORDER BY a.nome";

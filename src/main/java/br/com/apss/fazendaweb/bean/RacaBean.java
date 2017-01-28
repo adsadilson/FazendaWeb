@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -36,6 +37,7 @@ public class RacaBean implements Serializable {
 
 	/****************************** Metodos *************************/
 
+	@PostConstruct
 	public void inicializarBean() {
 		System.out.println("Inicializando...");
 		if (FacesUtil.isNotPostback()) {

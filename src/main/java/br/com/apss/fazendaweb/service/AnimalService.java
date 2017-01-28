@@ -44,6 +44,10 @@ public class AnimalService implements Serializable {
 		return animalRepository.buscarAnimalCobertura();
 	}
 	
+	public List<Animal> buscarPraParto() {
+		return animalRepository.buscarPraParto();
+	}
+	
 	public List<Animal> buscarAnimalReprodutor() {
 		return animalRepository.buscarAnimalReprodutor();
 	}

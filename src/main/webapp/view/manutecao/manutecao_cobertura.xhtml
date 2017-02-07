@@ -98,7 +98,7 @@
 				</p:column>
 
 				<p:column headerText="Cond. Corporal" style="width: 120px">
-					<h:outputText value="#{cobertura.condCorporal}" />
+					<h:outputText value="#{cobertura.condicaoCorporal.nome}" />
 				</p:column>
 
 				<p:column headerText="Dt Diagnótico"
@@ -135,9 +135,10 @@
 
 		</h:form>
 
-		<p:dialog header="Lançamento de Cobertura" widgetVar="dialogCadastro" styleClass="espacamento_dialog"
-			modal="true" resizable="false" draggable="true" id="dgCadastro"
-			closeOnEscape="true" width="615" height="415" appendTo="@(body)">
+		<p:dialog header="Lançamento de Cobertura" widgetVar="dialogCadastro"
+			styleClass="espacamento_dialog" modal="true" resizable="false"
+			draggable="true" id="dgCadastro" closeOnEscape="true" width="615"
+			height="415" appendTo="@(body)">
 
 			<h:form id="form-cadastro">
 
@@ -298,10 +299,11 @@
 										id="condCorporal" required="true"
 										disabled="#{fichaCoberturaBean.cobertura.id!=null}"
 										requiredMessage="Selecione um condição corporal"
-										value="#{fichaCoberturaBean.cobertura.condCorporal}">
+										converter="omnifaces.SelectItemsConverter"
+										value="#{fichaCoberturaBean.cobertura.condicaoCorporal}">
 										<f:selectItem itemLabel="Selecione..." itemValue="#{null}" />
 										<f:selectItems value="#{fichaCoberturaBean.condicoesCorporal}"
-											var="o" itemLabel="#{o.nome}" itemValue="#{o.nome}" />
+											var="o" itemLabel="#{o.nome}" itemValue="#{o}" />
 									</p:selectOneMenu>
 								</p:column>
 							</p:row>
@@ -313,7 +315,7 @@
 							<p:row>
 								<p:column colspan="2">
 									<p:inputTextarea rows="2" style="width: 295px;"
-										value="#{fichaCoberturaBean.cobertura.obs}" />
+										value="#{fichaCoberturaBean.cobertura.obsCobertura}" />
 								</p:column>
 							</p:row>
 						</p:panelGrid>

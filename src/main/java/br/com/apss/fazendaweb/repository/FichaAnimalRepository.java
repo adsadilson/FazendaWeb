@@ -106,10 +106,19 @@ public class FichaAnimalRepository implements Serializable {
 		}
 	}
 
+	public List<FichaAnimal> porTipoLancParto() {
+		try {
+			return em.createQuery("from FichaAnimal where dt_parto is not null",
+					FichaAnimal.class).getResultList();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+
 	public List<FichaAnimal> buscarPraParto() {
-			String jpql = "from FichaAnimal f inner join Animal a on(a.id=f.animal.id)  "
-					+ "where f.resultado = 'POSITIVO' and f.dtParto is null";
-			return em.createQuery(jpql,FichaAnimal.class).getResultList();
+		String jpql = "SELECT f FROM FichaAnimal f INNER JOIN Animal a ON(f.animal.id=a.id) "
+				+ "WHERE f.resultado ='POSITIVO' and f.dtParto is null ORDER BY a.nome";
+		return em.createQuery(jpql, FichaAnimal.class).getResultList();
 	}
 
 	public List<FichaAnimal> porAnimal(Animal animal) {

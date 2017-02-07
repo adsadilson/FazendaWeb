@@ -54,14 +54,13 @@
 
 		<h:form id="form-table">
 
-			<p:dataTable id="tbl-parto"
-				value="#{fichaPartoBean.partos}" var="parto"
-				style="margin-top: 5px" styleClass="table-tela-manutecao"
+			<p:dataTable id="tbl-parto" value="#{fichaPartoBean.partos}"
+				var="parto" style="margin-top: 5px"
+				styleClass="table-tela-manutecao"
 				emptyMessage="Nenhuma registro encontrada." rows="10"
 				paginator="true" paginatorAlwaysVisible="false"
 				paginatorPosition="bottom" selectionMode="single"
-				selection="#{fichaPartoBean.partoSelecionado}"
-				rowKey="#{parto.id}">
+				selection="#{fichaPartoBean.partoSelecionado}" rowKey="#{parto.id}">
 
 				<p:ajax event="rowSelect" update="form-menu, form-table" />
 				<p:ajax event="rowUnselect" update="form-menu, form-table" />
@@ -78,58 +77,23 @@
 				</p:column>
 
 				<p:column headerText="Data Parto"
-					style="width: 100px; text-align: center;"
-					sortBy="#{parto.dtCobertura}">
-					<h:outputText value="#{parto.dtCobertura}">
-						<f:convertDateTime pattern="dd/MM/yyyy" />
-					</h:outputText>
-				</p:column>
-
-				<p:column headerText="Tipo do Parto" style="width: 200px">
-					<h:outputText value="#{parto.tipoCobertura}" />
-				</p:column>
-
-				<p:column headerText="Reprodutor" style="width: 180px">
-					<h:outputText value="#{parto.responsavel}" />
-				</p:column>
-
-				<p:column headerText="Cond. Corporal" style="width: 150px">
-					<h:outputText value="#{parto.reprodutor}" />
-				</p:column>
-
-				<p:column headerText="Qtd Cria(s)" style="width: 120px">
-					<h:outputText value="#{parto.condCorporal}" />
-				</p:column>
-
-				<p:column headerText="Dt Diagnótico"
-					style="width: 110px; text-align: center;"
-					sortBy="#{parto.dtDiagnostico}">
-					<h:outputText value="#{parto.dtDiagnostico}">
-						<f:convertDateTime pattern="dd/MM/yyyy" />
-					</h:outputText>
-				</p:column>
-
-				<p:column headerText="Resultado" sortBy="#{parto.resultado}"
-					style="width: 100px">
-					<h:outputText value="#{parto.resultado}" />
-				</p:column>
-
-				<p:column headerText="Dt Prev. Parto"
-					style="width: 110px; text-align: center;"
-					sortBy="#{parto.dtCadastro}">
-					<h:outputText value="#{parto.dtCadastro}">
-						<f:convertDateTime pattern="dd/MM/yyyy" />
-					</h:outputText>
-				</p:column>
-
-				<p:column headerText="Dt Parto"
-					style="width: 110px; text-align: center;"
-					sortBy="#{parto.dtParto}">
+					style="width: 100px; text-align: center;" sortBy="#{parto.dtParto}">
 					<h:outputText value="#{parto.dtParto}">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
 				</p:column>
 
+				<p:column headerText="Tipo do Parto" style="width: 200px">
+					<h:outputText value="#{parto.tipoParto.nome}" />
+				</p:column>
+
+				<p:column headerText="Condição Corporal" style="width: 180px">
+					<h:outputText value="#{parto.condicaoCorporal.nome}" />
+				</p:column>
+
+				<p:column headerText="Qtd Cria(s)" style="width: 120px">
+					<h:outputText value="#{parto.quantidade}" />
+				</p:column>
 
 			</p:dataTable>
 
@@ -142,27 +106,31 @@
 
 			<h:form id="form-cadastro">
 
-				<p:tabView styleClass="espacamento-tabview">
+				<p:tabView styleClass="espacamento-tabview" id="tabView1">
 					<p:tab title="Identificação do Animal">
 						<p:panelGrid columns="1" styleClass="semBorda">
 							<p:outputLabel for="nome" value="Brinco/Nome" />
 							<p:selectOneMenu autoWidth="false" filter="true"
 								filterMatchMode="contains" style="width: 515px;" required="true"
 								id="nome" requiredMessage="Selecione um animal"
-								disabled="#{fichaPartoBean.parto.id!=null}"
-								value="#{fichaPartoBean.parto.animal}"
+								disabled="#{fichaPartoBean.edicao==true}"
+								value="#{fichaPartoBean.parto.id}"
 								converter="omnifaces.SelectItemsConverter">
 								<f:selectItem itemLabel="Selecione um animal"
 									itemValue="#{null}" />
-								<f:selectItems value="#{fichaPartoBean.animals}"
-									var="animal" itemLabel="#{animal.brinco} - #{animal.nome}"
-									itemValue="#{animal}" />
+								<f:selectItems value="#{fichaPartoBean.animals}" var="animal"
+									itemLabel="#{animal.animal.brinco} - #{animal.animal.nome}"
+									itemValue="#{animal.id}" />
+								<p:ajax event="change" process="@this"
+									update=":form-cadastro:tabView2"
+									listener="#{fichaPartoBean.teste}" />
 							</p:selectOneMenu>
 						</p:panelGrid>
 					</p:tab>
 				</p:tabView>
 
-				<p:tabView style="height: 180px;" styleClass="espacamento-tabview">
+				<p:tabView style="height: 180px;" styleClass="espacamento-tabview"
+					id="tabView2">
 					<p:tab title="Dados do Parto">
 						<p:panelGrid styleClass="semBorda">
 							<!-- 1ª LINHA -->
@@ -184,35 +152,46 @@
 								<p:column>
 									<p:calendar id="dtParto" size="8" pattern="dd/MM/yyyy"
 										locale="pt_BR" required="true"
-										disabled="#{fichaPartoBean.parto.id!=null}"
-										value="#{fichaPartoBean.parto.dtCobertura}"
+										disabled="#{fichaPartoBean.edicao==true}"
+										value="#{fichaPartoBean.parto.dtParto}"
 										requiredMessage="Informe a data parto" />
 								</p:column>
 								<p:column>
 									<p:selectOneMenu id="tipoParto" autoWidth="false"
 										style="width: 120px;" required="true"
-										disabled="#{fichaPartoBean.parto.id!=null}"
-										value="#{fichaPartoBean.parto.tipoCobertura}"
+										disabled="#{fichaPartoBean.edicao==true}"
+										converter="omnifaces.SelectItemsConverter"
+										value="#{fichaPartoBean.parto.tipoParto}"
 										requiredMessage="Selecione um tipo parto">
 										<f:selectItem itemLabel="Selecione..." itemValue="#{null}" />
-										<f:selectItem itemLabel="ABORTO" itemValue="ABORTO" />
-										<f:selectItem itemLabel="NORMAL" itemValue="NORMAL" />
-										<f:selectItem itemLabel="GEMELAR" itemValue="GEMELAR" />
+										<f:selectItems value="#{fichaPartoBean.tipoPartos}"
+											var="tipoParto" itemLabel="#{tipoParto.nome}"
+											itemValue="#{tipoParto}" />
+										<p:ajax event="change" process="@this"
+											listener="#{fichaPartoBean.qtdes}"
+											update=":form-cadastro:tabView2:qtd " />
 									</p:selectOneMenu>
 								</p:column>
 								<p:column>
 									<p:selectOneMenu autoWidth="false" style="width: 170px;"
 										required="true" id="condCorporal"
-										disabled="#{fichaPartoBean.parto.id!=null}"
+										disabled="#{fichaPartoBean.edicao==true}"
+										converter="omnifaces.SelectItemsConverter"
 										requiredMessage="Selecione um condição corporal"
-										value="#{fichaPartoBean.parto.condCorporal}">
+										value="#{fichaPartoBean.parto.condicaoCorporal}">
 										<f:selectItem itemLabel="Selecione..." itemValue="#{null}" />
 										<f:selectItems value="#{fichaPartoBean.condicoesCorporal}"
-											var="o" itemLabel="#{o.nome}" itemValue="#{o.nome}" />
+											var="o" itemLabel="#{o.nome}" itemValue="#{o}" />
 									</p:selectOneMenu>
 								</p:column>
 								<p:column>
-									<p:inputNumber id="qtd" size="7" />
+									<p:spinner id="qtd" size="5" min="0" max="2" required="true"
+										value="#{fichaPartoBean.parto.quantidade}"
+										disabled="#{fichaPartoBean.parto.tipoParto.nome == 'ABORTO'}"
+										requiredMessage="Informe a quantidade de cria">
+										<p:ajax event="change" process="@this"
+											update=":form-cadastro:tabView2:nomeCria1" />
+									</p:spinner>
 								</p:column>
 							</p:row>
 							<!-- 2ª LINHA -->
@@ -224,12 +203,12 @@
 							<p:row>
 								<p:column colspan="4">
 									<p:inputTextarea rows="3" style="width: 98%;"
-										value="#{fichaPartoBean.parto.obs}" />
+										value="#{fichaPartoBean.parto.obsParto}" />
 								</p:column>
 							</p:row>
 						</p:panelGrid>
 					</p:tab>
-					<p:tab title="Cria 1">
+					<p:tab title="Cria 1" id="tabCria">
 						<p:panelGrid styleClass="semBorda">
 							<!-- 1ª LINHA -->
 							<p:row>
@@ -240,25 +219,31 @@
 									<p:outputLabel for="brinco1" value="Brinco" />
 								</p:column>
 								<p:column>
-									<p:outputLabel value="Genero" />
+									<p:outputLabel for="genero1" value="Genero" />
 								</p:column>
 							</p:row>
 							<p:row>
 								<p:column>
-									<p:inputText id="nomeCria1" size="38" />
+									<p:inputText id="nomeCria1" size="38" required="true"
+										requiredMessage="Informe o nome da cria 1"
+										disabled="#{fichaPartoBean.parto.quantidade==0}"
+										value="#{fichaPartoBean.parto.nomeCria1}" />
 								</p:column>
 								<p:column>
-									<p:inputText id="brinco1" size="11" />
+									<p:inputText id="brinco1" size="11" required="true"
+										requiredMessage="Informe o brinco da cria 1"
+										disabled="#{fichaPartoBean.parto.quantidade==0}"
+										value="#{fichaPartoBean.parto.brincoCria1}" />
 								</p:column>
 								<p:column>
-									<p:selectOneMenu autoWidth="false" style="width: 82px;"
-										required="true"
-										disabled="#{fichaPartoBean.parto.id!=null}"
-										value="#{fichaPartoBean.parto.tipoCobertura}"
-										requiredMessage="Selecione um tipo parto">
-										<f:selectItem itemLabel="Selecione..." itemValue="#{null}" />
-										<f:selectItem itemLabel="MACHO" itemValue="ABORTO" />
-										<f:selectItem itemLabel="FEMIA" itemValue="NORMAL" />
+									<p:selectOneMenu id="genero1" autoWidth="false"
+										style="width: 85px;" required="true"
+										requiredMessage="Selecione o genero da cria 1"
+										disabled="#{fichaPartoBean.parto.quantidade==0}"
+										value="#{fichaPartoBean.parto.generoCria1}">
+										<f:selectItem itemLabel="Selecione..." value="#{null}" />
+										<f:selectItems value="#{fichaPartoBean.generos}" var="obj"
+											itemLabel="#{obj.descricao}" itemValue="#{obj}" />
 									</p:selectOneMenu>
 								</p:column>
 							</p:row>
@@ -268,39 +253,45 @@
 							<!-- 1ª LINHA -->
 							<p:row>
 								<p:column>
-									<p:outputLabel value="Raça" />
+									<p:outputLabel for="raca1" value="Raça" />
 								</p:column>
 								<p:column>
-									<p:outputLabel value="Categoria" />
+									<p:outputLabel for="categoria1" value="Categoria" />
 								</p:column>
 								<p:column>
-									<p:outputLabel value="Peso (kg)" />
+									<p:outputLabel for="peso1" value="Peso (kg)" />
 								</p:column>
 							</p:row>
 							<p:row>
 								<p:column>
 									<p:selectOneMenu autoWidth="false" style="width: 180px;"
-										required="true"
-										disabled="#{fichaPartoBean.parto.id!=null}"
-										value="#{fichaPartoBean.parto.tipoCobertura}"
-										requiredMessage="Selecione um tipo parto">
+										id="raca1" required="true"
+										requiredMessage="Selecione a raça da cria 1"
+										disabled="#{fichaPartoBean.parto.quantidade==0}"
+										value="#{fichaPartoBean.parto.raca1}"
+										converter="omnifaces.SelectItemsConverter">
 										<f:selectItem itemLabel="Selecione..." itemValue="#{null}" />
-										<f:selectItem itemLabel="MACHO" itemValue="ABORTO" />
-										<f:selectItem itemLabel="FEMIA" itemValue="NORMAL" />
+										<f:selectItems value="#{fichaPartoBean.racas}" var="raca"
+											itemLabel="#{raca.nome}" itemValue="#{raca}" />
 									</p:selectOneMenu>
 								</p:column>
 								<p:column>
 									<p:selectOneMenu autoWidth="false" style="width: 180px;"
+										required="true" id="categoria1"
+										requiredMessage="Selecione a categoria da cria 1"
+										disabled="#{fichaPartoBean.parto.quantidade==0}"
 										converter="omnifaces.SelectItemsConverter"
-										value="#{animalBean.animal.categoria}" required="true"
-										requiredMessage="Selecione a categoria">
+										value="#{fichaPartoBean.parto.categoria1}">
 										<f:selectItem itemLabel="Selecione..." itemValue="#{null}" />
-										<f:selectItems value="#{animalBean.categorias}" var="c"
+										<f:selectItems value="#{fichaPartoBean.categorias}" var="c"
 											itemLabel="#{c.nome}" itemValue="#{c}" />
 									</p:selectOneMenu>
 								</p:column>
 								<p:column>
-									<p:inputText id="peso" size="11" />
+									<p:inputText id="peso1" size="11" required="true"
+										requiredMessage="Informe o peso da cria 1"
+										disabled="#{fichaPartoBean.parto.quantidade==0}"
+										value="#{fichaPartoBean.parto.peso1}" />
 								</p:column>
 							</p:row>
 
@@ -317,25 +308,31 @@
 									<p:outputLabel for="brinco2" value="Brinco" />
 								</p:column>
 								<p:column>
-									<p:outputLabel value="Genero" />
+									<p:outputLabel for="genero2" value="Genero" />
 								</p:column>
 							</p:row>
 							<p:row>
 								<p:column>
-									<p:inputText id="nomeCria2" size="38" />
+									<p:inputText id="nomeCria2" size="38" required="true"
+										requiredMessage="Informe o nome da cria 2"
+										disabled="#{fichaPartoBean.parto.quantidade!=2}"
+										value="#{fichaPartoBean.parto.nomeCria2}" />
 								</p:column>
 								<p:column>
-									<p:inputText id="brinco2" size="11" />
+									<p:inputText id="brinco2" size="11" required="true"
+										requiredMessage="Informe o brinco da cria 2"
+										disabled="#{fichaPartoBean.parto.quantidade!=2}"
+										value="#{fichaPartoBean.parto.brincoCria2}" />
 								</p:column>
 								<p:column>
-									<p:selectOneMenu autoWidth="false" style="width: 82px;"
-										required="true"
-										disabled="#{fichaPartoBean.parto.id!=null}"
-										value="#{fichaPartoBean.parto.tipoCobertura}"
-										requiredMessage="Selecione um tipo parto">
-										<f:selectItem itemLabel="Selecione..." itemValue="#{null}" />
-										<f:selectItem itemLabel="MACHO" itemValue="ABORTO" />
-										<f:selectItem itemLabel="FEMIA" itemValue="NORMAL" />
+									<p:selectOneMenu id="genero2" autoWidth="false" required="true"
+										requiredMessage="Selecione o genero da cria 2"
+										disabled="#{fichaPartoBean.parto.quantidade!=2}"
+										value="#{fichaPartoBean.parto.generoCria2}"
+										style="width: 85px;">
+										<f:selectItem itemLabel="Selecione..." value="#{null}" />
+										<f:selectItems value="#{fichaPartoBean.generos}" var="obj"
+											itemLabel="#{obj.descricao}" itemValue="#{obj}" />
 									</p:selectOneMenu>
 								</p:column>
 							</p:row>
@@ -345,39 +342,45 @@
 							<!-- 1ª LINHA -->
 							<p:row>
 								<p:column>
-									<p:outputLabel value="Raça" />
+									<p:outputLabel for="raca2" value="Raça" />
 								</p:column>
 								<p:column>
-									<p:outputLabel value="Categoria" />
+									<p:outputLabel for="categoria2" value="Categoria" />
 								</p:column>
 								<p:column>
-									<p:outputLabel value="Peso (kg)" />
+									<p:outputLabel for="peso2" value="Peso (kg)" />
 								</p:column>
 							</p:row>
 							<p:row>
 								<p:column>
 									<p:selectOneMenu autoWidth="false" style="width: 180px;"
-										required="true"
-										disabled="#{fichaPartoBean.parto.id!=null}"
-										value="#{fichaPartoBean.parto.tipoCobertura}"
-										requiredMessage="Selecione um tipo parto">
+										id="raca2" required="true"
+										requiredMessage="Selecione a raça da cria 2"
+										disabled="#{fichaPartoBean.parto.quantidade!=2}"
+										value="#{fichaPartoBean.parto.raca2}"
+										converter="omnifaces.SelectItemsConverter">
 										<f:selectItem itemLabel="Selecione..." itemValue="#{null}" />
-										<f:selectItem itemLabel="MACHO" itemValue="ABORTO" />
-										<f:selectItem itemLabel="FEMIA" itemValue="NORMAL" />
+										<f:selectItems value="#{fichaPartoBean.racas}" var="raca"
+											itemLabel="#{raca.nome}" itemValue="#{raca}" />
 									</p:selectOneMenu>
 								</p:column>
 								<p:column>
 									<p:selectOneMenu autoWidth="false" style="width: 180px;"
+										id="categoria2" required="true"
+										requiredMessage="Selecione a categoria da cria 2"
+										disabled="#{fichaPartoBean.parto.quantidade!=2}"
 										converter="omnifaces.SelectItemsConverter"
-										value="#{animalBean.animal.categoria}" required="true"
-										requiredMessage="Selecione a categoria">
+										value="#{fichaPartoBean.parto.categoria2}">
 										<f:selectItem itemLabel="Selecione..." itemValue="#{null}" />
-										<f:selectItems value="#{animalBean.categorias}" var="c"
+										<f:selectItems value="#{fichaPartoBean.categorias}" var="c"
 											itemLabel="#{c.nome}" itemValue="#{c}" />
 									</p:selectOneMenu>
 								</p:column>
 								<p:column>
-									<p:inputText id="peso2" size="11" />
+									<p:inputText id="peso2" size="11" required="true"
+										requiredMessage="Informe o peso da cria 2"
+										disabled="#{fichaPartoBean.parto.quantidade!=2}"
+										value="#{fichaPartoBean.parto.peso2}" />
 								</p:column>
 							</p:row>
 
@@ -385,16 +388,6 @@
 					</p:tab>
 				</p:tabView>
 
-				<ui:remove>
-					<p:panel header="Parto" styleClass="fundo-titulo border-panel">
-
-					</p:panel>
-
-					<p:panel header="Dados da Cria(s)"
-						styleClass="fundo-titulo border-panel">
-
-					</p:panel>
-				</ui:remove>
 
 				<p:toolbar style="margin-top: 10px" styleClass="semPreenchimento">
 					<p:toolbarGroup style="margin-left: 15px;">
@@ -408,7 +401,7 @@
 							style="margin-right: 3px;"
 							oncomplete="PF('dialogCadastro').hide()" immediate="true" />
 						<p:commandButton value="Salvar" icon="salvar-icon"
-							update="form-cadastro form-table form-menu"
+							update=":form-cadastro:tabView1 :form-cadastro:tabView2 :form-table :form-menu"
 							action="#{fichaPartoBean.salvar}" id="salvarCommandButton"
 							oncomplete="if(args.sucesso == true) PF('dialogCadastro').hide()" />
 					</p:toolbarGroup>
@@ -427,7 +420,7 @@
 				<p:panelGrid columns="1" styleClass="semBorda">
 					<p:outputLabel value="Tem certeza que deseja excluir a Animal:" />
 					<p:outputLabel
-						value="#{fichaPartoBean.parto.id} - #{fichaPartoBean.parto.descricao} ?" />
+						value="#{fichaPartoBean.parto.animal.brinco} - #{fichaPartoBean.parto.animal.nome} ?" />
 				</p:panelGrid>
 				<p:panelGrid styleClass="semBorda">
 					<p:button value="Não" style="margin-right:8px; margin-top: 15px"

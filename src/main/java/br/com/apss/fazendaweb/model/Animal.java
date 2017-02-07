@@ -20,6 +20,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import br.com.apss.fazendaweb.enums.Genero;
 
@@ -84,6 +85,17 @@ public class Animal implements Serializable {
 	
 	@OneToMany(mappedBy = "animal", fetch = FetchType.LAZY)
 	private List<FichaAnimal> fichaAnimals = new ArrayList<>();
+	
+	@Transient
+	private Long fid;
+	
+	public Long getFid() {
+		return fid;
+	}
+
+	public void setFid(Long fid) {
+		this.fid = fid;
+	}
 
 	public Long getId() {
 		return id;
@@ -212,6 +224,11 @@ public class Animal implements Serializable {
 	public void setFichaAnimals(List<FichaAnimal> fichaAnimals) {
 		this.fichaAnimals = fichaAnimals;
 	}
+	
+	
+	
+
+	
 
 	@Override
 	public int hashCode() {

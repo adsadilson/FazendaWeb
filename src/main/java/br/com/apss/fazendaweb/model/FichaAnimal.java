@@ -1,7 +1,6 @@
 package br.com.apss.fazendaweb.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -35,14 +34,27 @@ public class FichaAnimal implements Serializable {
 	@Column(name = "tipo_cobertura", length = 80)
 	private String tipoCobertura;
 
+	@ManyToOne
+	@JoinColumn(name = "tipo_parto_id")
+	private TipoParto tipoParto;
+
+	@ManyToOne
+	@JoinColumn(name = "condicao_corporal_id")
+	private CondicaoCorporal condicaoCorporal;
+
 	@Column(length = 80)
 	private String resultado;
 
 	@Column(length = 200)
 	private String obs;
 
-	@Column(precision = 12, scale = 2)
-	private BigDecimal quantidade = BigDecimal.ZERO;
+	@Column(name = "obs_parto", length = 200)
+	private String obsParto;
+
+	@Column(name = "obs_cobertura", length = 200)
+	private String obsCobertura;
+
+	private Integer quantidade = 0;
 
 	@Column(length = 80)
 	private String unidade;
@@ -73,9 +85,6 @@ public class FichaAnimal implements Serializable {
 	@Column(length = 10)
 	private String sexo;
 
-	@Column(length = 80)
-	private String condCorporal;
-
 	@Column(length = 12)
 	private String partida;
 
@@ -89,7 +98,46 @@ public class FichaAnimal implements Serializable {
 	@JoinColumn(name = "animal_id")
 	private Animal animal;
 
-	
+	@Column(name = "nome_cria1", length = 80)
+	private String nomeCria1;
+
+	@Column(name = "nome_cria2", length = 80)
+	private String nomeCria2;
+
+	@Column(name = "brinco_cria1", length = 15)
+	private String brincoCria1;
+
+	@Column(name = "brinco_cria2", length = 15)
+	private String brincoCria2;
+
+	@Column(name = "genero_cria1", length = 15)
+	private String generoCria1;
+
+	@Column(name = "genero_cria2", length = 15)
+	private String generoCria2;
+
+	@Column(name = "peso1", length = 15)
+	private String peso1;
+
+	@Column(name = "peso2", length = 15)
+	private String peso2;
+
+	@ManyToOne
+	@JoinColumn(name = "raca1_id")
+	private Raca raca1;
+
+	@ManyToOne
+	@JoinColumn(name = "raca2_id")
+	private Raca raca2;
+
+	@ManyToOne
+	@JoinColumn(name = "categoria1_id")
+	private Categoria categoria1;
+
+	@ManyToOne
+	@JoinColumn(name = "categoria2_id")
+	private Categoria categoria2;
+
 	public Long getId() {
 		return id;
 	}
@@ -146,11 +194,11 @@ public class FichaAnimal implements Serializable {
 		this.obs = obs;
 	}
 
-	public BigDecimal getQuantidade() {
+	public Integer getQuantidade() {
 		return quantidade;
 	}
 
-	public void setQuantidade(BigDecimal quantidade) {
+	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
 	}
 
@@ -210,12 +258,12 @@ public class FichaAnimal implements Serializable {
 		this.sexo = sexo;
 	}
 
-	public String getCondCorporal() {
-		return condCorporal;
+	public CondicaoCorporal getCondicaoCorporal() {
+		return condicaoCorporal;
 	}
 
-	public void setCondCorporal(String condCorporal) {
-		this.condCorporal = condCorporal;
+	public void setCondicaoCorporal(CondicaoCorporal condicaoCorporal) {
+		this.condicaoCorporal = condicaoCorporal;
 	}
 
 	public Animal getAnimal() {
@@ -248,6 +296,126 @@ public class FichaAnimal implements Serializable {
 
 	public void setResponsavel(String responsavel) {
 		this.responsavel = responsavel;
+	}
+
+	public TipoParto getTipoParto() {
+		return tipoParto;
+	}
+
+	public void setTipoParto(TipoParto tipoParto) {
+		this.tipoParto = tipoParto;
+	}
+
+	public String getNomeCria1() {
+		return nomeCria1;
+	}
+
+	public void setNomeCria1(String nomeCria1) {
+		this.nomeCria1 = nomeCria1 == null ? null : nomeCria1.toUpperCase();
+	}
+
+	public String getNomeCria2() {
+		return nomeCria2;
+	}
+
+	public void setNomeCria2(String nomeCria2) {
+		this.nomeCria2 = nomeCria2 == null ? null : nomeCria2.toUpperCase();
+	}
+
+	public String getBrincoCria1() {
+		return brincoCria1;
+	}
+
+	public void setBrincoCria1(String brincoCria1) {
+		this.brincoCria1 = brincoCria1 == null ? null : brincoCria1.toUpperCase();
+	}
+
+	public String getBrincoCria2() {
+		return brincoCria2;
+	}
+
+	public void setBrincoCria2(String brincoCria2) {
+		this.brincoCria2 = brincoCria2 == null ? null : brincoCria2.toUpperCase();
+	}
+
+	public String getGeneroCria1() {
+		return generoCria1;
+	}
+
+	public void setGeneroCria1(String generoCria1) {
+		this.generoCria1 = generoCria1;
+	}
+
+	public String getGeneroCria2() {
+		return generoCria2;
+	}
+
+	public void setGeneroCria2(String generoCria2) {
+		this.generoCria2 = generoCria2;
+	}
+
+	public String getPeso1() {
+		return peso1;
+	}
+
+	public void setPeso1(String peso1) {
+		this.peso1 = peso1;
+	}
+
+	public String getPeso2() {
+		return peso2;
+	}
+
+	public void setPeso2(String peso2) {
+		this.peso2 = peso2;
+	}
+
+	public Raca getRaca1() {
+		return raca1;
+	}
+
+	public void setRaca1(Raca raca1) {
+		this.raca1 = raca1;
+	}
+
+	public Raca getRaca2() {
+		return raca2;
+	}
+
+	public void setRaca2(Raca raca2) {
+		this.raca2 = raca2;
+	}
+
+	public Categoria getCategoria1() {
+		return categoria1;
+	}
+
+	public void setCategoria1(Categoria categoria1) {
+		this.categoria1 = categoria1;
+	}
+
+	public Categoria getCategoria2() {
+		return categoria2;
+	}
+
+	public void setCategoria2(Categoria categoria2) {
+		this.categoria2 = categoria2;
+	}
+
+	public String getObsParto() {
+		return obsParto;
+	}
+
+	public void setObsParto(String obsParto) {
+		this.obsParto = obsParto;
+	}
+
+	public String getObsCobertura() {
+		return obsCobertura;
+	}
+
+	public void setObsCobertura(String obsCobertura) {
+		this.obsCobertura = obsCobertura;
 	}
 
 	@Override

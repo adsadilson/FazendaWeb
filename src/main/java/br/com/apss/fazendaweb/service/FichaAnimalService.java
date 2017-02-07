@@ -48,11 +48,10 @@ public class FichaAnimalService implements Serializable {
 		return fichaAnimalRepository.porTipoLanc(tipoLanc);
 	}
 	
-	public List<FichaAnimal> buscarPraParto() {
-		return fichaAnimalRepository.buscarPraParto();
+	public List<FichaAnimal> porTipoLancParto() {
+		return fichaAnimalRepository.porTipoLancParto();
 	}
 	
-
 	public Boolean verificaCobertura(Animal animal, Boolean edicao, FichaAnimal cobertura) {
 		List<FichaAnimal> animais = fichaAnimalRepository.porAnimal(animal);
 		if (animais != null) {
@@ -76,6 +75,10 @@ public class FichaAnimalService implements Serializable {
 			}
 		}
 		return false;
+	}
+	
+	public List<FichaAnimal> buscarPraParto() {
+		return fichaAnimalRepository.buscarPraParto();
 	}
 
 }

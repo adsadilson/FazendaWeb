@@ -137,6 +137,14 @@
 			<scope>compile</scope>
 		</dependency>
 
+		<!-- Hibernate-validator -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>5.3.4.Final</version>
+		</dependency>
+
+
 		<!-- Hibernate.org/orm -->
 		<dependency>
 			<groupId>org.hibernate</groupId>

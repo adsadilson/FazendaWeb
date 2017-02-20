@@ -3,13 +3,11 @@ package br.com.apss.fazendaweb.service;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import br.com.apss.fazendaweb.model.PlanoConta;
 import br.com.apss.fazendaweb.model.filter.PlanoContaFilter;
 import br.com.apss.fazendaweb.repository.PlanoContaRepository;
-import br.com.apss.fazendaweb.util.NegocioException;
 import br.com.apss.fazendaweb.util.Transactional;
 
 public class PlanoContaService implements Serializable {
@@ -21,12 +19,6 @@ public class PlanoContaService implements Serializable {
 
 	@Transactional
 	public PlanoConta salvar(PlanoConta planoConta) {
-		PlanoConta planoContaExistente = planoContaRepository.porNome(planoConta.getMascara());
-
-		if (planoContaExistente != null && !planoContaExistente.equals(planoConta)) {
-			FacesContext.getCurrentInstance().validationFailed();
-			throw new NegocioException("Já existe uma Plano de Conta com essa Mascara informado.");
-		}
 		return planoContaRepository.save(planoConta);
 	}
 

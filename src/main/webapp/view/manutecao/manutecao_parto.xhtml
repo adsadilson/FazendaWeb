@@ -167,9 +167,9 @@
 										<f:selectItems value="#{fichaPartoBean.tipoPartos}"
 											var="tipoParto" itemLabel="#{tipoParto.nome}"
 											itemValue="#{tipoParto}" />
-										<p:ajax event="change" process="@this"
+										<p:ajax event="change" process="@this :form-cadastro:tabView2:qtd"
 											listener="#{fichaPartoBean.qtdes}"
-											update=":form-cadastro:tabView2:qtd " />
+											update=":form-cadastro:tabView2:qtd :form-cadastro:tabView2" />
 									</p:selectOneMenu>
 								</p:column>
 								<p:column>
@@ -189,8 +189,8 @@
 										value="#{fichaPartoBean.parto.quantidade}"
 										disabled="#{fichaPartoBean.parto.tipoParto.nome == 'ABORTO'}"
 										requiredMessage="Informe a quantidade de cria">
-										<p:ajax event="change" process="@this"
-											update=":form-cadastro:tabView2:nomeCria1" />
+										<p:ajax event="change" process="@this" 
+											update=":form-cadastro:tabView2" />
 									</p:spinner>
 								</p:column>
 							</p:row>

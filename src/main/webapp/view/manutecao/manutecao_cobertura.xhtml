@@ -229,7 +229,7 @@
 										<p:panelGrid>
 											<p:row>
 												<p:column>
-													<p:outputLabel value="Data" />
+													<p:outputLabel for="dtDiag" value="Data" />
 												</p:column>
 												<p:column>
 													<p:outputLabel value="Prev. Parto" />
@@ -237,9 +237,11 @@
 											</p:row>
 											<p:row>
 												<p:column>
-													<p:calendar size="10" pattern="dd/MM/yyyy"
+													<p:calendar id="dtDiag" size="10" pattern="dd/MM/yyyy"
 														styleClass="center"
-														value="#{fichaCoberturaBean.cobertura.dtDiagnostico}" />
+														value="#{fichaCoberturaBean.cobertura.dtDiagnostico}">
+															<f:validator validatorId="dataDiagnostico"/>
+													</p:calendar>
 												</p:column>
 												<p:column>
 													<p:calendar size="10" pattern="dd/MM/yyyy" disabled="true" />
@@ -247,7 +249,7 @@
 											</p:row>
 											<p:row>
 												<p:column>
-													<p:outputLabel value="Resultado" />
+													<p:outputLabel for="resultado" value="Resultado" />
 												</p:column>
 												<p:column>
 													<p:outputLabel value="Data do Parto" />
@@ -255,7 +257,8 @@
 											</p:row>
 											<p:row>
 												<p:column>
-													<p:selectOneMenu autoWidth="false" style="width: 80px;"
+													<p:selectOneMenu id="resultado" autoWidth="false"
+														style="width: 80px;"
 														value="#{fichaCoberturaBean.cobertura.resultado}">
 														<f:selectItem itemLabel="Selecione..." itemValue="#{null}" />
 														<f:selectItem itemLabel="Positivo" itemValue="POSITIVO" />

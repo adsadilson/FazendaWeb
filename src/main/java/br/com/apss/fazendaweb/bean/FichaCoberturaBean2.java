@@ -26,12 +26,13 @@ import br.com.apss.fazendaweb.util.FacesUtil;
 @Named
 @ViewScoped
 @ManagedBean
-public class FichaCoberturaBean implements Serializable {
+public class FichaCoberturaBean2 implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private FichaAnimal cobertura;
 	private List<FichaAnimal> coberturas = new ArrayList<>();
 	private FichaAnimal coberturaSelecionado;
+	private Boolean edicao = true;
 
 	@Inject
 	FichaAnimalService coberturaService;
@@ -57,7 +58,12 @@ public class FichaCoberturaBean implements Serializable {
 
 	public Boolean condicaoEditarExcluir() {
 		editar();
-		return !(this.getCoberturaSelecionado() != null && this.cobertura.getDtParto() == null);
+		if (this.getCoberturaSelecionado() != null && this.cobertura.getDtParto() == null) {
+			this.edicao = false;
+		} else {
+			this.edicao = true;
+		}
+		return this.edicao;
 	}
 
 	private void carregarTabela() {
@@ -70,7 +76,7 @@ public class FichaCoberturaBean implements Serializable {
 	}
 
 	public boolean verificarCobertura() {
-		return coberturaService.verificaCobertura(this.cobertura.getAnimal(), true, this.cobertura);
+		return coberturaService.verificaCobertura(this.cobertura.getAnimal(), this.edicao, this.cobertura);
 	}
 
 	public List<Animal> getReprodutores() {
@@ -99,6 +105,7 @@ public class FichaCoberturaBean implements Serializable {
 			Messages.addGlobalInfo("Registro salvo com sucesso");
 			RequestContext request = RequestContext.getCurrentInstance();
 			request.addCallbackParam("sucesso", true);
+			this.setEdicao(false);
 		}
 	}
 
@@ -140,8 +147,13 @@ public class FichaCoberturaBean implements Serializable {
 		this.coberturaSelecionado = coberturaSelecionado;
 	}
 
-	
-	
+	public Boolean getEdicao() {
+		return edicao;
+	}
+
+	public void setEdicao(Boolean edicao) {
+		this.edicao = edicao;
+	}
 
 	/****************************** Getters e Setters *************************/
 

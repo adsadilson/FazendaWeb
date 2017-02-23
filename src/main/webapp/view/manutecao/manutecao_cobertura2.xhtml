@@ -31,13 +31,13 @@
 						style="margin-left: 5px; margin-right: 5px;"
 						oncomplete="PF('dialogCadastro').show()" process="@this"
 						update="form-cadastro" action="#{fichaCoberturaBean.editar}"
-						disabled="#{fichaCoberturaBean.condicaoEditarExcluir()}">
+						disabled="#{fichaCoberturaBean.edicao}">
 						<p:resetInput target="form-cadastro" />
 					</p:commandButton>
 					<p:commandButton icon="excluir-icon" value="Excluir"
 						oncomplete="PF('confirmacaoExclusao').show()" process="@this"
 						update=":form-Exclusao" action="#{fichaCoberturaBean.editar}"
-						disabled="#{fichaCoberturaBean.condicaoEditarExcluir()}">
+						disabled="#{fichaCoberturaBean.edicao}">
 					</p:commandButton>
 					<ui:remove>
 						<p:separator />
@@ -61,10 +61,12 @@
 				paginator="true" paginatorAlwaysVisible="false"
 				paginatorPosition="bottom" selectionMode="single"
 				selection="#{fichaCoberturaBean.coberturaSelecionado}"
-				rowKey="#{cobertura.id}"> 
+				rowKey="#{cobertura.id}">
 
-				<p:ajax event="rowSelect" update="form-menu, form-table"/>
-				<p:ajax event="rowUnselect" update="form-menu, form-table"/>
+				<p:ajax event="rowSelect" update="form-menu, form-table"
+					listener="#{fichaCoberturaBean.condicaoEditarExcluir()}" />
+				<p:ajax event="rowUnselect" update="form-menu, form-table"
+					listener="#{fichaCoberturaBean.condicaoEditarExcluir()}" />
 
 				<p:column headerText="Brinco"
 					style="width: 80px; text-align: center;"

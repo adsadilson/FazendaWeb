@@ -13,7 +13,7 @@
 
 		<f:metadata>
 			<f:viewParam name="dummy" />
-			<f:event listener="#{fichaCoberturaBean.inicializarBean}"
+			<f:event listener="#{fichaSecagemBean.inicializarBean}"
 				type="preRenderView" />
 		</f:metadata>
 
@@ -24,20 +24,20 @@
 				<p:toolbarGroup>
 					<p:commandButton icon="novo-icon" value="Novo"
 						oncomplete="PF('dialogCadastro').show()" process="@this"
-						update="form-cadastro" action="#{fichaCoberturaBean.novoCadastro}">
+						update="form-cadastro" action="#{fichaSecagemBean.novoCadastro}">
 						<p:resetInput target="form-cadastro" />
 					</p:commandButton>
 					<p:commandButton icon="editar-icon" value="Editar"
 						style="margin-left: 5px; margin-right: 5px;"
 						oncomplete="PF('dialogCadastro').show()" process="@this"
-						update="form-cadastro" action="#{fichaCoberturaBean.editar}"
-						disabled="#{fichaCoberturaBean.coberturaSelecionado == null}">
+						update="form-cadastro" action="#{fichaSecagemBean.editar}"
+						disabled="#{fichaSecagemBean.secagemSelecionado == null}">
 						<p:resetInput target="form-cadastro" />
 					</p:commandButton>
 					<p:commandButton icon="excluir-icon" value="Excluir"
 						oncomplete="PF('confirmacaoExclusao').show()" process="@this"
-						update=":form-Exclusao" action="#{fichaCoberturaBean.editar}"
-						disabled="#{fichaCoberturaBean.coberturaSelecionado == null}">
+						update=":form-Exclusao" action="#{fichaSecagemBean.editar}"
+						disabled="#{fichaSecagemBean.secagemSelecionado == null}">
 					</p:commandButton>
 					<ui:remove>
 						<p:separator />
@@ -54,63 +54,57 @@
 
 		<h:form id="form-table">
 
-			<p:dataTable id="tbl-cobertura"
-				value="#{fichaCoberturaBean.coberturas}" var="cobertura"
-				style="margin-top: 5px" styleClass="table-tela-manutecao"
+			<p:dataTable id="tbl-secagem" value="#{fichaSecagemBean.secagems}"
+				var="secagem" style="margin-top: 5px"
+				styleClass="table-tela-manutecao"
 				emptyMessage="Nenhuma registro encontrada." rows="10"
 				paginator="true" paginatorAlwaysVisible="false"
 				paginatorPosition="bottom" selectionMode="single"
-				selection="#{fichaCoberturaBean.coberturaSelecionado}"
-				rowKey="#{cobertura.id}">
+				selection="#{fichaSecagemBean.secagemSelecionado}"
+				rowKey="#{secagem.id}">
 
 				<p:ajax event="rowSelect" update="form-menu, form-table" />
 				<p:ajax event="rowUnselect" update="form-menu, form-table" />
 
 				<p:column headerText="Brinco"
 					style="width: 80px; text-align: center;"
-					sortBy="#{cobertura.animal.brinco}">
-					<h:outputText value="#{cobertura.animal.brinco}" />
+					sortBy="#{secagem.animal.brinco}">
+					<h:outputText value="#{secagem.animal.brinco}" />
 				</p:column>
 
 				<p:column headerText="Animal" style="width: 200px"
-					sortBy="#{cobertura.animal.nome}">
-					<h:outputText value="#{cobertura.animal.nome}" />
+					sortBy="#{secagem.animal.nome}">
+					<h:outputText value="#{secagem.animal.nome}" />
 				</p:column>
 
 				<p:column headerText="Data Secagem"
 					style="width: 110px; text-align: center;"
-					sortBy="#{cobertura.dtCobertura}">
-					<h:outputText value="#{cobertura.dtCobertura}">
+					sortBy="#{secagem.dtSecagem}">
+					<h:outputText value="#{secagem.dtSecagem}">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
 				</p:column>
 
 				<p:column headerText="Tipo do Secagem" style="width: 200px">
-					<h:outputText value="#{cobertura.tipoCobertura}" />
+					<h:outputText value="#{secagem.tipoSecagem.nome}" />
 				</p:column>
 
-				<p:column headerText="Lactação (dias)" style="width: 180px">
-					<h:outputText value="#{cobertura.responsavel}" />
+				<p:column headerText="Lactação (dias)"
+					style="width: 80px; text-align:center;">
+					<h:outputText value="#{secagem.lactacao}" />
 				</p:column>
 
 				<p:column headerText="Condição Corporal" style="width: 180px">
-					<h:outputText value="#{cobertura.reprodutor}" />
+					<h:outputText value="#{secagem.condicaoCorporal.nome}" />
 				</p:column>
 
 				<p:column headerText="Data Parto"
 					style="width: 110px; text-align: center;"
-					sortBy="#{cobertura.dtDiagnostico}">
-					<h:outputText value="#{cobertura.dtDiagnostico}">
+					sortBy="#{secagem.dtParto}">
+					<h:outputText value="#{secagem.dtParto}">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
 				</p:column>
-
-				<p:column headerText="Observação" sortBy="#{cobertura.resultado}"
-					style="width: 100px">
-					<h:outputText value="#{cobertura.resultado}" />
-				</p:column>
-
-
 
 			</p:dataTable>
 
@@ -130,22 +124,24 @@
 							<p:selectOneMenu autoWidth="false" filter="true"
 								filterMatchMode="contains" style="width: 515px;" required="true"
 								id="nome" requiredMessage="Selecione um animal"
-								disabled="#{fichaCoberturaBean.cobertura.id!=null}"
-								value="#{fichaCoberturaBean.cobertura.animal}"
+								disabled="#{fichaSecagemBean.edicao==true}"
+								value="#{fichaSecagemBean.secagem.id}"
 								converter="omnifaces.SelectItemsConverter">
 								<f:selectItem itemLabel="Selecione um animal"
 									itemValue="#{null}" />
-								<f:selectItems value="#{fichaCoberturaBean.animals}"
-									var="animal" itemLabel="#{animal.brinco} - #{animal.nome}"
-									itemValue="#{animal}" />
+								<f:selectItems value="#{fichaSecagemBean.animals}" var="animal"
+									itemLabel="#{animal.animal.brinco} - #{animal.animal.nome}"
+									itemValue="#{animal.id}" />
 								<p:ajax event="change" process="@this"
-									listener="#{fichaCoberturaBean.verificarCobertura}" />
+									update=":form-cadastro:tabView2"
+									listener="#{fichaSecagemBean.carregarFichaSelecionada()}" />
 							</p:selectOneMenu>
 						</p:panelGrid>
 					</p:tab>
 				</p:tabView>
 
-				<p:tabView style="height: 180px;" styleClass="espacamento-tabview">
+				<p:tabView id="tabView2" style="height: 180px;"
+					styleClass="espacamento-tabview">
 					<p:tab title="Secagem">
 						<p:panelGrid styleClass="semBorda">
 							<!-- 1ª LINHA -->
@@ -162,33 +158,35 @@
 							</p:row>
 							<p:row>
 								<p:column>
-									<p:calendar id="dtSecagem" size="12" pattern="dd/MM/yyyy"
+									<p:calendar id="dtSecagem" size="10" pattern="dd/MM/yyyy"
 										locale="pt_BR" required="true"
-										disabled="#{fichaCoberturaBean.cobertura.id!=null}"
-										value="#{fichaCoberturaBean.cobertura.dtCobertura}"
-										requiredMessage="Informe a data cobertura" />
+										disabled="#{fichaSecagemBean.edicao==true}"
+										value="#{fichaSecagemBean.secagem.dtSecagem}"
+										requiredMessage="Informe a data secagem" />
 								</p:column>
 								<p:column>
 									<p:selectOneMenu id="tipoSecagem" autoWidth="false"
-										style="width: 180px;" required="true"
-										disabled="#{fichaCoberturaBean.cobertura.id!=null}"
-										value="#{fichaCoberturaBean.cobertura.tipoCobertura}"
-										requiredMessage="Selecione um tipo cobertura">
+										style="width: 195px;" required="true"
+										disabled="#{fichaSecagemBean.edicao==true}"
+										value="#{fichaSecagemBean.secagem.tipoSecagem}"
+										converter="omnifaces.SelectItemsConverter"
+										requiredMessage="Selecione um tipo secagem">
 										<f:selectItem itemLabel="Selecione..." itemValue="#{null}" />
-										<f:selectItem itemLabel="ABORTO" itemValue="ABORTO" />
-										<f:selectItem itemLabel="NORMAL" itemValue="NORMAL" />
-										<f:selectItem itemLabel="GEMELAR" itemValue="GEMELAR" />
+										<f:selectItems value="#{fichaSecagemBean.tipoSecagems}"
+											var="tipoSecagem" itemLabel="#{tipoSecagem.nome}"
+											itemValue="#{tipoSecagem}" />
 									</p:selectOneMenu>
 								</p:column>
 								<p:column>
 									<p:selectOneMenu autoWidth="false" style="width: 170px;"
 										required="true" id="condCorporal"
-										disabled="#{fichaCoberturaBean.cobertura.id!=null}"
-										requiredMessage="Selecione um condição corporal"
-										value="#{fichaCoberturaBean.cobertura.condCorporal}">
+										value="#{fichaSecagemBean.secagem.condicaoCorporal}"
+										disabled="#{fichaSecagemBean.edicao==true}"
+										converter="omnifaces.SelectItemsConverter"
+										requiredMessage="Selecione um condição corporal">
 										<f:selectItem itemLabel="Selecione..." itemValue="#{null}" />
-										<f:selectItems value="#{fichaCoberturaBean.condicoesCorporal}"
-											var="o" itemLabel="#{o.nome}" itemValue="#{o.nome}" />
+										<f:selectItems value="#{fichaSecagemBean.condicoesCorporal}"
+											var="o" itemLabel="#{o.nome}" itemValue="#{o}" />
 									</p:selectOneMenu>
 								</p:column>
 							</p:row>
@@ -201,29 +199,19 @@
 							<p:row>
 								<p:column colspan="4">
 									<p:inputTextarea rows="3" style="width: 98%;"
-										value="#{fichaCoberturaBean.cobertura.obs}" />
+										placeholder="Informações que se julga necessária para secagem"
+										value="#{fichaSecagemBean.secagem.obsSecagem}" />
 								</p:column>
 							</p:row>
 						</p:panelGrid>
 					</p:tab>
 				</p:tabView>
 
-				<ui:remove>
-					<p:panel header="Secagem" styleClass="fundo-titulo border-panel">
-
-					</p:panel>
-
-					<p:panel header="Dados da Cria(s)"
-						styleClass="fundo-titulo border-panel">
-
-					</p:panel>
-				</ui:remove>
-
 				<p:toolbar style="margin-top: 10px" styleClass="semPreenchimento">
 					<p:toolbarGroup style="margin-left: 15px;">
-						<p:commandButton value="Informação" title="Cadastramento de Crias"
-							oncomplete="PF('cadastroCria').show()" process="@this">
-							<p:resetInput target="form-cadastro-cria" />
+						<p:commandButton title="Informação" icon="fa fa-question-circle"
+							iconPos="right" oncomplete="PF('cadastroInfo').show()"
+							process="@this">
 						</p:commandButton>
 					</p:toolbarGroup>
 					<p:toolbarGroup align="right" style="margin-right: 10px;">
@@ -232,7 +220,7 @@
 							oncomplete="PF('dialogCadastro').hide()" immediate="true" />
 						<p:commandButton value="Salvar" icon="salvar-icon"
 							update="form-cadastro form-table form-menu"
-							action="#{fichaCoberturaBean.salvar}" id="salvarCommandButton"
+							action="#{fichaSecagemBean.salvar}" id="salvarCommandButton"
 							oncomplete="if(args.sucesso == true) PF('dialogCadastro').hide()" />
 					</p:toolbarGroup>
 				</p:toolbar>
@@ -248,36 +236,36 @@
 			width="400" appendTo="@(body)">
 			<h:form id="form-Exclusao">
 				<p:panelGrid columns="1" styleClass="semBorda">
-					<p:outputLabel value="Tem certeza que deseja excluir a Animal:" />
 					<p:outputLabel
-						value="#{fichaCoberturaBean.cobertura.id} - #{fichaCoberturaBean.cobertura.descricao} ?" />
+						value="Tem certeza que deseja excluir a secagem do animal:" />
+					<p:outputLabel
+						value="#{fichaSecagemBean.secagem.id} - #{fichaSecagemBean.secagem.animal.nome} ?" />
 				</p:panelGrid>
 				<p:panelGrid styleClass="semBorda">
 					<p:button value="Não" style="margin-right:8px; margin-top: 15px"
 						onclick="PF('confirmacaoExclusao').hide(); return false;" />
-					<p:commandButton value="Sim" action="#{fichaCoberturaBean.excluir}"
+					<p:commandButton value="Sim" action="#{fichaSecagemBean.excluir}"
 						update="form-table, form-menu"
 						oncomplete="if(!args.validationFailed) PF('confirmacaoExclusao').hide()" />
 				</p:panelGrid>
 			</h:form>
 		</p:dialog>
 
-		<p:dialog header="Informação" widgetVar="cadastroCria" modal="true"
-			resizable="false" draggable="true" closeOnEscape="true" width="400"
-			height="220" appendTo="@(body)">
-			<h:form id="form-cadastro-cria">
-				<p:panelGrid styleClass="semBorda">
-					<p:inputTextarea rows="10" cols="49" disabled="true"
-						value="Os animais disponibilizados para o parto são os que se encontram com o registro de cobertura cadastrado e o resultado do diagnóstico seja Positivo.
-							   Depois de cadastrado o registro de Secagem só é permitido alteração dos campos de Observação e Dados da Cria. Caso algum outro tipo de informação esteja 
-							   incorreto, será necessário excluir o registro e incluí-lo novamente
-					" />
+		<p:dialog header="Informação" widgetVar="cadastroInfo" modal="true"
+			resizable="false" draggable="true" closeOnEscape="true" width="350"
+			height="155" appendTo="@(body)">
+			<h:form id="form-cadastro-info">
+				<p:panelGrid columns="1" styleClass="semBorda">
+					<p:outputLabel value="Observação" style="color: red;" />
+					<p:outputLabel
+						value="Depois de cadastrado o registro de Secagem só é permitido alteração do campo de Observação. 
+						Caso algum outro tipo de informação esteja incorreto, será necessário excluir o registro e 
+						incluí-lo novamente." />
 				</p:panelGrid>
 				<p:panelGrid styleClass="semBorda">
-					<p:button value="Não" style="margin-right:8px; margin-top: 15px"
-						onclick="PF('cadastroCria').hide(); return false;" />
-					<p:commandButton value="Sim"
-						oncomplete="if(!args.validationFailed) PF('cadastroCria').hide()" />
+					<p:button icon="fa fa-thumbs-up"
+						style="margin-right:8px; margin-top: 20px"
+						onclick="PF('cadastroInfo').hide(); return false;" />
 				</p:panelGrid>
 			</h:form>
 		</p:dialog>

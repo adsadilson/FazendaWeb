@@ -14,6 +14,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Table(name = "ficha_animal")
 @Entity
@@ -35,6 +36,10 @@ public class FichaAnimal implements Serializable {
 	private String tipoCobertura;
 
 	@ManyToOne
+	@JoinColumn(name = "tipo_secagem_id")
+	private TipoSecagem tipoSecagem;
+
+	@ManyToOne
 	@JoinColumn(name = "tipo_parto_id")
 	private TipoParto tipoParto;
 
@@ -53,6 +58,9 @@ public class FichaAnimal implements Serializable {
 
 	@Column(name = "obs_cobertura", length = 200)
 	private String obsCobertura;
+
+	@Column(name = "obs_secagem", length = 200)
+	private String obsSecagem;
 
 	private Integer quantidade = 0;
 
@@ -77,6 +85,10 @@ public class FichaAnimal implements Serializable {
 	@Temporal(TemporalType.DATE)
 	@Column(name = "dt_cadastro")
 	private Date dtCadastro;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "dt_secagem")
+	private Date dtSecagem;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "dt_diagnostico")
@@ -137,7 +149,11 @@ public class FichaAnimal implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "categoria2_id")
 	private Categoria categoria2;
-
+	
+	@Transient
+	private Long lactacao;
+	
+	
 	public Long getId() {
 		return id;
 	}
@@ -192,6 +208,22 @@ public class FichaAnimal implements Serializable {
 
 	public void setObs(String obs) {
 		this.obs = obs;
+	}
+
+	public TipoSecagem getTipoSecagem() {
+		return tipoSecagem;
+	}
+
+	public void setTipoSecagem(TipoSecagem tipoSecagem) {
+		this.tipoSecagem = tipoSecagem;
+	}
+
+	public String getObsSecagem() {
+		return obsSecagem;
+	}
+
+	public void setObsSecagem(String obsSecagem) {
+		this.obsSecagem = obsSecagem;
 	}
 
 	public Integer getQuantidade() {
@@ -416,6 +448,24 @@ public class FichaAnimal implements Serializable {
 
 	public void setObsCobertura(String obsCobertura) {
 		this.obsCobertura = obsCobertura;
+	}
+
+	public Date getDtSecagem() {
+		return dtSecagem;
+	}
+
+	public void setDtSecagem(Date dtSecagem) {
+		this.dtSecagem = dtSecagem;
+	}
+	
+	
+
+	public Long getLactacao() {
+		return lactacao;
+	}
+
+	public void setLactacao(Long lactacao) {
+		this.lactacao = lactacao;
 	}
 
 	@Override

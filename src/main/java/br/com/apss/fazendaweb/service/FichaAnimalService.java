@@ -47,38 +47,39 @@ public class FichaAnimalService implements Serializable {
 	public List<FichaAnimal> porTipoLanc(String tipoLanc) {
 		return fichaAnimalRepository.porTipoLanc(tipoLanc);
 	}
-	
-	public List<FichaAnimal> porTipoLancParto() {
-		return fichaAnimalRepository.porTipoLancParto();
+
+	public List<FichaAnimal> carregarFichaParto() {
+		return fichaAnimalRepository.carregarFichaParto();
 	}
-	
+
+	public List<FichaAnimal> carregarFichaSecagem() {
+		return fichaAnimalRepository.carregarFichaSecagem();
+	}
+
 	public Boolean verificaCobertura(Animal animal, Boolean edicao, FichaAnimal cobertura) {
 		List<FichaAnimal> animais = fichaAnimalRepository.porAnimal(animal);
 		if (animais != null) {
-			for (FichaAnimal fichaAnimal : animais) {
-				if (fichaAnimal.getResultado() == null && edicao == false) {
-					throw new NegocioException(
-							"Já existe uma cobertura lançanda para esse animal sem a definição do resultando.");
-				} else if (fichaAnimal.getResultado() == null && edicao == true) {
-					if (cobertura.getDtDiagnostico() == null || cobertura.getResultado() == null) {
-						throw new NegocioException("O campo data diagnóstico e resultado são obrigatório.");
+			if (!edicao) {
+				for (FichaAnimal fichaAnimal : animais) {
+					if (fichaAnimal.getResultado() == null && fichaAnimal.getDtParto() == null) {
+						throw new NegocioException(
+								"Já existe uma cobertura cadastrada para esse animal aguardando o parto.");
+					} else if (fichaAnimal.getResultado().contains("POSITIVO") && fichaAnimal.getDtParto() == null) {
+						throw new NegocioException(
+								"Já existe uma cobertura cadastrada para esse animal aguardando o parto.");
 					}
-				} else if (fichaAnimal.getResultado() != null && edicao == true) {
-					if (cobertura.getDtDiagnostico() == null || cobertura.getResultado() == null) {
-						throw new NegocioException("O campo data diagnóstico e resultado são obrigatório.");
-					} 
-				} else if (fichaAnimal.getResultado().contains("POSITIVO") && fichaAnimal.getDtParto() == null) {
-					throw new NegocioException(
-							"Existe uma cobertura para esse animal com resultado do diagnóstico positivo, "
-									+ "portanto será necessario esperar o parto do mesmo.");
 				}
 			}
 		}
 		return false;
 	}
-	
+
 	public List<FichaAnimal> buscarPraParto() {
 		return fichaAnimalRepository.buscarPraParto();
+	}
+
+	public List<FichaAnimal> buscarFichaSecagem() {
+		return fichaAnimalRepository.buscarFichaSecagem();
 	}
 
 }

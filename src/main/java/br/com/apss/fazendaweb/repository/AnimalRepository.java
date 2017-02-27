@@ -9,6 +9,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 
 import br.com.apss.fazendaweb.model.Animal;
+import br.com.apss.fazendaweb.model.FichaAnimal;
 import br.com.apss.fazendaweb.util.NegocioException;
 
 public class AnimalRepository implements Serializable {
@@ -66,6 +67,7 @@ public class AnimalRepository implements Serializable {
 				+ "WHERE f.resultado ='POSITIVO' and f.dtParto is null ORDER BY a.nome";
 			return em.createQuery(jpql,Animal.class).getResultList();
 	}
+	
 	
 	public List<Animal> buscarAnimalReprodutor() {
 		String jpql = "SELECT a FROM Animal a INNER JOIN Categoria c ON(a.categoria.id=c.id) "

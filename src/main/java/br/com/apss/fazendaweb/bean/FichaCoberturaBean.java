@@ -60,6 +60,13 @@ public class FichaCoberturaBean implements Serializable {
 		return !(this.getCoberturaSelecionado() != null && this.cobertura.getDtParto() == null);
 	}
 
+	public void infoDtPartoValidation() {
+		editar();
+		if (!(this.getCoberturaSelecionado() != null && this.cobertura.getDtParto() == null)) {
+			Messages.addGlobalWarn("Registro bloqueado para edição e exclusão por possuir parto cadastrado.");
+		}
+	}
+
 	private void carregarTabela() {
 		cobertura = new FichaAnimal();
 		coberturas = coberturaService.porTipoLanc("COBERTURA/DIAGNOSTICO");
@@ -70,7 +77,8 @@ public class FichaCoberturaBean implements Serializable {
 	}
 
 	public boolean verificarCobertura() {
-		return coberturaService.verificaCobertura(this.cobertura.getAnimal(), true, this.cobertura);
+		return coberturaService.verificaCobertura(this.cobertura.getAnimal(),
+				this.cobertura.getId() != null ? true : false, this.cobertura);
 	}
 
 	public List<Animal> getReprodutores() {
@@ -114,7 +122,6 @@ public class FichaCoberturaBean implements Serializable {
 			this.cobertura = coberturaService.buscarPorId(coberturaSelecionado.getId());
 		}
 	}
-	
 
 	public FichaAnimal getCobertura() {
 		return cobertura;
@@ -139,9 +146,6 @@ public class FichaCoberturaBean implements Serializable {
 	public void setCoberturaSelecionado(FichaAnimal coberturaSelecionado) {
 		this.coberturaSelecionado = coberturaSelecionado;
 	}
-
-	
-	
 
 	/****************************** Getters e Setters *************************/
 

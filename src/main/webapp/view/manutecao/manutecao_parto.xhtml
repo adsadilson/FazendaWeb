@@ -31,13 +31,13 @@
 						style="margin-left: 5px; margin-right: 5px;"
 						oncomplete="PF('dialogCadastro').show()" process="@this"
 						update="form-cadastro" action="#{fichaPartoBean.editar}"
-						disabled="#{fichaPartoBean.partoSelecionado == null}">
+						disabled="#{fichaPartoBean.condicaoEditarExcluir()}">
 						<p:resetInput target="form-cadastro" />
 					</p:commandButton>
 					<p:commandButton icon="excluir-icon" value="Excluir"
 						oncomplete="PF('confirmacaoExclusao').show()" process="@this"
 						update=":form-Exclusao" action="#{fichaPartoBean.editar}"
-						disabled="#{fichaPartoBean.partoSelecionado == null}">
+						disabled="#{fichaPartoBean.condicaoEditarExcluir()}">
 					</p:commandButton>
 					<ui:remove>
 						<p:separator />
@@ -62,7 +62,8 @@
 				paginatorPosition="bottom" selectionMode="single"
 				selection="#{fichaPartoBean.partoSelecionado}" rowKey="#{parto.id}">
 
-				<p:ajax event="rowSelect" update="form-menu, form-table" />
+				<p:ajax event="rowSelect" update="form-menu, form-table"
+					listener="#{fichaPartoBean.infoDtPartoValidation()}" />
 				<p:ajax event="rowUnselect" update="form-menu, form-table" />
 
 				<p:column headerText="Brinco"
@@ -114,13 +115,13 @@
 								filterMatchMode="contains" style="width: 515px;" required="true"
 								id="nome" requiredMessage="Selecione um animal"
 								disabled="#{fichaPartoBean.edicao==true}"
-								value="#{fichaPartoBean.parto.id}"
+								value="#{fichaPartoBean.parto.animal}"
 								converter="omnifaces.SelectItemsConverter">
 								<f:selectItem itemLabel="Selecione um animal"
 									itemValue="#{null}" />
 								<f:selectItems value="#{fichaPartoBean.animals}" var="animal"
-									itemLabel="#{animal.animal.brinco} - #{animal.animal.nome}"
-									itemValue="#{animal.id}" />
+									itemLabel="#{animal.brinco} - #{animal.nome}"
+									itemValue="#{animal}" />
 								<p:ajax event="change" process="@this"
 									update=":form-cadastro:tabView2"
 									listener="#{fichaPartoBean.teste}" />
@@ -136,9 +137,6 @@
 							<!-- 1ª LINHA -->
 							<p:row>
 								<p:column>
-									<p:outputLabel for="dtParto" value="Data Parto" />
-								</p:column>
-								<p:column>
 									<p:outputLabel for="tipoParto" value="Tipo Parto" />
 								</p:column>
 								<p:column>
@@ -147,19 +145,11 @@
 								<p:column>
 									<p:outputLabel for="qtd" value="Qtde Cria(s)" />
 								</p:column>
+								<p:column>
+									<p:outputLabel for="dtParto" value="Data Parto" />
+								</p:column>
 							</p:row>
 							<p:row>
-								<p:column>
-									<p:calendar id="dtParto" size="8" pattern="dd/MM/yyyy"
-										locale="pt_BR" required="true" validator="dtPartoValidation"
-										disabled="#{fichaPartoBean.edicao==true}"
-										value="#{fichaPartoBean.parto.dtParto}"
-										requiredMessage="Informe a data parto">
-										<p:ajax process="@this" />
-										<f:attribute name="dtCobertura"
-											value="#{fichaPartoBean.parto.dtCobertura}" />
-									</p:calendar>
-								</p:column>
 								<p:column>
 									<p:selectOneMenu id="tipoParto" autoWidth="false"
 										style="width: 120px;" required="true"
@@ -199,6 +189,17 @@
 											update=":form-cadastro:tabView2" />
 									</p:spinner>
 								</p:column>
+								<p:column>
+									<p:calendar id="dtParto" size="8" pattern="dd/MM/yyyy"
+										locale="pt_BR" required="true" validator="dtPartoValidation"
+										disabled="#{fichaPartoBean.edicao==true}"
+										value="#{fichaPartoBean.parto.dtParto}"
+										requiredMessage="Informe a data parto">
+										<p:ajax process="@this" />
+										<f:attribute name="dtCobertura"
+											value="#{fichaPartoBean.parto.dtCobertura}" />
+									</p:calendar>
+								</p:column>
 							</p:row>
 							<!-- 2ª LINHA -->
 							<p:row>
@@ -209,6 +210,7 @@
 							<p:row>
 								<p:column colspan="4">
 									<p:inputTextarea rows="3" style="width: 98%;"
+										placeholder="Informações que se julga necessária para parto"
 										value="#{fichaPartoBean.parto.obsParto}" />
 								</p:column>
 							</p:row>
@@ -409,8 +411,9 @@
 
 				<p:toolbar style="margin-top: 10px" styleClass="semPreenchimento">
 					<p:toolbarGroup style="margin-left: 15px;">
-						<p:commandButton icon="fa fa-question-circle" iconPos="right	" value="Informação" title="Cadastramento de Crias"
-							oncomplete="PF('cadastroCria').show()" process="@this">
+						<p:commandButton icon="fa fa-question-circle" iconPos="right	"
+							value="Informação" oncomplete="PF('cadastroCria').show()"
+							process="@this">
 							<p:resetInput target="form-cadastro-cria" />
 						</p:commandButton>
 					</p:toolbarGroup>
@@ -436,7 +439,8 @@
 			width="400" appendTo="@(body)">
 			<h:form id="form-Exclusao">
 				<p:panelGrid columns="1" styleClass="semBorda">
-					<p:outputLabel value="Tem certeza que deseja excluir o parto do animal:" />
+					<p:outputLabel
+						value="Tem certeza que deseja excluir o parto do animal:" />
 					<p:outputLabel
 						value="#{fichaPartoBean.parto.animal.brinco} - #{fichaPartoBean.parto.animal.nome} ?" />
 				</p:panelGrid>
@@ -462,7 +466,8 @@
 					" />
 				</p:panelGrid>
 				<p:panelGrid styleClass="semBorda">
-					<p:button icon="fa fa-thumbs-up" style="margin-right:8px; margin-top: 15px"
+					<p:button icon="fa fa-thumbs-up"
+						style="margin-right:8px; margin-top: 15px"
 						onclick="PF('cadastroCria').hide(); return false;" />
 				</p:panelGrid>
 			</h:form>

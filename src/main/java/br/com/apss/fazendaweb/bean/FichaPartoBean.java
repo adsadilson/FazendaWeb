@@ -1,7 +1,6 @@
 package br.com.apss.fazendaweb.bean;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -74,11 +73,11 @@ public class FichaPartoBean implements Serializable {
 
 	private void carregarTabela() {
 		parto = new FichaAnimal();
-		partos = partoService.porTipoLancParto();
+		partos = partoService.carregarFichaParto();
 	}
 
-	public List<FichaAnimal> getAnimals() {
-		return partoService.buscarPraParto();
+	public List<Animal> getAnimals() {
+		return animalService.buscarPraParto();
 	}
 
 	public List<TipoParto> getTipoPartos() {
@@ -151,7 +150,6 @@ public class FichaPartoBean implements Serializable {
 	}
 
 	public void salvar() {
-
 		partoService.salvar(this.parto);
 		this.partoSelecionado = null;
 		carregarTabela();
@@ -163,7 +161,6 @@ public class FichaPartoBean implements Serializable {
 
 	public void teste() {
 		this.parto = partoService.buscarPorId(this.parto.getId());
-		System.out.println("QUANTIDADE DE CRIA " + parto.getQuantidade());
 	}
 
 	public void excluir() {
@@ -194,8 +191,21 @@ public class FichaPartoBean implements Serializable {
 	}
 
 	public void editar() {
-		this.parto = partoService.buscarPorId(partoSelecionado.getId());
-		this.setEdicao(true);
+		if (null != partoSelecionado) {
+			this.parto = partoService.buscarPorId(partoSelecionado.getId());
+		}
+	}
+	
+	public Boolean condicaoEditarExcluir() {
+		editar();
+		return !(this.getPartoSelecionado() != null && this.parto.getDtSecagem() == null);
+	}
+
+	public void infoDtPartoValidation() {
+		editar();
+		if (!(this.getPartoSelecionado() != null && this.parto.getDtSecagem() == null)) {
+			Messages.addGlobalWarn("Registro bloqueado para edição e exclusão por possuir secagem cadastrado.");
+		}
 	}
 
 	public FichaAnimal getParto() {

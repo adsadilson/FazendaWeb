@@ -13,43 +13,43 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
-import br.com.apss.fazendaweb.model.TipoSecagem;
+import br.com.apss.fazendaweb.model.TipoAplicacao;
 import br.com.apss.fazendaweb.util.NegocioException;
 
 
-public class TipoSecagemRepository implements Serializable {
+public class TipoAplicacaoRepository implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Inject
 	private EntityManager em;
 
-	public TipoSecagem save(TipoSecagem obj) {
-		return em.merge(obj);
+	public TipoAplicacao save(TipoAplicacao e) {
+		return em.merge(e);
 	}
 
 	
-	public void remove(TipoSecagem obj) {
+	public void remove(TipoAplicacao TipoAplicacao) {
 		try {
-			obj = porId(obj.getId());
-			em.remove(obj);
+			TipoAplicacao = porId(TipoAplicacao.getId());
+			em.remove(TipoAplicacao);
 			em.flush();
 		} catch (PersistenceException e) {
-			throw new NegocioException("Tipo de Secagem não pode ser excluído pois possui vinculo com outra tabela.");
+			throw new NegocioException("Tipo de Aplicação não pode ser excluído pois possui vinculo com outra tabela.");
 		}
 	}
 
-	public TipoSecagem porId(Long value) {
-		return em.find(TipoSecagem.class, value);
+	public TipoAplicacao porId(Long value) {
+		return em.find(TipoAplicacao.class, value);
 	}
 
-	public List<TipoSecagem> listarTodos() {
-		return em.createQuery("from TipoSecagem order by nome", TipoSecagem.class).getResultList();
+	public List<TipoAplicacao> listarTodos() {
+		return em.createQuery("from TipoAplicacao order by nome", TipoAplicacao.class).getResultList();
 	}
 
-	public TipoSecagem porNome(String nome) {
+	public TipoAplicacao porNome(String nome) {
 		try {
-			return em.createQuery("from TipoSecagem where nome = :nome", TipoSecagem.class)
+			return em.createQuery("from TipoAplicacao where nome = :nome", TipoAplicacao.class)
 					.setParameter("nome", nome).getSingleResult();
 		} catch (NoResultException e) {
 			return null;
@@ -58,9 +58,9 @@ public class TipoSecagemRepository implements Serializable {
 	
 	
 	@SuppressWarnings("unchecked")
-	public List<TipoSecagem> grupoCondicao(TipoSecagem op) {
+	public List<TipoAplicacao> grupoCondicao(TipoAplicacao op) {
 		Session session = em.unwrap(Session.class);
-		Criteria criteria = session.createCriteria(TipoSecagem.class);
+		Criteria criteria = session.createCriteria(TipoAplicacao.class);
 
 		if (op.getStatus().equals("ATIVO")) {
 			criteria.add(Restrictions.ge("status", true));

@@ -22,7 +22,7 @@ public class TipoVacinaService implements Serializable {
 		TipoVacina tipoVacinaExistente = tipoVacinaRepository.porNome(tipoVacina.getNome());
 
 		if (tipoVacinaExistente != null && !tipoVacinaExistente.equals(tipoVacina)) {
-			throw new NegocioException("Já existe um Tipo Parto com esse nome informado.");
+			throw new NegocioException("Já existe um Tipo Vacina com esse nome informado.");
 		}
 		return tipoVacinaRepository.save(tipoVacina);
 	}

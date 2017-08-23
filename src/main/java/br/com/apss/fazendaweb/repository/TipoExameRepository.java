@@ -24,15 +24,15 @@ public class TipoExameRepository implements Serializable {
 	@Inject
 	private EntityManager em;
 
-	public TipoExame save(TipoExame e) {
-		return em.merge(e);
+	public TipoExame save(TipoExame obj) {
+		return em.merge(obj);
 	}
 
 	
-	public void remove(TipoExame tipoExame) {
+	public void remove(TipoExame obj) {
 		try {
-			tipoExame = porId(tipoExame.getId());
-			em.remove(tipoExame);
+			obj = porId(obj.getId());
+			em.remove(obj);
 			em.flush();
 		} catch (PersistenceException e) {
 			throw new NegocioException("Tipo de Exame não pode ser excluído pois possui vinculo com outra tabela.");

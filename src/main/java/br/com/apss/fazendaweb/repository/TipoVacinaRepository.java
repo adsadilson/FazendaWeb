@@ -24,15 +24,15 @@ public class TipoVacinaRepository implements Serializable {
 	@Inject
 	private EntityManager em;
 
-	public TipoVacina save(TipoVacina e) {
-		return em.merge(e);
+	public TipoVacina save(TipoVacina obj) {
+		return em.merge(obj);
 	}
 
 	
-	public void remove(TipoVacina tipoVacina) {
+	public void remove(TipoVacina obj) {
 		try {
-			tipoVacina = porId(tipoVacina.getId());
-			em.remove(tipoVacina);
+			obj = porId(obj.getId());
+			em.remove(obj);
 			em.flush();
 		} catch (PersistenceException e) {
 			throw new NegocioException("Tipo de Vacina não pode ser excluído pois possui vinculo com outra tabela.");

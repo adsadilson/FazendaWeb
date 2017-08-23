@@ -22,7 +22,7 @@ public class TipoTratamentoService implements Serializable {
 		TipoTratamento tipoTratamentoExistente = tipoTratamentoRepository.porNome(tipoTratamento.getNome());
 
 		if (tipoTratamentoExistente != null && !tipoTratamentoExistente.equals(tipoTratamento)) {
-			throw new NegocioException("Já existe um Tipo Parto com esse nome informado.");
+			throw new NegocioException("Já existe um Tipo Tratamento com esse nome informado.");
 		}
 		return tipoTratamentoRepository.save(tipoTratamento);
 	}

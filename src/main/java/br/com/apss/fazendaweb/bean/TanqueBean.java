@@ -13,22 +13,22 @@ import javax.inject.Named;
 import org.omnifaces.util.Messages;
 
 import br.com.apss.fazendaweb.enums.AtivoInativo;
-import br.com.apss.fazendaweb.model.TipoVacina;
-import br.com.apss.fazendaweb.service.TipoVacinaService;
+import br.com.apss.fazendaweb.model.Tanque;
+import br.com.apss.fazendaweb.service.TanqueService;
 import br.com.apss.fazendaweb.util.FacesUtil;
 
 @Named
 @ViewScoped
-public class TipoVacinaBean implements Serializable {
+public class TanqueBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private TipoVacina tipoVacina;
-	private List<TipoVacina> tipoVacinas = new ArrayList<>();
-	private TipoVacina tipoVacinaSelecionado;
+	private Tanque tanque;
+	private List<Tanque> tanques = new ArrayList<>();
+	private Tanque tanqueSelecionado;
 
 	@Inject
-	TipoVacinaService tipoVacinaService;
+	TanqueService tanqueService;
 
 	/****************************** Metodos *************************/
 
@@ -40,10 +40,10 @@ public class TipoVacinaBean implements Serializable {
 	}
 
 	private void carregarTabela() {
-		tipoVacinas = tipoVacinaService.listarTodos();
+		tanques = tanqueService.listarTodos();
 	}
 
-	public TipoVacinaBean() {
+	public TanqueBean() {
 	}
 
 	public List<AtivoInativo> getAtivoInativo() {
@@ -51,52 +51,52 @@ public class TipoVacinaBean implements Serializable {
 	}
 
 	public void novoCadastro() {
-		this.tipoVacina = new TipoVacina();
-		this.tipoVacina.setStatus(true);
+		this.tanque = new Tanque();
+		this.tanque.setStatus(true);
 	}
 
 	public void salvar() {
-		tipoVacinaService.salvar(this.tipoVacina);
-		this.tipoVacinaSelecionado = null;
+		tanqueService.salvar(this.tanque);
+		this.tanqueSelecionado = null;
 		carregarTabela();
 		Messages.addGlobalInfo("Registro salvo com sucesso");
 	}
 
 	public void excluir() {
-		tipoVacinaService.remover(this.tipoVacina);
-		this.tipoVacinaSelecionado = null;
+		tanqueService.remover(this.tanque);
+		this.tanqueSelecionado = null;
 		carregarTabela();
 		Messages.addGlobalInfo("Registro excluido com sucesso");
 	}
 
 	public void editar() {
-		this.tipoVacina = tipoVacinaService.buscarPorId(tipoVacinaSelecionado.getId());
+		this.tanque = tanqueService.buscarPorId(tanqueSelecionado.getId());
 	}
 
 	/****************************** Getters e Setters *************************/
 
-	public TipoVacina getTipoVacina() {
-		return tipoVacina;
+	public Tanque getTanque() {
+		return tanque;
 	}
 
-	public void setTipoVacina(TipoVacina tipoVacina) {
-		this.tipoVacina = tipoVacina;
+	public void setTanque(Tanque tanque) {
+		this.tanque = tanque;
 	}
 
-	public List<TipoVacina> getTipoVacinas() {
-		return tipoVacinas;
+	public List<Tanque> getTanques() {
+		return tanques;
 	}
 
-	public void setTipoVacinas(List<TipoVacina> tipoVacinas) {
-		this.tipoVacinas = tipoVacinas;
+	public void setTanques(List<Tanque> tanques) {
+		this.tanques = tanques;
 	}
 
-	public TipoVacina getTipoVacinaSelecionado() {
-		return tipoVacinaSelecionado;
+	public Tanque getTanqueSelecionado() {
+		return tanqueSelecionado;
 	}
 
-	public void setTipoVacinaSelecionado(TipoVacina tipoVacinaSelecionado) {
-		this.tipoVacinaSelecionado = tipoVacinaSelecionado;
+	public void setTanqueSelecionado(Tanque tanqueSelecionado) {
+		this.tanqueSelecionado = tanqueSelecionado;
 	}
 
 	/****************************** Getters e Setters *************************/

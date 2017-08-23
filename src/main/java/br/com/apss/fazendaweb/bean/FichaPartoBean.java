@@ -76,8 +76,8 @@ public class FichaPartoBean implements Serializable {
 		partos = partoService.carregarFichaParto();
 	}
 
-	public List<Animal> getAnimals() {
-		return animalService.buscarPraParto();
+	public List<FichaAnimal> getAnimals() {
+		return partoService.buscarPraParto();
 	}
 
 	public List<TipoParto> getTipoPartos() {
@@ -160,7 +160,7 @@ public class FichaPartoBean implements Serializable {
 	}
 
 	public void teste() {
-		this.parto = partoService.buscarPorId(this.parto.getId());
+		this.parto = partoService.buscarPorId(this.animal.getId());
 	}
 
 	public void excluir() {
@@ -192,6 +192,7 @@ public class FichaPartoBean implements Serializable {
 
 	public void editar() {
 		if (null != partoSelecionado) {
+			this.edicao=true;
 			this.parto = partoService.buscarPorId(partoSelecionado.getId());
 		}
 	}

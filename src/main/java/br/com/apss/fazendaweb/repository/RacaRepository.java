@@ -24,15 +24,15 @@ public class RacaRepository implements Serializable {
 	@Inject
 	private EntityManager em;
 
-	public Raca save(Raca e) {
-		return em.merge(e);
+	public Raca save(Raca obj) {
+		return em.merge(obj);
 	}
 
 	
-	public void remove(Raca raca) {
+	public void remove(Raca obj) {
 		try {
-			raca = porId(raca.getId());
-			em.remove(raca);
+			obj = porId(obj.getId());
+			em.remove(obj);
 			em.flush();
 		} catch (PersistenceException e) {
 			throw new NegocioException("Raça não pode ser excluído pois possui vinculo com outra tabela.");

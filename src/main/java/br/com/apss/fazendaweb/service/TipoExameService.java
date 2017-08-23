@@ -22,7 +22,7 @@ public class TipoExameService implements Serializable {
 		TipoExame tipoExameExistente = tipoExameRepository.porNome(tipoExame.getNome());
 
 		if (tipoExameExistente != null && !tipoExameExistente.equals(tipoExame)) {
-			throw new NegocioException("Já existe um Tipo Parto com esse nome informado.");
+			throw new NegocioException("Já existe um Tipo Exame com esse nome informado.");
 		}
 		return tipoExameRepository.save(tipoExame);
 	}

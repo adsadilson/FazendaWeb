@@ -24,15 +24,15 @@ public class TipoPartoRepository implements Serializable {
 	@Inject
 	private EntityManager em;
 
-	public TipoParto save(TipoParto e) {
-		return em.merge(e);
+	public TipoParto save(TipoParto obj) {
+		return em.merge(obj);
 	}
 
 	
-	public void remove(TipoParto tipoParto) {
+	public void remove(TipoParto obj) {
 		try {
-			tipoParto = porId(tipoParto.getId());
-			em.remove(tipoParto);
+			obj = porId(obj.getId());
+			em.remove(obj);
 			em.flush();
 		} catch (PersistenceException e) {
 			throw new NegocioException("Tipo de Parto não pode ser excluído pois possui vinculo com outra tabela.");

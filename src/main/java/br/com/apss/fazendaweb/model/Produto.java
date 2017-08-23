@@ -17,6 +17,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.DecimalMin;
 
 import br.com.apss.fazendaweb.enums.TipoProduto;
 
@@ -62,9 +63,11 @@ public class Produto implements Serializable {
 	@Column(name = "qtd_maxima", precision = 12, scale = 2)
 	private BigDecimal qtdMaxima = BigDecimal.ZERO;
 
+	@DecimalMin(value="0.01", message="Valor de Custo precisa ser acima de 0.00")
 	@Column(name = "vlr_custo", precision = 12, scale = 2)
 	private BigDecimal vlrCusto;
 
+	@DecimalMin(value="0.01", message="Valor de Venda precisa ser acima de 0.00")
 	@Column(name = "vlr_venda", precision = 12, scale = 2)
 	private BigDecimal vlrVenda;
 

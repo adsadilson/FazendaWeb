@@ -7,7 +7,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions">
 
-	<ui:define name="titulo">Manuteção Parto</ui:define>
+	<ui:define name="titulo">Manutenção Parto</ui:define>
 
 	<ui:define name="corpo">
 
@@ -17,7 +17,7 @@
 				type="preRenderView" />
 		</f:metadata>
 
-		<h1>Manuteção - Parto</h1>
+		<h1>Manutenção - Parto</h1>
 
 		<h:form id="form-menu">
 			<p:toolbar styleClass="semPreenchimento">
@@ -111,21 +111,27 @@
 					<p:tab title="Identificação do Animal">
 						<p:panelGrid columns="1" styleClass="semBorda">
 							<p:outputLabel for="nome" value="Brinco/Nome" />
-							<p:selectOneMenu autoWidth="false" filter="true"
-								filterMatchMode="contains" style="width: 515px;" required="true"
-								id="nome" requiredMessage="Selecione um animal"
-								disabled="#{fichaPartoBean.edicao==true}"
-								value="#{fichaPartoBean.parto.animal}"
-								converter="omnifaces.SelectItemsConverter">
-								<f:selectItem itemLabel="Selecione um animal"
-									itemValue="#{null}" />
-								<f:selectItems value="#{fichaPartoBean.animals}" var="animal"
-									itemLabel="#{animal.brinco} - #{animal.nome}"
-									itemValue="#{animal}" />
-								<p:ajax event="change" process="@this"
-									update=":form-cadastro:tabView2"
-									listener="#{fichaPartoBean.teste}" />
-							</p:selectOneMenu>
+							<h:panelGroup id="pgrupo">
+								<p:inputText id="nt"
+									value="#{fichaPartoBean.parto.animal.brinco} - #{fichaPartoBean.parto.animal.nome}"
+									rendered="#{fichaPartoBean.edicao!=false}" style="width: 540px"
+									disabled="#{fichaPartoBean.edicao!=false}" />
+								<p:selectOneMenu autoWidth="false" filter="true"
+									filterMatchMode="contains" style="width: 515px;"
+									required="true" id="nome" requiredMessage="Selecione um animal"
+									value="#{fichaPartoBean.animal.id}"
+									converter="omnifaces.SelectItemsConverter"
+									rendered="#{fichaPartoBean.edicao==false}">
+									<f:selectItem itemLabel="Selecione um animal"
+										itemValue="#{null}" />
+									<f:selectItems value="#{fichaPartoBean.animals}" var="ficha"
+										itemLabel="#{ficha.animal.id} - #{ficha.animal.brinco} - #{ficha.animal.nome}"
+										itemValue="#{ficha.id}" />
+									<p:ajax event="change" process="@this"
+										update=":form-cadastro:tabView2"
+										listener="#{fichaPartoBean.teste()}" />
+								</p:selectOneMenu>
+							</h:panelGroup>
 						</p:panelGrid>
 					</p:tab>
 				</p:tabView>
@@ -412,7 +418,7 @@
 				<p:toolbar style="margin-top: 10px" styleClass="semPreenchimento">
 					<p:toolbarGroup style="margin-left: 15px;">
 						<p:commandButton icon="fa fa-question-circle" iconPos="right	"
-							value="Informação" oncomplete="PF('cadastroCria').show()"
+							title="Informação" oncomplete="PF('cadastroCria').show()"
 							process="@this">
 							<p:resetInput target="form-cadastro-cria" />
 						</p:commandButton>
@@ -456,10 +462,10 @@
 
 		<p:dialog header="Informação" widgetVar="cadastroCria" modal="true"
 			resizable="false" draggable="true" closeOnEscape="true" width="400"
-			height="220" appendTo="@(body)">
+			height="190" appendTo="@(body)">
 			<h:form id="form-cadastro-cria">
 				<p:panelGrid styleClass="semBorda">
-					<p:inputTextarea rows="10" cols="49" disabled="true"
+					<p:inputTextarea rows="8" cols="49" disabled="true"
 						value="Os animais disponibilizados para o parto são os que se encontram com o registro de cobertura cadastrado e o resultado do diagnóstico seja Positivo.
 							   Depois de cadastrado o registro de Parto só é permitido alteração dos campos de Observação. Caso algum outro tipo de informação esteja 
 							   incorreto, será necessário excluir o registro e incluí-lo novamente

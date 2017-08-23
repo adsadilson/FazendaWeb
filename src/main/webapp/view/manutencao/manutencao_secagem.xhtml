@@ -7,7 +7,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions">
 
-	<ui:define name="titulo">Manuteção Secagem</ui:define>
+	<ui:define name="titulo">Manutenção Secagem</ui:define>
 
 	<ui:define name="corpo">
 
@@ -17,7 +17,7 @@
 				type="preRenderView" />
 		</f:metadata>
 
-		<h1>Manuteção - Secagem</h1>
+		<h1>Manutenção - Secagem</h1>
 
 		<h:form id="form-menu">
 			<p:toolbar styleClass="semPreenchimento">
@@ -121,21 +121,29 @@
 					<p:tab title="Identificação do Animal">
 						<p:panelGrid columns="1" styleClass="semBorda">
 							<p:outputLabel for="nome" value="Brinco/Nome" />
-							<p:selectOneMenu autoWidth="false" filter="true"
-								filterMatchMode="contains" style="width: 515px;" required="true"
-								id="nome" requiredMessage="Selecione um animal"
-								disabled="#{fichaSecagemBean.edicao==true}"
-								value="#{fichaSecagemBean.secagem.id}"
-								converter="omnifaces.SelectItemsConverter">
-								<f:selectItem itemLabel="Selecione um animal"
-									itemValue="#{null}" />
-								<f:selectItems value="#{fichaSecagemBean.animals}" var="animal"
-									itemLabel="#{animal.animal.brinco} - #{animal.animal.nome}"
-									itemValue="#{animal.id}" />
-								<p:ajax event="change" process="@this"
-									update=":form-cadastro:tabView2"
-									listener="#{fichaSecagemBean.carregarFichaSelecionada()}" />
-							</p:selectOneMenu>
+							<h:panelGroup id="pgrupo">
+								<p:inputText id="nt"
+									value="#{fichaSecagemBean.secagem.animal.brinco} - #{fichaSecagemBean.secagem.animal.nome}"
+									rendered="#{fichaSecagemBean.edicao!=false}"
+									style="width: 540px"
+									disabled="#{fichaSecagemBean.edicao!=false}" />
+								<p:selectOneMenu autoWidth="false" filter="true"
+									filterMatchMode="contains" style="width: 515px;"
+									required="true" id="nome" requiredMessage="Selecione um animal"
+									disabled="#{fichaSecagemBean.edicao==true}"
+									value="#{fichaSecagemBean.secagem.id}"
+									converter="omnifaces.SelectItemsConverter"
+									rendered="#{fichaSecagemBean.edicao==false}">
+									<f:selectItem itemLabel="Selecione um animal"
+										itemValue="#{null}" />
+									<f:selectItems value="#{fichaSecagemBean.animals}" var="animal"
+										itemLabel="#{animal.animal.brinco} - #{animal.animal.nome}"
+										itemValue="#{animal.id}" />
+									<p:ajax event="change" process="@this"
+										update=":form-cadastro:tabView2"
+										listener="#{fichaSecagemBean.carregarFichaSelecionada()}" />
+								</p:selectOneMenu>
+							</h:panelGroup>
 						</p:panelGrid>
 					</p:tab>
 				</p:tabView>
@@ -160,6 +168,7 @@
 								<p:column>
 									<p:calendar id="dtSecagem" size="10" pattern="dd/MM/yyyy"
 										locale="pt_BR" required="true"
+										mindate="#{fichaSecagemBean.dateMinima}"
 										disabled="#{fichaSecagemBean.edicao==true}"
 										value="#{fichaSecagemBean.secagem.dtSecagem}"
 										requiredMessage="Informe a data secagem" />

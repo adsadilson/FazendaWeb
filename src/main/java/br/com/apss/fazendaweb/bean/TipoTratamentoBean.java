@@ -34,7 +34,6 @@ public class TipoTratamentoBean implements Serializable {
 
 	@PostConstruct
 	public void inicializarBean() {
-		System.out.println("Tipo Parto: Inicializando...");
 		if (FacesUtil.isNotPostback()) {
 			carregarTabela();
 		}

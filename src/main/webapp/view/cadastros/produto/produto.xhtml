@@ -27,7 +27,8 @@
 						update="form-cadastro" action="#{produtoBean.novoCadastro}">
 						<p:resetInput target="form-cadastro" />
 					</p:commandButton>
-					<p:commandButton icon="editar-icon" value="Editar" style="margin-left: 5px; margin-right: 5px;"
+					<p:commandButton icon="editar-icon" value="Editar"
+						style="margin-left: 5px; margin-right: 5px;"
 						oncomplete="PF('dialogCadastro').show()" process="@this"
 						update="form-cadastro" action="#{produtoBean.editar}"
 						disabled="#{produtoBean.produtoSelecionado == null}">
@@ -95,7 +96,7 @@
 				<p:column headerText="Quantidade"
 					style="text-align: center; width: 100px"
 					sortBy="#{produto.quantidade}">
-					<h:outputText value="#{produto.quantidade}" >
+					<h:outputText value="#{produto.quantidade}">
 					</h:outputText>
 				</p:column>
 
@@ -125,8 +126,7 @@
 		</h:form>
 
 		<p:dialog header="Manutenção Produto" widgetVar="dialogCadastro"
-			modal="true"
-			resizable="false" draggable="true" id="dgCadastro"
+			modal="true" resizable="false" draggable="true" id="dgCadastro"
 			closeOnEscape="true" width="525" appendTo="@(body)">
 
 			<h:form id="form-cadastro">
@@ -286,13 +286,12 @@
 					</p:row>
 					<p:row>
 						<p:column>
-							<p:inputNumber size="13" id="txtCusto" required="true"
-								emptyValue="empty" value="#{produtoBean.produto.vlrCusto}"
-								symbol="R$ " decimalSeparator="," thousandSeparator=".">
+							<p:inputText size="13" id="txtCusto" required="true"
+								value="#{produtoBean.produto.vlrCusto}" onfocus="formatoMoeda('txtCusto')">
 								<p:ajax process="form-cadastro:txtVenda, form-cadastro:txtCusto"
 									update="form-cadastro:margem, form-cadastro:txtCusto"
 									listener="#{produtoBean.calcVenda}" />
-							</p:inputNumber>
+							</p:inputText>
 						</p:column>
 						<p:column>
 							<p:inputNumber id="margem" size="12" required="true"
@@ -326,7 +325,7 @@
 							style="margin-left:0px;" oncomplete="PF('dialogCadastro').hide()"
 							immediate="true" />
 						<p:commandButton value="Salvar" icon="salvar-icon"
-							id="salvarCommandButton" style="margin-left:6px;" 
+							id="salvarCommandButton" style="margin-left:6px;"
 							update="form-cadastro, form-table, form-menu"
 							action="#{produtoBean.salvar}"
 							oncomplete="if(!args.validationFailed) PF('dialogCadastro').hide()" />
@@ -357,7 +356,7 @@
 			</h:form>
 		</p:dialog>
 
-		<p:dialog header="Manutenção Fornecedor" 
+		<p:dialog header="Manutenção Fornecedor"
 			widgetVar="dialogCadastroForn" modal="true" resizable="false"
 			draggable="true" id="dgCadastroForn" closeOnEscape="true" width="743"
 			appendTo="@(body)">

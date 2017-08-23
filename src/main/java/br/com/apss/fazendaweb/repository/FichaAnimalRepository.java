@@ -131,7 +131,7 @@ public class FichaAnimalRepository implements Serializable {
 	
 	public List<FichaAnimal> buscarFichaSecagem() {
 		String jpql = "SELECT f FROM FichaAnimal f INNER JOIN Animal a ON(f.animal.id=a.id) "
-				+ "WHERE f.dtParto is not null ORDER BY a.nome";
+				+ "WHERE f.dtParto is not null and f.dtSecagem is null ORDER BY a.nome";
 		return em.createQuery(jpql, FichaAnimal.class).getResultList();
 	}
 

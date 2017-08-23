@@ -15,6 +15,8 @@
 	<h:outputStylesheet library="css" name="sistema.css" />
 	<h:outputStylesheet library="primefaces" name="grid/grid.css" />
 	<h:outputScript target="body" library="js" name="locale.js" />
+	<h:outputScript target="body" library="js" name="jquery.maskMoney.js" />
+	<h:outputScript target="body" library="js" name="initMaskMoney.js" />
 	<h:outputScript target="body" library="js" name="closeDialog.js" />
 
 
@@ -33,7 +35,7 @@
 
 <h:body>
 
-	<p:ajaxStatus styleClass="ajax-status">
+	<p:ajaxStatus styleClass="ajax-status" onsuccess="configurarMoeda()">
 		<f:facet name="start">
 			<h:graphicImage library="images" name="loading.gif" />
 		</f:facet>
@@ -110,14 +112,17 @@
 									<p:menuitem value="Animal no Pasto" />
 								</ui:remove>
 								<p:menuitem value="Cobertura"
-									outcome="/view/manutecao/manutecao_cobertura.xhtml" />
+									outcome="/view/manutencao/manutencao_cobertura.xhtml" />
 								<p:menuitem value="Parto"
-									outcome="/view/manutecao/manutecao_parto.xhtml" />
+									outcome="/view/manutencao/manutencao_parto.xhtml" />
 								<p:menuitem value="Secagem"
-									outcome="/view/manutecao/manutecao_secagem.xhtml" />
-								<p:menuitem value="Vacina" />
-								<p:menuitem value="Exame" />
-								<p:menuitem value="Tratamento" />
+									outcome="/view/manutencao/manutencao_secagem.xhtml" />
+								<p:menuitem value="Exame"
+									outcome="/view/manutencao/manutencao_exame.xhtml" />
+								<p:menuitem value="Tratamento"
+									outcome="/view/manutencao/manutencao_tratamento.xhtml" />
+								<p:menuitem value="Vacina"
+									outcome="/view/manutencao/manutencao_vacina.xhtml" />
 							</p:submenu>
 						</p:submenu>
 						<ui:remove>
@@ -159,6 +164,16 @@
 		</p:layoutUnit>
 
 	</p:layout>
+	
+	<script>
+			function configurarMoeda() {
+				$(".moeda").maskMoney({ decimal: ",", thousands: ".", allowZero: true });
+			}
+			
+			$(document).ready(function() {
+				configurarMoeda();
+			});
+		</script>
 
 </h:body>
 </html>

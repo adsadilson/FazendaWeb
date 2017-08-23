@@ -40,6 +40,7 @@ public class FichaSecagemBean implements Serializable {
 	private FichaAnimal secagemSelecionado;
 	private Boolean edicao = false;
 	private Animal animal;
+	private Date dateMinima;
 
 	@Inject
 	FichaAnimalService secagemService;
@@ -74,15 +75,17 @@ public class FichaSecagemBean implements Serializable {
 
 	private void carregarTabela() {
 		secagem = new FichaAnimal();
-		List<FichaAnimal> sc = new ArrayList<FichaAnimal>(); 
+		List<FichaAnimal> sc = new ArrayList<FichaAnimal>();
 		this.secagems = secagemService.carregarFichaSecagem();
-		/*for (FichaAnimal f : sc) {
-			Date d1 = f.getDtParto();
-			Date d2 = f.getDtSecagem();
-			Long dias =(d2.getTime() - d1.getTime() + 3600000L) / 86400000L;
-			f.setLactacao(dias);
-			this.secagems.add(f);
-		}*/
+		/*
+		 * for (FichaAnimal f : sc) { Date d1 = f.getDtParto(); Date d2 =
+		 * f.getDtSecagem(); Long dias =(d2.getTime() - d1.getTime() + 3600000L)
+		 * / 86400000L; f.setLactacao(dias); this.secagems.add(f); }
+		 */
+	}
+
+	public void ajustaData() {
+		this.dateMinima = this.secagem.getDtParto();
 	}
 
 	public List<FichaAnimal> getAnimals() {
@@ -135,6 +138,7 @@ public class FichaSecagemBean implements Serializable {
 
 	public void carregarFichaSelecionada() {
 		this.secagem = secagemService.buscarPorId(this.secagem.getId());
+		ajustaData();
 	}
 
 	public void excluir() {
@@ -166,6 +170,7 @@ public class FichaSecagemBean implements Serializable {
 	public void editar() {
 		if (null != secagemSelecionado) {
 			this.secagem = secagemService.buscarPorId(secagemSelecionado.getId());
+			this.edicao = true;
 		}
 	}
 
@@ -214,6 +219,16 @@ public class FichaSecagemBean implements Serializable {
 	public void setAnimal(Animal animal) {
 		this.animal = animal;
 	}
+
+	public Date getDateMinima() {
+		return dateMinima;
+	}
+
+	public void setDateMinima(Date dateMinima) {
+		this.dateMinima = dateMinima;
+	}
+	
+	
 
 	/****************************** Getters e Setters *************************/
 

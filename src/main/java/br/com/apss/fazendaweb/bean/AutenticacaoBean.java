@@ -32,6 +32,7 @@ public class AutenticacaoBean implements Serializable {
 	@PostConstruct
 	public void inicializarBean() {
 		usuario = new Usuario();
+		usuario.setNome("ADMIN");
 	}
 
 	public void validar() {
